@@ -24,6 +24,8 @@ import {
   ShoppingBag,
   Truck,
   Sparkles,
+  Building2,
+  ExternalLink,
 } from 'lucide-react';
 
 export const revalidate = 0;
@@ -97,8 +99,348 @@ export default async function HomePage() {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* National & International Trust & Compliance Standards Bar */}
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <span className="text-lg">🇮🇳</span>
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">UGC-CARE Compliant</span>
+            <span className="text-[10px] text-slate-500">API Score for CAS &amp; NAAC</span>
+          </div>
+
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <Truck className="w-5 h-5 text-emerald-600" />
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">India Speed Post</span>
+            <span className="text-[10px] text-slate-500">Free Doorstep Dispatch</span>
+          </div>
+
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <ShieldCheck className="w-5 h-5 text-primary-700" />
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">Double-Blind Refereed</span>
+            <span className="text-[10px] text-slate-500">7-14 Days Peer Review</span>
+          </div>
+
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <span className="text-lg">🌐</span>
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">Zenodo &amp; CrossRef</span>
+            <span className="text-[10px] text-slate-500">Permanent DOI Minting</span>
+          </div>
+
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <Award className="w-5 h-5 text-amber-500" />
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">Impact Factor 6.74</span>
+            <span className="text-[10px] text-slate-500">Google Scholar &amp; ICI Indexed</span>
+          </div>
+
+          <div className="bg-white p-3.5 rounded-xl border border-slate-200/80 shadow-2xs flex flex-col items-center text-center space-y-1.5">
+            <Building2 className="w-5 h-5 text-purple-600" />
+            <span className="text-[11px] font-bold text-navy-900 leading-tight">Institutional Invoicing</span>
+            <span className="text-[10px] text-slate-500">30-Day Proforma Lock</span>
+          </div>
+        </section>
+
         {/* 2. Journal Parameter & Key Metrics Profile */}
         <JournalProfileCard settings={defaultSettings} />
+
+        {/* NPA Journal Network Showcase Section */}
+        <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-200">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="bg-primary-100 text-primary-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded">
+                  Publisher Network
+                </span>
+                <span className="text-xs text-slate-500 font-medium">National Press Associates (npajournals.org)</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-serif font-bold text-navy-900 mt-1">
+                Explore NPA Peer-Reviewed Research Journals
+              </h2>
+            </div>
+
+            <Link
+              href="/store"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary-700 hover:text-primary-900 transition-colors group"
+            >
+              <span>View All 6 NPA Journals in Store</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Journal 1: NRJBE */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-primary-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="12"
+                  issueNumber="1"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="Business Economics"
+                  journalSubtitle="National Research Journal"
+                  issn="2349-2015"
+                  impactFactor="6.74"
+                  accentColor="navy"
+                  size="sm"
+                  isCurrent
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-navy-100 text-navy-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2349-2015
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Business Economics (NRJBE)
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  Applied Economics, Corporate Finance, Trade Policy &amp; Management.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/current-issue"
+                    className="text-[10px] font-bold text-primary-700 hover:underline"
+                  >
+                    Current Issue &rarr;
+                  </Link>
+                  <Link
+                    href="/submit-paper"
+                    className="text-[10px] font-bold text-amber-600 hover:underline ml-auto"
+                  >
+                    Submit Paper &rarr;
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Journal 2: NRJBFM */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-emerald-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="11"
+                  issueNumber="2"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="Banking & Finance"
+                  journalSubtitle="National Research Journal"
+                  issn="2349-6762"
+                  impactFactor="6.45"
+                  accentColor="emerald"
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2349-6762
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Banking &amp; Finance Management
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  Banking Reforms, Fintech, Financial Markets &amp; Risk Analytics.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/store"
+                    className="text-[10px] font-bold text-emerald-700 hover:underline"
+                  >
+                    Subscribe &rarr;
+                  </Link>
+                  <a
+                    href="https://nrjbfm.in/submit-paper.php"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                  >
+                    <span>Gateway</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Journal 3: NRJHRM */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-rose-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="10"
+                  issueNumber="1"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="Human Resources"
+                  journalSubtitle="National Research Journal"
+                  issn="2394-059X"
+                  impactFactor="6.12"
+                  accentColor="burgundy"
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2394-059X
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Human Resource Management
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  HR Analytics, Organizational Behavior, Talent Strategy &amp; Labor Welfare.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/store"
+                    className="text-[10px] font-bold text-rose-700 hover:underline"
+                  >
+                    Subscribe &rarr;
+                  </Link>
+                  <a
+                    href="https://www.nrjhrm.in/submit-paper-online"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                  >
+                    <span>Gateway</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Journal 4: NRJITIS */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-indigo-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="11"
+                  issueNumber="1"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="IT & Info Science"
+                  journalSubtitle="National Research Journal"
+                  issn="2350-1278"
+                  impactFactor="6.85"
+                  accentColor="indigo"
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2350-1278
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Info Tech &amp; Info Science
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  Artificial Intelligence, Machine Learning, Cloud Systems &amp; Cybersecurity.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/store"
+                    className="text-[10px] font-bold text-indigo-700 hover:underline"
+                  >
+                    Subscribe &rarr;
+                  </Link>
+                  <a
+                    href="https://nrjitis.in/submit-paper-online"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                  >
+                    <span>Gateway</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Journal 5: RRBB */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-emerald-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="14"
+                  issueNumber="1"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="Biotech & Biosciences"
+                  journalSubtitle="Research & Reviews"
+                  issn="2321-8681"
+                  impactFactor="6.52"
+                  accentColor="sage"
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2321-8681
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Biotechnology &amp; Biosciences
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  Molecular Biology, Genetics, Bioinformatics &amp; Clinical Sciences.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/store"
+                    className="text-[10px] font-bold text-emerald-700 hover:underline"
+                  >
+                    Subscribe &rarr;
+                  </Link>
+                  <a
+                    href="https://www.biotechjournal.in/submit-paper-online"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                  >
+                    <span>Gateway</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Journal 6: AJEP */}
+            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-amber-300 transition-all flex gap-3.5">
+              <div className="flex-shrink-0">
+                <MagazineCover
+                  volumeNumber="15"
+                  issueNumber="1"
+                  year="2026"
+                  monthYear="Jan - Jun 2026"
+                  journalTitle="Education & Psych"
+                  journalSubtitle="Academe Journal"
+                  issn="2249-040X"
+                  impactFactor="5.98"
+                  accentColor="amber"
+                  size="sm"
+                />
+              </div>
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="font-mono text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">
+                  ISSN: 2249-040X
+                </span>
+                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                  Education &amp; Psychology (AJEP)
+                </h3>
+                <p className="text-[10px] text-slate-500 line-clamp-2">
+                  Higher Education Policy, Pedagogical Innovation &amp; Behavioral Science.
+                </p>
+                <div className="pt-2 flex items-center gap-2">
+                  <Link
+                    href="/store"
+                    className="text-[10px] font-bold text-amber-700 hover:underline"
+                  >
+                    Subscribe &rarr;
+                  </Link>
+                  <a
+                    href="https://academejournal.in/submit-paper"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                  >
+                    <span>Gateway</span>
+                    <ExternalLink className="w-2.5 h-2.5" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* 3. E-Commerce Showcase: Physical Print Editions & Subscriptions */}
         <section className="bg-gradient-to-b from-slate-50 to-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
@@ -329,6 +671,30 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
+        </section>
+
+        {/* Dedicated Institutional & University Library Acquisition Banner */}
+        <section className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-navy-950 rounded-2xl p-6 sm:p-8 shadow-md flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left max-w-2xl">
+            <span className="bg-navy-950 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+              University &amp; College Librarians
+            </span>
+            <h3 className="font-serif font-bold text-xl sm:text-2xl text-navy-950 leading-snug">
+              Equipping Your Library? Generate an Official Proforma Invoice in 30 Seconds
+            </h3>
+            <p className="text-xs sm:text-sm text-navy-900 font-medium">
+              Select multiple NPA journals, choose 1 to 3-year subscription terms with locked-in institutional rates, and download an official stamp-ready Proforma Invoice for your acquisition committee.
+            </p>
+          </div>
+
+          <Link
+            href="/institutions"
+            className="inline-flex items-center gap-2 bg-navy-950 hover:bg-black text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl shadow-lg transition-all flex-shrink-0"
+          >
+            <Building2 className="w-4 h-4 text-amber-400" />
+            <span>Open Institutional Portal</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </section>
 
         {/* 5. Call for Papers 2026 Submission Banner */}

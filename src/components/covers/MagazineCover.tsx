@@ -14,6 +14,11 @@ interface MagazineCoverProps {
   year?: number | string;
   monthYear?: string;
   title?: string;
+  journalTitle?: string;
+  journalSubtitle?: string;
+  issn?: string;
+  impactFactor?: string;
+  accentColor?: 'navy' | 'emerald' | 'burgundy' | 'indigo' | 'sage' | 'amber';
   coverImage?: string | null;
   size?: 'sm' | 'md' | 'lg';
   isCurrent?: boolean;
@@ -25,6 +30,11 @@ export const MagazineCover: React.FC<MagazineCoverProps> = ({
   year = '2026',
   monthYear = 'January - June 2026',
   title,
+  journalTitle = 'Business Economics',
+  journalSubtitle = 'National Research Journal',
+  issn = '2349-2015',
+  impactFactor = '6.74',
+  accentColor = 'navy',
   coverImage,
   size = 'md',
   isCurrent = false,
@@ -35,6 +45,17 @@ export const MagazineCover: React.FC<MagazineCoverProps> = ({
     md: 'w-52 h-72 text-xs',
     lg: 'w-64 h-88 text-sm',
   }[size];
+
+  const bgGradients = {
+    navy: 'from-navy-950 via-primary-950 to-slate-900',
+    emerald: 'from-emerald-950 via-teal-950 to-slate-900',
+    burgundy: 'from-rose-950 via-red-950 to-slate-900',
+    indigo: 'from-indigo-950 via-slate-950 to-blue-950',
+    sage: 'from-emerald-900 via-green-950 to-slate-900',
+    amber: 'from-amber-950 via-orange-950 to-navy-950',
+  };
+
+  const currentGradient = bgGradients[accentColor] || bgGradients.navy;
 
   return (
     <div className={`relative group select-none ${sizeClasses} flex-shrink-0 transition-transform duration-300 hover:scale-[1.02]`}>
@@ -47,22 +68,22 @@ export const MagazineCover: React.FC<MagazineCoverProps> = ({
           </div>
         ) : (
           /* Prestigious Academic Print Magazine Styling */
-          <div className="w-full h-full bg-gradient-to-br from-navy-950 via-primary-950 to-slate-900 text-white flex flex-col justify-between p-4 relative">
+          <div className={`w-full h-full bg-gradient-to-br ${currentGradient} text-white flex flex-col justify-between p-4 relative`}>
             {/* Top Academic Banner */}
             <div className="relative z-10 border-b border-amber-500/30 pb-2">
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[9px] font-extrabold tracking-widest text-amber-400 uppercase">
-                  ISSN 2349-2015
+                  ISSN {issn}
                 </span>
                 <span className="bg-amber-500/20 text-amber-300 text-[8px] font-bold px-1.5 py-0.5 rounded border border-amber-400/30">
-                  IF: 6.74
+                  IF: {impactFactor}
                 </span>
               </div>
-              <p className="text-[9px] font-serif text-slate-300 mt-1 uppercase tracking-wider font-semibold">
-                National Research Journal
+              <p className="text-[9px] font-serif text-slate-300 mt-1 uppercase tracking-wider font-semibold truncate">
+                {journalSubtitle}
               </p>
-              <h4 className="font-serif font-bold text-amber-400 text-xs tracking-tight leading-tight">
-                Business Economics
+              <h4 className="font-serif font-bold text-amber-400 text-xs tracking-tight leading-tight line-clamp-2">
+                {journalTitle}
               </h4>
             </div>
 

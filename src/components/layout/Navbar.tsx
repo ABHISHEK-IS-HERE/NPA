@@ -113,18 +113,29 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
             })}
           </div>
 
-          {/* Journal Store & Search CTA shortcuts in navbar */}
-          <div className="hidden lg:flex items-center gap-2.5">
+          {/* Journal Store, Institutional PO & Search shortcuts in navbar */}
+          <div className="hidden lg:flex items-center gap-2">
+            <Link
+              href="/institutions"
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                pathname === '/institutions'
+                  ? 'bg-amber-500 text-navy-950 font-bold'
+                  : 'text-amber-200 bg-navy-900 hover:bg-navy-800 border border-amber-500/40'
+              }`}
+            >
+              <span>🏛️ For Libraries &amp; PO</span>
+            </Link>
+
             <Link
               href="/store"
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/store'
                   ? 'bg-amber-500 text-navy-950 font-bold'
-                  : 'text-amber-300 bg-navy-900 hover:bg-navy-800 border border-amber-500/30'
+                  : 'text-slate-200 bg-navy-900 hover:bg-navy-800 border border-navy-700'
               }`}
             >
               <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
-              <span>Journal Store</span>
+              <span>Store</span>
             </Link>
 
             <Link
@@ -132,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
               className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-300 bg-navy-900 hover:bg-navy-800 rounded-md border border-navy-700 transition-colors"
             >
               <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span>Search Papers / DOIs</span>
+              <span>Search DOIs</span>
             </Link>
           </div>
 

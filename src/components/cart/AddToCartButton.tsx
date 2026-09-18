@@ -15,6 +15,7 @@ interface AddToCartButtonProps {
   title: string;
   subtitle?: string;
   price: number;
+  priceUsd?: number;
   badge?: string;
   coverImage?: string | null;
   className?: string;
@@ -28,6 +29,7 @@ export const AddToCartButton: React.FC<AddToCartButtonProps> = ({
   title,
   subtitle,
   price,
+  priceUsd,
   badge,
   coverImage,
   className = '',
@@ -47,6 +49,7 @@ export const AddToCartButton: React.FC<AddToCartButtonProps> = ({
       title,
       subtitle,
       price,
+      priceUsd,
       badge,
       coverImage,
       quantity: 1,

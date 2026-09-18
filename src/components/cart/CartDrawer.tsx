@@ -23,8 +23,12 @@ import {
   ExternalLink,
   Truck,
   ShieldCheck,
+  Globe,
+  CreditCard,
 } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useCurrency } from '@/context/CurrencyContext';
+import { CurrencySwitcher } from '@/components/common/CurrencySwitcher';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -35,13 +39,33 @@ export const CartDrawer: React.FC = () => {
     isOpen,
     closeCart,
     totalItems,
-    subtotal,
   } = useCart();
+
+  const { currency, formatPrice, exchangeRate } = useCurrency();
 
   const [step, setStep] = useState<'cart' | 'checkout' | 'confirmation'>('cart');
   const [submitting, setSubmitting] = useState(false);
   const [orderError, setOrderError] = useState('');
   const [confirmedOrder, setConfirmedOrder] = useState<any>(null);
+
+  // Compute active currency subtotal
+  const getItemPrice = (item: any): number => {
+    if (currency === 'USD') {
+      return item.priceUsd || Math.round(item.price * exchangeRate);
+    }
+    return item.price;
+  };
+
+  const activeSubtotal = items.reduce(
+    (acc, curr) => acc + getItemPrice(curr) * curr.quantity,
+    0
+  );
+
+  // Base INR subtotal for database storage
+  const baseInrSubtotal = items.reduce(
+    (acc, curr) => acc + curr.price * curr.quantity,
+    0
+  );
 
   // Checkout form fields
   const [formData, setFormData] = useState({
@@ -49,6 +73,7 @@ export const CartDrawer: React.FC = () => {
     organization: '',
     email: '',
     phone: '',
+    country: 'India',
     address: '',
     city: '',
     state: '',
@@ -71,14 +96,14 @@ export const CartDrawer: React.FC = () => {
         organization: formData.organization || null,
         email: formData.email,
         phone: formData.phone,
-        address: formData.address,
+        address: `${formData.address}${formData.country !== 'India' ? `, ${formData.country}` : ''}`,
         city: formData.city,
         state: formData.state,
         pincode: formData.pincode,
-        paymentMode: `${formData.paymentMode}${formData.utrNumber ? ` (UTR: ${formData.utrNumber})` : ''}`,
+        paymentMode: `${formData.paymentMode} (${currency})${formData.utrNumber ? ` [Ref: ${formData.utrNumber}]` : ''}`,
         notes: formData.notes || null,
         items,
-        amount: subtotal,
+        amount: baseInrSubtotal,
       };
 
       const res = await fetch('/api/orders', {
@@ -94,7 +119,9 @@ export const CartDrawer: React.FC = () => {
         orderNumber: data.orderNumber,
         orderId: data.orderId,
         ...formData,
-        amount: subtotal,
+        displayAmount: formatPrice(baseInrSubtotal, activeSubtotal),
+        amount: baseInrSubtotal,
+        currency,
         items: [...items],
       });
       clearCart();
@@ -108,7 +135,6 @@ export const CartDrawer: React.FC = () => {
 
   const handleCloseAndReset = () => {
     closeCart();
-    // Delay resetting step so animation finishes smoothly
     setTimeout(() => {
       setStep('cart');
       setConfirmedOrder(null);
@@ -125,8 +151,8 @@ export const CartDrawer: React.FC = () => {
 
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between border-l border-slate-200 animate-in slide-in-from-right duration-300">
-          {/* Header */}
-          <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/70">
+          {/* Header with Currency Switcher */}
+          <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
             <div className="flex items-center gap-2">
               {step === 'checkout' && (
                 <button
@@ -145,13 +171,16 @@ export const CartDrawer: React.FC = () => {
               </h3>
             </div>
 
-            <button
-              onClick={handleCloseAndReset}
-              className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              <CurrencySwitcher variant="pill" />
+              <button
+                onClick={handleCloseAndReset}
+                className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Body Content */}
@@ -167,7 +196,7 @@ export const CartDrawer: React.FC = () => {
                     <div>
                       <h4 className="font-bold text-slate-800 text-sm">Your shopping bag is empty</h4>
                       <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                        Add physical print issues, annual subscriptions, or publication packages from the journal store.
+                        Add physical print issues, annual subscriptions, or author fee packages from the journal store.
                       </p>
                     </div>
                     <button
@@ -180,70 +209,77 @@ export const CartDrawer: React.FC = () => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {/* Free shipping banner */}
+                    {/* Shipping note */}
                     <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-lg flex items-center gap-2 text-emerald-800 text-xs font-medium">
                       <Truck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                      <span>Free Speed Post dispatch across India on all orders!</span>
+                      <span>
+                        {currency === 'USD'
+                          ? 'Global Airmail & Registered Dispatch worldwide!'
+                          : 'Free Speed Post dispatch across India on all orders!'}
+                      </span>
                     </div>
 
                     {/* Item list */}
                     <div className="divide-y divide-slate-100 space-y-3">
-                      {items.map((item) => (
-                        <div key={item.id} className="pt-3 first:pt-0 flex items-start justify-between gap-3">
-                          <div className="space-y-1 flex-1">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              {item.badge && (
-                                <span className="bg-primary-50 text-primary-800 text-[10px] font-bold uppercase px-1.5 py-0.5 rounded border border-primary-200">
-                                  {item.badge}
+                      {items.map((item) => {
+                        const unitPrice = getItemPrice(item);
+                        return (
+                          <div key={item.id} className="pt-3 first:pt-0 flex items-start justify-between gap-3">
+                            <div className="space-y-1 flex-1">
+                              <div className="flex items-center gap-1.5 flex-wrap">
+                                {item.badge && (
+                                  <span className="bg-primary-50 text-primary-800 text-[10px] font-bold uppercase px-1.5 py-0.5 rounded border border-primary-200">
+                                    {item.badge}
+                                  </span>
+                                )}
+                                <span className="font-bold text-xs text-slate-900 leading-snug">
+                                  {item.title}
                                 </span>
+                              </div>
+
+                              {item.subtitle && (
+                                <p className="text-[11px] text-slate-500">{item.subtitle}</p>
                               )}
-                              <span className="font-bold text-xs text-slate-900 leading-snug">
-                                {item.title}
-                              </span>
+
+                              <div className="text-xs font-bold text-navy-900 pt-1">
+                                {formatPrice(item.price, unitPrice)}{' '}
+                                <span className="text-[10px] text-slate-400 font-normal">each</span>
+                              </div>
                             </div>
 
-                            {item.subtitle && (
-                              <p className="text-[11px] text-slate-500">{item.subtitle}</p>
-                            )}
+                            <div className="flex flex-col items-end gap-2 flex-shrink-0">
+                              {/* Quantity stepper */}
+                              <div className="flex items-center border border-slate-200 rounded-md overflow-hidden bg-slate-50">
+                                <button
+                                  onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                                  className="p-1 hover:bg-slate-200 text-slate-600 transition-colors"
+                                  aria-label="Decrease quantity"
+                                >
+                                  <Minus className="w-3 h-3" />
+                                </button>
+                                <span className="px-2.5 text-xs font-semibold text-slate-800 min-w-[24px] text-center">
+                                  {item.quantity}
+                                </span>
+                                <button
+                                  onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                                  className="p-1 hover:bg-slate-200 text-slate-600 transition-colors"
+                                  aria-label="Increase quantity"
+                                >
+                                  <Plus className="w-3 h-3" />
+                                </button>
+                              </div>
 
-                            <div className="text-xs font-bold text-navy-900 pt-1">
-                              ₹{item.price.toLocaleString('en-IN')}{' '}
-                              <span className="text-[10px] text-slate-400 font-normal">INR each</span>
+                              <button
+                                onClick={() => removeItem(item.id)}
+                                className="text-[11px] text-rose-600 hover:text-rose-800 flex items-center gap-1 transition-colors"
+                              >
+                                <Trash2 className="w-3 h-3" />
+                                <span>Remove</span>
+                              </button>
                             </div>
                           </div>
-
-                          <div className="flex flex-col items-end gap-2 flex-shrink-0">
-                            {/* Quantity stepper */}
-                            <div className="flex items-center border border-slate-200 rounded-md overflow-hidden bg-slate-50">
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="p-1 hover:bg-slate-200 text-slate-600 transition-colors"
-                                aria-label="Decrease quantity"
-                              >
-                                <Minus className="w-3 h-3" />
-                              </button>
-                              <span className="px-2.5 text-xs font-semibold text-slate-800 min-w-[24px] text-center">
-                                {item.quantity}
-                              </span>
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="p-1 hover:bg-slate-200 text-slate-600 transition-colors"
-                                aria-label="Increase quantity"
-                              >
-                                <Plus className="w-3 h-3" />
-                              </button>
-                            </div>
-
-                            <button
-                              onClick={() => removeItem(item.id)}
-                              className="text-[11px] text-rose-600 hover:text-rose-800 flex items-center gap-1 transition-colors"
-                            >
-                              <Trash2 className="w-3 h-3" />
-                              <span>Remove</span>
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+                        );
+                      })}
                     </div>
                   </div>
                 )}
@@ -259,51 +295,52 @@ export const CartDrawer: React.FC = () => {
                   </div>
                 )}
 
-                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-3">
+                <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-3">
                   <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
                     <Truck className="w-3.5 h-3.5 text-primary-700" />
                     <span>Recipient &amp; Delivery Address</span>
                   </h4>
 
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1">
-                      Full Name of Recipient / Author *
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Dr. Harpreet Singh"
-                      value={formData.subscriberName}
-                      onChange={(e) => setFormData({ ...formData, subscriberName: e.target.value })}
-                      className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1">
-                      University / Institution / College
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="e.g. Punjabi University, Patiala"
-                      value={formData.organization}
-                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
-                      className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
-                    />
-                  </div>
-
                   <div className="grid grid-cols-2 gap-2">
+                    <div className="col-span-2">
+                      <label className="block font-semibold text-slate-700 mb-1">
+                        Full Name of Recipient / Author / Librarian *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Dr. Harpreet Singh"
+                        value={formData.subscriberName}
+                        onChange={(e) => setFormData({ ...formData, subscriberName: e.target.value })}
+                        className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="col-span-2">
+                      <label className="block font-semibold text-slate-700 mb-1">
+                        University / Institution / College
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="e.g. Punjabi University, Patiala"
+                        value={formData.organization}
+                        onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                        className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                      />
+                    </div>
+
                     <div>
                       <label className="block font-semibold text-slate-700 mb-1">Email Address *</label>
                       <input
                         type="email"
                         required
-                        placeholder="you@email.com"
+                        placeholder="you@institution.edu"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
                       />
                     </div>
+
                     <div>
                       <label className="block font-semibold text-slate-700 mb-1">Mobile / WhatsApp *</label>
                       <input
@@ -315,23 +352,33 @@ export const CartDrawer: React.FC = () => {
                         className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block font-semibold text-slate-700 mb-1">
-                      Postal Delivery Street Address *
-                    </label>
-                    <textarea
-                      rows={2}
-                      required
-                      placeholder="House/Dept, Street, Landmark"
-                      value={formData.address}
-                      onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                      className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
-                    />
-                  </div>
+                    <div className="col-span-2">
+                      <label className="block font-semibold text-slate-700 mb-1">Country *</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="India"
+                        value={formData.country}
+                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                        className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                      />
+                    </div>
 
-                  <div className="grid grid-cols-3 gap-2">
+                    <div className="col-span-2">
+                      <label className="block font-semibold text-slate-700 mb-1">
+                        Postal Delivery Street Address *
+                      </label>
+                      <textarea
+                        rows={2}
+                        required
+                        placeholder="Building/Dept, Street, Landmark"
+                        value={formData.address}
+                        onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                        className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white focus:ring-2 focus:ring-primary-500 focus:outline-none"
+                      />
+                    </div>
+
                     <div>
                       <label className="block font-semibold text-slate-700 mb-1">City *</label>
                       <input
@@ -343,8 +390,9 @@ export const CartDrawer: React.FC = () => {
                         className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white"
                       />
                     </div>
+
                     <div>
-                      <label className="block font-semibold text-slate-700 mb-1">State *</label>
+                      <label className="block font-semibold text-slate-700 mb-1">State / Province *</label>
                       <input
                         type="text"
                         required
@@ -354,8 +402,9 @@ export const CartDrawer: React.FC = () => {
                         className="w-full px-2.5 py-1.5 border border-slate-300 rounded-md bg-white"
                       />
                     </div>
-                    <div>
-                      <label className="block font-semibold text-slate-700 mb-1">Pincode *</label>
+
+                    <div className="col-span-2">
+                      <label className="block font-semibold text-slate-700 mb-1">Postal Pincode / ZIP *</label>
                       <input
                         type="text"
                         required
@@ -368,95 +417,157 @@ export const CartDrawer: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Payment mode selection */}
-                <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-3">
-                  <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Payment Method</span>
+                {/* Payment mode selection based on Currency / Geography */}
+                <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-200 space-y-3">
+                  <h4 className="font-bold text-slate-900 uppercase tracking-wider text-[11px] flex items-center justify-between">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                      <span>Payment Method</span>
+                    </span>
+                    <span className="font-mono text-primary-700 text-[10px] font-extrabold uppercase">
+                      [{currency} Currency]
+                    </span>
                   </h4>
 
-                  <div className="space-y-2">
-                    <label className="flex items-start gap-2 p-2 rounded-md border border-primary-300 bg-primary-50/50 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="paymentMode"
-                        value="UPI / QR Code"
-                        checked={formData.paymentMode.includes('UPI')}
-                        onChange={() => setFormData({ ...formData, paymentMode: 'UPI / QR Code' })}
-                        className="mt-0.5 text-primary-700"
-                      />
-                      <div>
-                        <span className="font-bold text-slate-900">Direct UPI / QR Code Transfer</span>
-                        <p className="text-[11px] text-slate-600 mt-0.5">
-                          Instant transfer via Google Pay, PhonePe, Paytm, or BHIM.
-                        </p>
-                      </div>
-                    </label>
-
-                    {formData.paymentMode.includes('UPI') && (
-                      <div className="p-3 bg-white rounded-md border border-slate-200 space-y-2">
-                        <div className="flex items-center gap-3">
-                          <div className="w-16 h-16 bg-slate-900 text-white rounded flex items-center justify-center flex-shrink-0">
-                            <QrCode className="w-10 h-10 text-amber-400" />
-                          </div>
-                          <div>
-                            <span className="text-[10px] text-slate-500 font-semibold uppercase">UPI ID:</span>
-                            <p className="font-mono font-bold text-navy-900 text-xs select-all">
-                              editornrjbe@okhdfcbank
-                            </p>
-                            <span className="text-[10px] text-slate-400">Account: National Press Associates</span>
-                          </div>
-                        </div>
-
+                  {currency === 'INR' ? (
+                    /* INDIA DOMESTIC PAYMENT MODES */
+                    <div className="space-y-2">
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-primary-300 bg-primary-50/50 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="UPI / QR Code"
+                          checked={formData.paymentMode.includes('UPI')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'UPI / QR Code' })}
+                          className="mt-0.5 text-primary-700"
+                        />
                         <div>
-                          <label className="block text-[11px] font-semibold text-slate-600 mb-0.5">
-                            Transaction UTR / Reference ID (Optional):
-                          </label>
-                          <input
-                            type="text"
-                            placeholder="e.g. 425619284910"
-                            value={formData.utrNumber}
-                            onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
-                            className="w-full px-2 py-1 border border-slate-300 rounded font-mono text-xs bg-slate-50"
-                          />
+                          <span className="font-bold text-slate-900">Direct UPI / QR Code Transfer</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            Instant transfer via Google Pay, PhonePe, Paytm, or BHIM.
+                          </p>
                         </div>
-                      </div>
-                    )}
+                      </label>
 
-                    <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
-                      <input
-                        type="radio"
-                        name="paymentMode"
-                        value="NEFT / RTGS Bank Transfer"
-                        checked={formData.paymentMode.includes('NEFT')}
-                        onChange={() => setFormData({ ...formData, paymentMode: 'NEFT / RTGS Bank Transfer' })}
-                        className="mt-0.5 text-primary-700"
-                      />
-                      <div>
-                        <span className="font-bold text-slate-900">Direct Bank Transfer (NEFT / IMPS)</span>
-                        <p className="text-[11px] text-slate-600 mt-0.5">
-                          HDFC Bank • A/C: National Press Associates • IFSC: HDFC0001234
-                        </p>
-                      </div>
-                    </label>
+                      {formData.paymentMode.includes('UPI') && (
+                        <div className="p-3 bg-white rounded-md border border-slate-200 space-y-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-16 h-16 bg-slate-900 text-white rounded flex items-center justify-center flex-shrink-0">
+                              <QrCode className="w-10 h-10 text-amber-400" />
+                            </div>
+                            <div>
+                              <span className="text-[10px] text-slate-500 font-semibold uppercase">UPI ID:</span>
+                              <p className="font-mono font-bold text-navy-900 text-xs select-all">
+                                editornrjbe@okhdfcbank
+                              </p>
+                              <span className="text-[10px] text-slate-400">Account: National Press Associates</span>
+                            </div>
+                          </div>
 
-                    <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
-                      <input
-                        type="radio"
-                        name="paymentMode"
-                        value="Institutional Cheque / Purchase Order"
-                        checked={formData.paymentMode.includes('Institutional')}
-                        onChange={() => setFormData({ ...formData, paymentMode: 'Institutional Cheque / Purchase Order' })}
-                        className="mt-0.5 text-primary-700"
-                      />
-                      <div>
-                        <span className="font-bold text-slate-900">Institutional Purchase Order / Cheque</span>
-                        <p className="text-[11px] text-slate-600 mt-0.5">
-                          For university libraries, colleges, and authorized procurement departments.
-                        </p>
-                      </div>
-                    </label>
-                  </div>
+                          <div>
+                            <label className="block text-[11px] font-semibold text-slate-600 mb-0.5">
+                              Transaction UTR / Reference ID (Optional):
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="e.g. 425619284910"
+                              value={formData.utrNumber}
+                              onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
+                              className="w-full px-2 py-1 border border-slate-300 rounded font-mono text-xs bg-slate-50"
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="NEFT / RTGS Bank Transfer"
+                          checked={formData.paymentMode.includes('NEFT')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'NEFT / RTGS Bank Transfer' })}
+                          className="mt-0.5 text-primary-700"
+                        />
+                        <div>
+                          <span className="font-bold text-slate-900">Direct Bank Transfer (NEFT / IMPS)</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            HDFC Bank &bull; A/C: National Press Associates &bull; IFSC: HDFC0000249
+                          </p>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="Institutional Cheque / Purchase Order"
+                          checked={formData.paymentMode.includes('Institutional')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'Institutional Cheque / Purchase Order' })}
+                          className="mt-0.5 text-primary-700"
+                        />
+                        <div>
+                          <span className="font-bold text-slate-900">Institutional Purchase Order / Cheque</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            For university libraries, colleges, and authorized procurement departments.
+                          </p>
+                        </div>
+                      </label>
+                    </div>
+                  ) : (
+                    /* INTERNATIONAL PAYMENT MODES */
+                    <div className="space-y-2">
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-primary-300 bg-primary-50/50 cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="International Credit / Debit Card"
+                          checked={formData.paymentMode.includes('Card')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'International Credit / Debit Card' })}
+                          className="mt-0.5 text-primary-700"
+                        />
+                        <div>
+                          <span className="font-bold text-slate-900">International Card Payment Link</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            Secure payment invoice link sent to email for Visa, MasterCard, and American Express.
+                          </p>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="International Wire Transfer (SWIFT)"
+                          checked={formData.paymentMode.includes('SWIFT')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'International Wire Transfer (SWIFT)' })}
+                          className="mt-0.5 text-primary-700"
+                        />
+                        <div>
+                          <span className="font-bold text-slate-900">International Bank Wire (SWIFT)</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            Remit directly to HDFC Bank India (SWIFT: HDFCINBB). Wire instructions sent with invoice.
+                          </p>
+                        </div>
+                      </label>
+
+                      <label className="flex items-start gap-2 p-2 rounded-md border border-slate-200 bg-white cursor-pointer">
+                        <input
+                          type="radio"
+                          name="paymentMode"
+                          value="Institutional Invoice / Wire Mandate"
+                          checked={formData.paymentMode.includes('Mandate')}
+                          onChange={() => setFormData({ ...formData, paymentMode: 'Institutional Invoice / Wire Mandate' })}
+                          className="mt-0.5 text-primary-700"
+                        />
+                        <div>
+                          <span className="font-bold text-slate-900">Institutional Purchase Order (Global)</span>
+                          <p className="text-[11px] text-slate-600 mt-0.5">
+                            For overseas university libraries and institutional subscription agencies.
+                          </p>
+                        </div>
+                      </label>
+                    </div>
+                  )}
                 </div>
               </form>
             )}
@@ -482,8 +593,10 @@ export const CartDrawer: React.FC = () => {
 
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-left space-y-2 text-xs">
                   <div className="flex justify-between border-b border-slate-200 pb-2">
-                    <span className="text-slate-500">Order Amount:</span>
-                    <span className="font-extrabold text-navy-900">₹{confirmedOrder.amount.toLocaleString('en-IN')} INR</span>
+                    <span className="text-slate-500">Order Total:</span>
+                    <span className="font-extrabold text-navy-900 font-mono text-sm">
+                      {confirmedOrder.displayAmount}
+                    </span>
                   </div>
 
                   <div className="flex justify-between border-b border-slate-200 pb-2">
@@ -494,16 +607,16 @@ export const CartDrawer: React.FC = () => {
                   <div className="pt-1">
                     <span className="text-slate-500 block mb-0.5">Dispatching To:</span>
                     <p className="text-slate-800 font-medium">
-                      {confirmedOrder.address}, {confirmedOrder.city}, {confirmedOrder.state} - {confirmedOrder.pincode}
+                      {confirmedOrder.address}, {confirmedOrder.city}, {confirmedOrder.state} – {confirmedOrder.pincode}
                     </p>
                   </div>
                 </div>
 
-                {/* WhatsApp notification action */}
+                {/* WhatsApp action */}
                 <div className="space-y-2 pt-2">
                   <a
                     href={`https://wa.me/919888934889?text=${encodeURIComponent(
-                      `Hello Editor NRJBE, I have placed Order ${confirmedOrder.orderNumber} for ₹${confirmedOrder.amount} for: ${confirmedOrder.items.map((i: any) => i.title).join(', ')}. My phone is ${confirmedOrder.phone}. Please confirm receipt and dispatch details.`
+                      `Hello Editor NRJBE/NPA, I have placed Order ${confirmedOrder.orderNumber} for ${confirmedOrder.displayAmount} for: ${confirmedOrder.items.map((i: any) => i.title).join(', ')}. My phone is ${confirmedOrder.phone}. Please confirm receipt and dispatch details.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -520,7 +633,7 @@ export const CartDrawer: React.FC = () => {
                     className="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold py-2.5 px-4 rounded-lg border border-slate-300 shadow-xs transition-colors"
                   >
                     <Printer className="w-3.5 h-3.5 text-primary-700" />
-                    <span>View & Print Official Tax Invoice</span>
+                    <span>View &amp; Print Official Tax Invoice</span>
                   </Link>
                 </div>
               </div>
@@ -532,16 +645,22 @@ export const CartDrawer: React.FC = () => {
             <div className="p-4 sm:p-5 border-t border-slate-200 bg-slate-50/80 space-y-3">
               <div className="space-y-1.5 text-xs">
                 <div className="flex justify-between text-slate-500">
-                  <span>Subtotal:</span>
-                  <span className="font-semibold text-slate-900">₹{subtotal.toLocaleString('en-IN')}</span>
+                  <span>Subtotal ({totalItems} items):</span>
+                  <span className="font-semibold text-slate-900 font-mono">
+                    {formatPrice(baseInrSubtotal, activeSubtotal)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-slate-500">
-                  <span>Speed Post Postal Dispatch:</span>
-                  <span className="text-emerald-700 font-bold uppercase text-[10px]">FREE</span>
+                  <span>Postal Dispatch:</span>
+                  <span className="text-emerald-700 font-bold uppercase text-[10px]">
+                    {currency === 'USD' ? 'INCLUDED (AIRMAIL)' : 'FREE (SPEED POST)'}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm font-bold text-navy-900 pt-1 border-t border-slate-200">
                   <span>Total Amount:</span>
-                  <span className="text-base text-primary-800">₹{subtotal.toLocaleString('en-IN')} INR</span>
+                  <span className="text-base text-primary-800 font-mono font-extrabold">
+                    {formatPrice(baseInrSubtotal, activeSubtotal)}
+                  </span>
                 </div>
               </div>
 
@@ -561,7 +680,11 @@ export const CartDrawer: React.FC = () => {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-lg shadow-sm hover:shadow transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>{submitting ? 'Placing Order...' : `Place Order (₹${subtotal.toLocaleString('en-IN')})`}</span>
+                  <span>
+                    {submitting
+                      ? 'Placing Order...'
+                      : `Place Order (${formatPrice(baseInrSubtotal, activeSubtotal)})`}
+                  </span>
                 </button>
               )}
             </div>

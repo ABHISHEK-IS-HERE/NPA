@@ -14,7 +14,8 @@ export interface CartItem {
   type: CartItemType;
   title: string;
   subtitle?: string;
-  price: number;
+  price: number; // INR base price
+  priceUsd?: number; // Optional USD international price
   quantity: number;
   coverImage?: string | null;
   badge?: string;

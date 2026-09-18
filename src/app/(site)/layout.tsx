@@ -12,6 +12,7 @@ import { AnnouncementTicker } from '@/components/layout/AnnouncementTicker';
 import { Footer } from '@/components/layout/Footer';
 
 import { CartProvider } from '@/context/CartContext';
+import { CurrencyProvider } from '@/context/CurrencyContext';
 import { CartDrawer } from '@/components/cart/CartDrawer';
 
 export const revalidate = 0; // Fresh site settings & navigation on every load
@@ -24,20 +25,22 @@ export default async function SiteLayout({
   const { settings, navItems, sisterJournals, announcements } = await getGlobalSiteData();
 
   return (
-    <CartProvider>
-      <div className="min-h-screen flex flex-col">
-        <TopBar settings={settings} />
-        <Header settings={settings} />
-        <Navbar items={navItems} />
-        <AnnouncementTicker
-          announcements={announcements}
-          defaultBannerText={settings.bannerText}
-          isActive={settings.bannerActive}
-        />
-        <main className="flex-1">{children}</main>
-        <Footer settings={settings} sisterJournals={sisterJournals} />
-        <CartDrawer />
-      </div>
-    </CartProvider>
+    <CurrencyProvider>
+      <CartProvider>
+        <div className="min-h-screen flex flex-col">
+          <TopBar settings={settings} />
+          <Header settings={settings} />
+          <Navbar items={navItems} />
+          <AnnouncementTicker
+            announcements={announcements}
+            defaultBannerText={settings.bannerText}
+            isActive={settings.bannerActive}
+          />
+          <main className="flex-1">{children}</main>
+          <Footer settings={settings} sisterJournals={sisterJournals} />
+          <CartDrawer />
+        </div>
+      </CartProvider>
+    </CurrencyProvider>
   );
 }
