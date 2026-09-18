@@ -1,0 +1,224 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("superadmin")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSetting {
+  id                 Int      @id @default(1)
+  journalName        String   @default("National Research Journal of Business Economics")
+  shortName          String   @default("NRJBE")
+  tagline            String   @default("An International Reputed Peer Reviewed Refereed Research Journal | Open Access")
+  issn               String   @default("2349-2015")
+  impactFactor       String   @default("6.74")
+  frequency          String   @default("Biannual (2 Issues Per Year)")
+  peerReviewType     String   @default("Double Blind Peer Review")
+  languages          String   @default("English")
+  accessibility      String   @default("Open Access")
+  plagiarismLimit    String   @default("25% Allowed")
+  aiContentLimit     String   @default("10% Allowed")
+  apcOnline          String   @default("1800 INR")
+  apcPrint           String   @default("2300 INR")
+  subscriptionPrice  String   @default("3500/- (Bi-Annual)")
+  publisherName      String   @default("National Press Associates")
+  publisherUrl       String   @default("https://npajournals.org")
+  contactEmail       String   @default("editornrjbe@gmail.com")
+  contactPhone       String   @default("+91-9888934889")
+  contactPhoneAlt    String   @default("+91-7986925354")
+  whatsappNumber     String   @default("919888934889")
+  address            String   @default("Publishing Office: National Press Associates, New Delhi & Punjab, India")
+  heroTitle          String   @default("Advancing Global Research in Business & Economics")
+  heroSubtitle       String   @default("National Research Journal of Business Economics is an internationally indexed, peer-reviewed, refereed journal providing an intellectual platform for scholars worldwide.")
+  heroBadge          String   @default("ISSN: 2349-2015 | Impact Factor: 6.74 | Peer-Reviewed")
+  logoUrl            String?
+  bannerText         String   @default("CALL FOR PAPERS 2026 (July-December) - Fast-Track Review & DOI Assignment Available! Submit Your Manuscript Today.")
+  bannerActive       Boolean  @default(true)
+  aboutOverview      String   @default("National Research Journal of Business Economics (NRJBE) is a peer-reviewed and refereed academic scholarly journal dedicated to advancing research in Business Management, Economics, Finance, and allied areas. Powered by Zenodo and CrossRef DOIs, we provide authors global visibility and rapid publication.")
+  updatedAt          DateTime @updatedAt
+}
+
+model NavItem {
+  id            Int       @id @default(autoincrement())
+  label         String
+  path          String
+  isExternal    Boolean   @default(false)
+  openInNewTab  Boolean   @default(false)
+  parentId      Int?
+  order         Int       @default(0)
+  isActive      Boolean   @default(true)
+  parent        NavItem?  @relation("NavHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children      NavItem[] @relation("NavHierarchy")
+}
+
+model Volume {
+  id           Int      @id @default(autoincrement())
+  volumeNumber Int
+  year         Int
+  title        String
+  description  String?
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  issues       Issue[]
+}
+
+model Issue {
+  id          Int       @id @default(autoincrement())
+  volumeId    Int
+  issueNumber String
+  title       String
+  monthYear   String
+  isCurrent   Boolean   @default(false)
+  isSpecial   Boolean   @default(false)
+  coverImage  String?
+  printPrice  Int       @default(450)
+  status      String    @default("Published")
+  createdAt   DateTime  @default(now())
+  volume      Volume    @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+  articles    Article[]
+}
+
+model Article {
+  id             Int      @id @default(autoincrement())
+  issueId        Int
+  paperId        String   @unique
+  title          String
+  authors        String
+  affiliations   String?
+  abstract       String
+  keywords       String
+  doi            String?
+  pageRange      String?
+  pdfUrl         String?
+  certificateUrl String?
+  views          Int      @default(0)
+  downloads      Int      @default(0)
+  publishedAt    DateTime @default(now())
+  status         String   @default("Published")
+  issue          Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+}
+
+model Submission {
+  id               Int      @id @default(autoincrement())
+  trackingId       String   @unique
+  paperTitle       String
+  authorName       String
+  authorEmail      String
+  authorPhone      String?
+  affiliation      String?
+  coAuthors        String?
+  abstract         String
+  keywords         String?
+  researchArea     String?
+  manuscriptFileUrl String
+  status           String   @default("Submitted")
+  reviewerNotes    String?
+  editorRemarks    String?
+  submittedAt      DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Page {
+  id              Int      @id @default(autoincrement())
+  slug            String   @unique
+  title           String
+  subtitle        String?
+  contentHtml     String
+  metaDescription String?
+  isPublished     Boolean  @default(true)
+  showInNav       Boolean  @default(false)
+  showInFooter    Boolean  @default(true)
+  updatedAt       DateTime @updatedAt
+}
+
+model EditorialMember {
+  id              Int      @id @default(autoincrement())
+  name            String
+  designation     String
+  department      String?
+  institution     String
+  country         String   @default("India")
+  role            String   @default("Editorial Board")
+  photoUrl        String?
+  email           String?
+  order           Int      @default(0)
+  isEditorInChief Boolean  @default(false)
+}
+
+model SubscriptionPlan {
+  id           Int      @id @default(autoincrement())
+  title        String
+  planType     String
+  format       String
+  duration     String
+  priceInr     Int
+  priceUsd     Int?
+  featuresJson String
+  isPopular    Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  order        Int      @default(0)
+}
+
+model SubscriptionOrder {
+  id             Int      @id @default(autoincrement())
+  subscriberName String
+  organization   String?
+  email          String
+  phone          String
+  address        String
+  city           String?
+  state          String?
+  pincode        String?
+  planTitle      String
+  amount         Int
+  paymentMode    String   @default("Bank Transfer / Cheque / UPI")
+  status         String   @default("Pending")
+  itemsJson      String?
+  trackingNumber String?
+  notes          String?
+  createdAt      DateTime @default(now())
+}
+
+model Announcement {
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    String?
+  linkUrl    String?
+  badgeText  String?
+  isTicker   Boolean  @default(false)
+  isActive   Boolean  @default(true)
+  priority   Int      @default(0)
+  createdAt  DateTime @default(now())
+}
+
+model SisterJournal {
+  id          Int     @id @default(autoincrement())
+  name        String
+  url         String
+  description String?
+  category    String?
+  order       Int     @default(0)
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
