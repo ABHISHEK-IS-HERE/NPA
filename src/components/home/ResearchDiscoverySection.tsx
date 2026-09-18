@@ -91,37 +91,37 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
   }, [articles, selectedTopic, keywordQuery, activeTab]);
 
   return (
-    <section className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-8 shadow-xs space-y-6" id="research-discovery">
+    <section className="bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-6" id="research-discovery">
       {/* Section Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-200">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-stone-200">
         <div>
           <div className="flex items-center gap-2">
-            <span className="bg-primary-50 text-primary-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-primary-200">
+            <span className="bg-stone-100 text-stone-800 text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded border border-stone-200">
               Curated Research Streams
             </span>
-            <span className="text-xs text-slate-500 font-medium hidden sm:inline">
+            <span className="text-xs text-stone-500 font-medium hidden sm:inline">
               Double-Blind Peer Reviewed &bull; Open Access
             </span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-serif font-bold text-navy-950 mt-1.5">
+          <h2 className="text-xl sm:text-2xl font-serif font-bold text-stone-900 mt-1.5">
             Explore Business Economics Research
           </h2>
         </div>
 
         {/* Live Filter Search Input */}
         <div className="relative flex items-center max-w-xs w-full">
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 pointer-events-none" />
+          <Search className="w-3.5 h-3.5 text-stone-400 absolute left-3 pointer-events-none" />
           <input
             type="text"
             value={keywordQuery}
             onChange={(e) => setKeywordQuery(e.target.value)}
             placeholder="Filter by title, author, keyword..."
-            className="w-full pl-8 pr-7 py-1.5 text-xs bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all text-slate-800"
+            className="w-full pl-8 pr-7 py-1.5 text-xs bg-stone-50 border border-stone-300 rounded-md focus:outline-none focus:border-stone-900 focus:ring-1 focus:ring-stone-900/15 focus:bg-white transition-all text-stone-900 placeholder-stone-400"
           />
           {keywordQuery && (
             <button
               onClick={() => setKeywordQuery('')}
-              className="absolute right-2 text-slate-400 hover:text-slate-600"
+              className="absolute right-2 text-stone-400 hover:text-stone-600"
             >
               <X className="w-3 h-3" />
             </button>
@@ -130,27 +130,27 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
       </div>
 
       {/* Tabbed Research Streams (Nature / Oxford Academic Benchmark) */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-stone-200 pb-3">
         <button
           type="button"
           onClick={() => setActiveTab('current')}
-          className={`inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl transition-all ${
+          className={`inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-md transition-all ${
             activeTab === 'current'
-              ? 'bg-primary-900 text-white shadow-2xs'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              ? 'bg-stone-900 text-white shadow-2xs font-semibold'
+              : 'bg-stone-100/80 text-stone-700 hover:bg-stone-200 border border-stone-200/80'
           }`}
         >
-          <BookOpen className="w-3.5 h-3.5 text-amber-400" />
+          <BookOpen className="w-3.5 h-3.5 text-stone-300" />
           <span>Current Issue Papers</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('most_read')}
-          className={`inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl transition-all ${
+          className={`inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-md transition-all ${
             activeTab === 'most_read'
-              ? 'bg-primary-900 text-white shadow-2xs'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              ? 'bg-stone-900 text-white shadow-2xs font-semibold'
+              : 'bg-stone-100/80 text-stone-700 hover:bg-stone-200 border border-stone-200/80'
           }`}
         >
           <TrendingUp className="w-3.5 h-3.5 text-emerald-400" />
@@ -160,34 +160,34 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
         <button
           type="button"
           onClick={() => setActiveTab('editors_choice')}
-          className={`inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl transition-all ${
+          className={`inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-md transition-all ${
             activeTab === 'editors_choice'
-              ? 'bg-primary-900 text-white shadow-2xs'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              ? 'bg-stone-900 text-white shadow-2xs font-semibold'
+              : 'bg-stone-100/80 text-stone-700 hover:bg-stone-200 border border-stone-200/80'
           }`}
         >
           <Award className="w-3.5 h-3.5 text-amber-400" />
-          <span>Editor's Choice</span>
+          <span>Editor&apos;s Choice</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveTab('ugc_cas')}
-          className={`inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl transition-all ${
+          className={`inline-flex items-center gap-1.5 text-xs font-medium px-3.5 py-2 rounded-md transition-all ${
             activeTab === 'ugc_cas'
-              ? 'bg-primary-900 text-white shadow-2xs'
-              : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+              ? 'bg-stone-900 text-white shadow-2xs font-semibold'
+              : 'bg-stone-100/80 text-stone-700 hover:bg-stone-200 border border-stone-200/80'
           }`}
         >
-          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+          <Award className="w-3.5 h-3.5 text-stone-300" />
           <span>UGC CAS High-Scoring Papers</span>
         </button>
       </div>
 
-      {/* Interactive Subject Taxonomy Filter Pills (OUP Subject Classification Style) */}
+      {/* Interactive Subject Taxonomy Filter (OUP Subject Classification Style) */}
       <div className="space-y-2">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500">
-          <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
+        <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-stone-500">
+          <SlidersHorizontal className="w-3.5 h-3.5 text-stone-400" />
           <span>Filter by Discipline / Taxonomy:</span>
         </div>
 
@@ -197,10 +197,10 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
               key={item.id}
               type="button"
               onClick={() => setSelectedTopic(item.id)}
-              className={`text-xs px-3 py-1 rounded-full font-medium transition-all ${
+              className={`text-xs px-3 py-1 rounded font-medium transition-all ${
                 selectedTopic === item.id
-                  ? 'bg-amber-500 text-slate-950 font-bold shadow-2xs'
-                  : 'bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200/80'
+                  ? 'bg-stone-900 text-white font-semibold shadow-2xs'
+                  : 'bg-stone-100 hover:bg-stone-200 text-stone-700 border border-stone-200'
               }`}
             >
               {item.label}
@@ -210,9 +210,9 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
       </div>
 
       {/* Active Filter Summary Bar */}
-      <div className="flex items-center justify-between text-xs text-slate-500 pt-1">
+      <div className="flex items-center justify-between text-xs text-stone-500 pt-1">
         <span>
-          Showing <strong>{filteredArticles.length}</strong> of {articles.length} research papers
+          Showing <strong className="text-stone-800">{filteredArticles.length}</strong> of {articles.length} research papers
           {selectedTopic !== 'all' && ` in ${TAXONOMY_OPTIONS.find((t) => t.id === selectedTopic)?.label}`}
           {keywordQuery && ` matching "${keywordQuery}"`}
         </span>
@@ -224,7 +224,7 @@ export const ResearchDiscoverySection: React.FC<ResearchDiscoveryProps> = ({
               setSelectedTopic('all');
               setKeywordQuery('');
             }}
-            className="text-primary-800 font-bold hover:underline"
+            className="text-stone-900 font-semibold hover:underline"
           >
             Reset Filters
           </button>

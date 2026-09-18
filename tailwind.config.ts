@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import type { Config } from "tailwindcss";
 
 const config: Config = {
@@ -8,7 +13,29 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['"Newsreader"', '"Playfair Display"', '"Merriweather"', '"Georgia"', '"Cambria"', 'serif'],
+        sans: ['"Inter"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+      },
       colors: {
+        paper: {
+          DEFAULT: '#faf9f5',
+          surface: '#ffffff',
+          subtle: '#f4f1ea',
+          rule: '#e5e2da',
+        },
+        ink: {
+          DEFAULT: '#0c1a2c',
+          secondary: '#334155',
+          muted: '#64748b',
+          faint: '#94a3b8',
+        },
+        bronze: {
+          DEFAULT: '#854d0e',
+          dark: '#713f12',
+          light: '#b45309',
+          faint: '#fef9ee',
+        },
         primary: {
           50: '#f0f7ff',
           100: '#e0effe',
@@ -32,6 +59,10 @@ const config: Config = {
           dark: '#b45309',
           light: '#f59e0b',
         }
+      },
+      boxShadow: {
+        '2xs': '0 1px 2px 0 rgba(0, 0, 0, 0.03)',
+        'xs': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
       },
     },
   },

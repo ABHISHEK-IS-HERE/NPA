@@ -47,46 +47,46 @@ export const QuickAccessDock: React.FC = () => {
       )}
 
       {/* Main Dock Pill */}
-      <div className="bg-white/95 backdrop-blur-md rounded-full border border-slate-200 shadow-lg p-1.5 flex items-center gap-1 text-xs">
+      <div className="bg-white/95 backdrop-blur-md rounded-full border border-stone-300 shadow-md p-1.5 flex items-center gap-1 text-xs font-sans">
         {/* Currency Switcher */}
         <button
           type="button"
           onClick={toggleCurrency}
-          className="px-2.5 py-1.5 rounded-full font-bold transition-colors flex items-center gap-1 text-slate-700 hover:bg-slate-100"
+          className="px-2.5 py-1.5 rounded-full font-bold transition-colors flex items-center gap-1 text-stone-700 hover:bg-stone-100"
           title={`Switch currency (Current: ${currency})`}
         >
           <span className="font-mono text-xs">{currency === 'INR' ? '₹ INR' : '$ USD'}</span>
         </button>
 
-        <div className="w-[1px] h-5 bg-slate-200" />
+        <div className="w-[1px] h-5 bg-stone-200" />
 
         {/* Shopping Cart Drawer Trigger */}
         <button
           type="button"
           onClick={openCart}
-          className="relative p-2 rounded-full text-slate-700 hover:text-navy-950 hover:bg-slate-100 transition-colors"
+          className="relative p-2 rounded-full text-stone-700 hover:text-stone-950 hover:bg-stone-100 transition-colors"
           title="Open Cart"
           aria-label="Open Shopping Cart"
         >
-          <ShoppingBag className="w-4 h-4 text-primary-800" />
+          <ShoppingBag className="w-4 h-4 text-stone-700" />
           {totalItems > 0 && (
-            <span className="absolute -top-1 -right-1 bg-amber-500 text-slate-950 text-[10px] font-extrabold w-4 h-4 rounded-full flex items-center justify-center shadow-xs animate-bounce">
+            <span className="absolute -top-1 -right-1 bg-stone-900 text-white text-[10px] font-mono font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-xs">
               {totalItems}
             </span>
           )}
         </button>
 
-        <div className="w-[1px] h-5 bg-slate-200" />
+        <div className="w-[1px] h-5 bg-stone-200" />
 
         {/* WhatsApp Fast Helpline */}
         <a
           href="https://wa.me/918427960144?text=Hello%20NRJBE%20Editorial%20Desk%2C%20I%20have%20an%20inquiry%20regarding%20manuscript%20submission%20or%20journal%20subscription."
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-3 py-1.5 rounded-full shadow-2xs transition-all hover:shadow-xs"
+          className="flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-white font-medium px-3 py-1.5 rounded-full shadow-2xs transition-all"
           title="Chat with Editorial Desk on WhatsApp"
         >
-          <MessageCircle className="w-4 h-4 fill-current" />
+          <MessageCircle className="w-4 h-4 text-emerald-400 fill-current" />
           <span className="hidden sm:inline text-xs">Editorial Desk</span>
         </a>
       </div>

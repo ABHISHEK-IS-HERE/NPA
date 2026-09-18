@@ -32,28 +32,26 @@ export const CurrencySwitcher: React.FC<CurrencySwitcherProps> = ({
       <button
         type="button"
         onClick={() => setCurrency('INR')}
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full transition-all ${
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full transition-all font-mono text-[11px] ${
           currency === 'INR'
-            ? 'bg-emerald-600 text-white shadow-xs font-bold'
-            : 'text-slate-400 hover:text-white'
+            ? 'bg-stone-900 text-white shadow-xs font-bold'
+            : 'text-stone-400 hover:text-white'
         }`}
         title="India Domestic Pricing (INR ₹)"
       >
-        <span>🇮🇳</span>
         <span>₹ INR</span>
       </button>
 
       <button
         type="button"
         onClick={() => setCurrency('USD')}
-        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full transition-all ${
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full transition-all font-mono text-[11px] ${
           currency === 'USD'
-            ? 'bg-primary-600 text-white shadow-xs font-bold'
-            : 'text-slate-400 hover:text-white'
+            ? 'bg-stone-900 text-white shadow-xs font-bold'
+            : 'text-stone-400 hover:text-white'
         }`}
         title="International Pricing (USD $)"
       >
-        <span>🌐</span>
         <span>$ USD</span>
       </button>
     </div>

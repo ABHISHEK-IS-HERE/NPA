@@ -14,15 +14,21 @@
   }
 
   body {
-    color: #1e293b;
-    background: #f8fafc;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #0c1a2c;
+    background: #faf9f6;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
-/* Academic Custom Typography & Badges */
+/* Academic Bespoke Typography & Editorial Styling */
 .academic-card {
-  @apply bg-white rounded-xl border border-slate-200/80 shadow-sm hover:shadow-md transition-all duration-200;
+  @apply bg-white rounded-xl border border-stone-200/80 shadow-sm hover:border-stone-300 hover:shadow transition-all duration-200;
+}
+
+.editorial-rule {
+  @apply border-t border-stone-200/80;
 }
 
 .citation-box {

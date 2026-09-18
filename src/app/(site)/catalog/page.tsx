@@ -155,9 +155,10 @@ export default function CatalogPage() {
               </button>
               <Link
                 href="/institutions"
-                className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-navy-950 text-xs font-bold px-3 py-1.5 rounded-md transition-colors"
+                className="inline-flex items-center gap-1.5 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold px-3 py-1.5 rounded-md transition-colors"
               >
-                <span>🏛️ Generate Proforma Invoice</span>
+                <Building className="w-3.5 h-3.5 text-stone-300" />
+                <span>Generate Proforma Invoice</span>
               </Link>
             </div>
           </div>
