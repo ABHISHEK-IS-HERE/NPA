@@ -29,7 +29,7 @@ export default async function SiteLayout({
     <CurrencyProvider>
       <CartProvider>
         <div className="min-h-screen flex flex-col">
-          <TopBar settings={settings} />
+          <TopBar settings={settings} sisterJournals={sisterJournals} />
           <Header settings={settings} />
           <Navbar items={navItems} />
           <AnnouncementTicker
