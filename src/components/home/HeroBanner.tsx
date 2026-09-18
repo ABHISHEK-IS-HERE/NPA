@@ -79,34 +79,34 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
   ];
 
   return (
-    <div className="relative bg-[#faf9f6] text-stone-900 pt-6 pb-12 sm:pt-8 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-stone-200 overflow-hidden">
+    <div className="relative bg-gradient-to-b from-[#fefce8] via-[#fefbf0] to-[#fffdf5] text-stone-900 pt-6 pb-12 sm:pt-8 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80 overflow-hidden">
       {/* Subtle Archival Editorial Watermark / Rules */}
       <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1c1917_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto space-y-6">
         {/* Top Journal Vitals Strip (Benchmark: Nature & Oxford Academic) */}
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl border border-stone-200 shadow-2xs py-2 px-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="bg-white/95 backdrop-blur-sm rounded-xl border border-amber-200/80 shadow-2xs py-2 px-3 sm:px-5 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-stone-700">
             <span className="inline-flex items-center gap-1.5 font-mono font-bold text-stone-900">
               <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse" />
               ISSN: {settings.issn || '2349-2015'} (Print)
             </span>
-            <span className="hidden sm:inline text-stone-300">•</span>
-            <span className="inline-flex items-center gap-1 font-semibold text-amber-900 bg-amber-50/80 px-2.5 py-0.5 rounded border border-amber-200/80">
+            <span className="hidden sm:inline text-amber-200">•</span>
+            <span className="inline-flex items-center gap-1 font-semibold text-amber-950 bg-amber-100/90 px-2.5 py-0.5 rounded border border-amber-300/80">
               <Award className="w-3.5 h-3.5 text-amber-700" />
               Impact Factor: {settings.impactFactor || '6.74'}
             </span>
-            <span className="hidden md:inline text-stone-300">•</span>
+            <span className="hidden md:inline text-amber-200">•</span>
             <span className="hidden md:inline-flex items-center gap-1 text-stone-700">
               <ShieldCheck className="w-3.5 h-3.5 text-stone-600" />
               Double-Blind Refereed
             </span>
-            <span className="hidden lg:inline text-stone-300">•</span>
+            <span className="hidden lg:inline text-amber-200">•</span>
             <span className="hidden lg:inline-flex items-center gap-1 text-emerald-900 bg-emerald-50/80 px-2 py-0.5 rounded border border-emerald-200/70 font-medium">
               <Clock className="w-3.5 h-3.5 text-emerald-700" />
               7–14 Days Review Decision
             </span>
-            <span className="hidden xl:inline text-stone-300">•</span>
+            <span className="hidden xl:inline text-amber-200">•</span>
             <span className="hidden xl:inline-flex items-center gap-1 text-stone-600 font-medium">
               Open Access CC BY-NC 4.0
             </span>
@@ -127,7 +127,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
           {/* Left Column: Journal Identity, Multi-Field Search, Action Matrix */}
           <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
             {/* Accreditation Line */}
-            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-stone-100/80 px-3 py-1 rounded-md border border-stone-200 text-xs font-mono uppercase tracking-wider text-stone-700">
+            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-amber-50/90 px-3 py-1 rounded-md border border-amber-200/80 text-xs font-mono uppercase tracking-wider text-amber-950 font-medium">
               <Award className="w-3.5 h-3.5 text-amber-700" />
               <span>{settings.heroBadge || 'UGC Regulations 2018 CAS & NAAC Criterion 4.2 Compliant'}</span>
             </div>
@@ -161,8 +161,8 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                     onClick={() => setSearchField(f.id as any)}
                     className={`px-3 py-0.5 rounded text-xs font-medium transition-all ${
                       searchField === f.id
-                        ? 'bg-stone-900 text-white shadow-2xs'
-                        : 'bg-stone-100/80 hover:bg-stone-200 text-stone-700 border border-stone-200/70'
+                        ? 'bg-amber-400 text-stone-950 font-bold shadow-2xs border border-amber-400'
+                        : 'bg-white hover:bg-amber-50/80 text-stone-700 border border-amber-200/70'
                     }`}
                   >
                     {f.label}
@@ -172,7 +172,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
 
               {/* Input Box */}
               <form onSubmit={handleSearch}>
-                <div className="relative flex items-center bg-white rounded-lg shadow-xs p-1.5 border border-stone-300 focus-within:border-stone-900 focus-within:ring-1 focus-within:ring-stone-900/15 transition-all">
+                <div className="relative flex items-center bg-white rounded-lg shadow-xs p-1.5 border border-amber-200/90 focus-within:border-amber-500 focus-within:ring-2 focus-within:ring-amber-400/20 transition-all">
                   <Search className="w-4 h-4 sm:w-5 sm:h-5 text-stone-400 ml-2.5 sm:ml-3 flex-shrink-0" />
                   <input
                     type="text"
@@ -191,7 +191,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                   />
                   <button
                     type="submit"
-                    className="bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-semibold px-4 sm:px-6 py-2 rounded-md transition-colors flex items-center gap-1.5 flex-shrink-0"
+                    className="bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs sm:text-sm font-bold px-4 sm:px-6 py-2 rounded-md transition-colors flex items-center gap-1.5 flex-shrink-0 shadow-2xs"
                   >
                     <span>Search</span>
                     <ArrowRight className="w-3.5 h-3.5 hidden sm:inline" />
@@ -207,7 +207,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                     key={idx}
                     type="button"
                     onClick={() => handleQuickTagClick(tag)}
-                    className="text-[11px] bg-white hover:bg-stone-100 text-stone-700 hover:text-stone-950 px-2 py-0.5 rounded border border-stone-200 transition-colors"
+                    className="text-[11px] bg-white hover:bg-amber-50 text-stone-700 hover:text-stone-950 px-2 py-0.5 rounded border border-amber-200/80 transition-colors"
                   >
                     {tag}
                   </button>
@@ -219,15 +219,15 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
               <Link
                 href="/submit-paper"
-                className="inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg shadow-sm hover:shadow transition-all"
+                className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs sm:text-sm font-bold px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg shadow-sm hover:shadow transition-all border border-amber-500/20"
               >
-                <FileUp className="w-4 h-4 text-stone-300" />
+                <FileUp className="w-4 h-4 text-stone-950" />
                 <span>Submit Manuscript Online</span>
               </Link>
 
               <Link
                 href="/store"
-                className="inline-flex items-center gap-2 bg-white hover:bg-stone-50 text-stone-800 text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg border border-stone-300 shadow-2xs transition-colors"
+                className="inline-flex items-center gap-2 bg-white hover:bg-amber-50/60 text-stone-800 text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg border border-amber-200/90 shadow-2xs transition-colors"
               >
                 <ShoppingBag className="w-4 h-4 text-stone-600" />
                 <span>Order Print Issue (₹{price})</span>
@@ -235,7 +235,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
 
               <Link
                 href="/institutions"
-                className="inline-flex items-center gap-1.5 bg-[#f5f1e8] hover:bg-[#ece6da] text-stone-900 text-xs sm:text-sm font-semibold px-3.5 py-2.5 sm:py-3 rounded-lg border border-stone-300/80 transition-colors"
+                className="inline-flex items-center gap-1.5 bg-amber-50/80 hover:bg-amber-100 text-amber-950 text-xs sm:text-sm font-semibold px-3.5 py-2.5 sm:py-3 rounded-lg border border-amber-200/90 transition-colors"
               >
                 <Building2 className="w-4 h-4 text-stone-700" />
                 <span>Library Proforma Invoice</span>
@@ -253,7 +253,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
 
           {/* Right Column: 3D Magazine Cover Feature Showcase */}
           <div className="lg:col-span-4 flex flex-col items-center justify-center">
-            <div className="bg-white border border-stone-200/90 p-6 rounded-2xl shadow-sm flex flex-col items-center text-center max-w-xs w-full relative transition-transform hover:-translate-y-0.5">
+            <div className="bg-white border border-amber-200/90 p-6 rounded-2xl shadow-sm flex flex-col items-center text-center max-w-xs w-full relative transition-transform hover:-translate-y-0.5">
               <div className="mb-4 relative group">
                 <MagazineCover
                   volumeNumber={volumeNum}
@@ -267,7 +267,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
               </div>
 
               <div className="space-y-1.5 w-full">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-900 bg-amber-50/80 border border-amber-200/80 px-2.5 py-0.5 rounded-full inline-block">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-950 bg-amber-100/90 border border-amber-300/80 px-2.5 py-0.5 rounded-full inline-block">
                   Current Issue Available
                 </span>
                 <h3 className="font-serif font-bold text-stone-900 text-sm">
@@ -278,7 +278,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-stone-200 w-full space-y-2">
+              <div className="mt-4 pt-3 border-t border-amber-200/80 w-full space-y-2">
                 <div className="flex items-center justify-between px-1">
                   <span className="text-xs text-stone-600 font-medium">Print Edition:</span>
                   <span className="text-base font-bold text-stone-900">₹{price} INR</span>
@@ -292,21 +292,21 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                   price={price}
                   badge="Print Copy"
                   label={`Order Print Copy (₹${price})`}
-                  className="w-full bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold py-2.5 px-4 rounded-lg shadow-xs transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold py-2.5 px-4 rounded-lg shadow-2xs transition-all flex items-center justify-center gap-2 border border-amber-500/30"
                 />
 
                 <div className="flex items-center justify-center gap-3 pt-1">
                   <Link
                     href="/current-issue#papers-list"
-                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-stone-800 hover:underline"
+                    className="inline-flex items-center gap-1 text-[11px] font-semibold text-stone-800 hover:text-amber-950 hover:underline"
                   >
-                    <BookOpen className="w-3 h-3" />
+                    <BookOpen className="w-3 h-3 text-amber-700" />
                     <span>Table of Contents</span>
                   </Link>
-                  <span className="text-stone-300">•</span>
+                  <span className="text-amber-200">•</span>
                   <Link
                     href="/current-issue"
-                    className="text-[11px] text-emerald-800 hover:underline font-medium"
+                    className="text-[11px] text-amber-800 hover:text-amber-950 hover:underline font-semibold"
                   >
                     Read Open Access
                   </Link>

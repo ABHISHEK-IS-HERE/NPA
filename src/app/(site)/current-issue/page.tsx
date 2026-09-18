@@ -85,10 +85,10 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
   });
 
   return (
-    <div className="py-8 bg-slate-50 min-h-[70vh]">
+    <div className="py-8 bg-[#fdfbf2] min-h-[70vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         {/* Issue Header Banner */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
+        <div className="bg-[#fffdfa] rounded-xl shadow-sm border border-amber-200/80 p-6 sm:p-8">
           {/* In the header banner */}
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
               <div className="flex gap-5 items-start">
@@ -108,23 +108,23 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
 
                 <div className="space-y-2">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="bg-primary-50 text-primary-700 text-xs font-bold px-2.5 py-0.5 rounded border border-primary-200">
+                    <span className="bg-amber-100/90 text-amber-950 text-xs font-bold px-2.5 py-0.5 rounded border border-amber-300/80">
                       {issue?.isCurrent ? 'Current Active Issue' : 'Archived Issue'}
                     </span>
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs text-stone-600 font-medium">
                       {issue?.volume?.title}
                     </span>
-                    <span className="text-xs text-slate-400">•</span>
-                    <span className="text-xs text-slate-500 font-medium">
+                    <span className="text-xs text-amber-300">•</span>
+                    <span className="text-xs text-stone-600 font-medium">
                       {issue?.monthYear}
                     </span>
                   </div>
 
-                  <h1 className="text-2xl sm:text-3xl font-serif font-bold text-navy-900 leading-tight">
+                  <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 leading-tight">
                     {issue?.title || 'Volume 12, Issue 1 (January - June 2026)'}
                   </h1>
 
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed">
+                  <p className="text-xs sm:text-sm text-stone-600 max-w-2xl leading-relaxed">
                     All research papers in this issue have completed rigorous double-blind peer review and are permanently registered with Zenodo / CrossRef Digital Object Identifiers (DOIs).
                   </p>
 
@@ -137,11 +137,11 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
                       price={issue?.printPrice || 450}
                       badge="Physical Copy"
                       label={`Order Physical Copy (₹${issue?.printPrice || 450})`}
-                      className="bg-amber-500 hover:bg-amber-600 text-navy-950 text-xs font-bold py-2 px-4 rounded-lg shadow-xs transition-all flex items-center gap-1.5"
+                      className="bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold py-2 px-4 rounded-lg shadow-xs transition-all flex items-center gap-1.5 border border-amber-500/20"
                     />
 
-                    <span className="text-xs text-slate-500 flex items-center gap-1">
-                      <Truck className="w-3.5 h-3.5 text-emerald-600" />
+                    <span className="text-xs text-stone-600 flex items-center gap-1">
+                      <Truck className="w-3.5 h-3.5 text-amber-600" />
                       <span>Free Speed Post across India</span>
                     </span>
                   </div>
@@ -149,36 +149,36 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
               </div>
 
               {/* Quick Metrics Badge */}
-              <div className="flex sm:flex-col gap-3 flex-shrink-0 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs w-full lg:w-auto">
+              <div className="flex sm:flex-col gap-3 flex-shrink-0 bg-amber-50/40 p-4 rounded-xl border border-amber-200/80 text-xs w-full lg:w-auto">
                 <div>
-                  <span className="text-slate-500 font-medium">Published Papers:</span>
-                  <p className="font-bold text-navy-900 text-lg">{articles.length} Articles</p>
+                  <span className="text-stone-500 font-medium">Published Papers:</span>
+                  <p className="font-bold text-stone-900 text-lg">{articles.length} Articles</p>
                 </div>
-                <div className="border-t border-slate-200 pt-2 hidden sm:block">
-                  <span className="text-slate-500 font-medium">Indexing:</span>
-                  <p className="font-semibold text-emerald-700">Zenodo DOI &amp; Scholar</p>
+                <div className="border-t border-amber-200/80 pt-2 hidden sm:block">
+                  <span className="text-stone-500 font-medium">Indexing:</span>
+                  <p className="font-bold text-amber-950">Zenodo DOI &amp; Scholar</p>
                 </div>
               </div>
             </div>
 
           {/* Search & Issue Switcher Bar */}
-          <div className="mt-6 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-4" id="search-articles">
+          <div className="mt-6 pt-6 border-t border-amber-200/80 flex flex-col md:flex-row items-center justify-between gap-4" id="search-articles">
             {/* Search Filter Form */}
             <form action="/current-issue" method="GET" className="w-full md:w-auto flex-1 max-w-lg">
               {issue && <input type="hidden" name="issueId" value={issue.id} />}
               {field && <input type="hidden" name="field" value={field} />}
               <div className="relative flex items-center">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
+                <Search className="w-4 h-4 text-stone-400 absolute left-3 pointer-events-none" />
                 <input
                   type="text"
                   name="q"
                   defaultValue={query || ''}
                   placeholder="Search articles by title, author, keyword, or DOI..."
-                  className="w-full pl-9 pr-24 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all"
+                  className="w-full pl-9 pr-24 py-2 text-xs sm:text-sm bg-white border border-amber-200/90 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-400/20 focus:border-amber-500 transition-all text-stone-900"
                 />
                 <button
                   type="submit"
-                  className="absolute right-1 px-3 py-1 bg-primary-700 hover:bg-primary-800 text-white text-xs font-semibold rounded-md transition-colors"
+                  className="absolute right-1 px-3 py-1 bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold rounded-md transition-colors shadow-2xs border border-amber-500/20"
                 >
                   Search
                 </button>
@@ -187,7 +187,7 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
 
             {/* Switch Issue Dropdown */}
             <div className="flex items-center gap-2 w-full md:w-auto justify-end">
-              <span className="text-xs text-slate-500 font-medium whitespace-nowrap">Switch Issue:</span>
+              <span className="text-xs text-stone-600 font-medium whitespace-nowrap">Switch Issue:</span>
               <IssueSwitcher
                 issues={allIssues.map((iss) => ({
                   id: iss.id,
@@ -202,13 +202,13 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
 
         {/* Query filter indicator */}
         {query && (
-          <div className="flex items-center justify-between bg-primary-50 border border-primary-200 text-primary-900 px-4 py-2 rounded-lg text-xs">
+          <div className="flex items-center justify-between bg-amber-100/90 border border-amber-300 text-amber-950 px-4 py-2 rounded-lg text-xs font-medium">
             <span>
               Showing search results matching: <strong>&ldquo;{query}&rdquo;</strong> ({articles.length} papers found)
             </span>
             <Link
               href={`/current-issue${issue ? `?issueId=${issue.id}` : ''}`}
-              className="font-bold underline hover:text-primary-700"
+              className="font-bold underline hover:text-amber-800"
             >
               Clear Search
             </Link>
@@ -233,15 +233,15 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
               />
             ))
           ) : (
-            <div className="p-12 text-center bg-white rounded-xl border border-slate-200">
-              <FileText className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h3 className="font-bold text-slate-800 text-base">No Research Papers Found</h3>
-              <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+            <div className="p-12 text-center bg-white rounded-xl border border-amber-200/80">
+              <FileText className="w-12 h-12 text-amber-300 mx-auto mb-3" />
+              <h3 className="font-bold text-stone-800 text-base">No Research Papers Found</h3>
+              <p className="text-xs text-stone-500 mt-1 max-w-sm mx-auto">
                 No published papers match your criteria. Try adjusting your search query or select another issue from the dropdown above.
               </p>
               <Link
                 href="/current-issue"
-                className="mt-4 inline-block text-xs font-semibold text-primary-700 hover:underline"
+                className="mt-4 inline-block text-xs font-bold text-amber-900 hover:underline"
               >
                 Reset Filters
               </Link>

@@ -103,38 +103,38 @@ export default async function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* National & International Trust & Compliance Standards Bar */}
         <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <Landmark className="w-5 h-5 text-stone-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <Landmark className="w-5 h-5 text-amber-700" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">UGC-CARE Compliant</span>
             <span className="text-[10px] text-stone-500">API Score for CAS &amp; NAAC</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <Truck className="w-5 h-5 text-emerald-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <Truck className="w-5 h-5 text-amber-600" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">India Speed Post</span>
             <span className="text-[10px] text-stone-500">Free Doorstep Dispatch</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <ShieldCheck className="w-5 h-5 text-stone-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <ShieldCheck className="w-5 h-5 text-amber-800" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">Double-Blind Refereed</span>
             <span className="text-[10px] text-stone-500">7-14 Days Peer Review</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <Globe2 className="w-5 h-5 text-stone-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <Globe2 className="w-5 h-5 text-amber-700" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">Zenodo &amp; CrossRef</span>
             <span className="text-[10px] text-stone-500">Permanent DOI Minting</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <Award className="w-5 h-5 text-amber-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <Award className="w-5 h-5 text-amber-600" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">Impact Factor 6.74</span>
             <span className="text-[10px] text-stone-500">Google Scholar &amp; ICI Indexed</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-stone-200/90 shadow-2xs flex flex-col items-center text-center space-y-1.5">
-            <Building2 className="w-5 h-5 text-stone-700" />
+          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
+            <Building2 className="w-5 h-5 text-amber-800" />
             <span className="text-[11px] font-semibold text-stone-900 leading-tight">Institutional Invoicing</span>
             <span className="text-[10px] text-stone-500">30-Day Proforma Lock</span>
           </div>
@@ -144,11 +144,11 @@ export default async function HomePage() {
         <JournalProfileCard settings={defaultSettings} />
 
         {/* NPA Journal Network Showcase Section */}
-        <section className="bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-stone-200">
+        <section className="bg-[#fffdfa] rounded-xl border border-amber-200/80 p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-amber-200/80">
             <div>
               <div className="flex items-center gap-2">
-                <span className="bg-stone-100 text-stone-800 text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded border border-stone-200">
+                <span className="bg-amber-100/90 text-amber-950 text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded border border-amber-300/80 font-medium">
                   Publisher Network
                 </span>
                 <span className="text-xs text-stone-500 font-medium">National Press Associates (npajournals.org)</span>
@@ -160,7 +160,7 @@ export default async function HomePage() {
 
             <Link
               href="/store"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-800 hover:text-stone-950 transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-950 hover:text-amber-800 transition-colors group"
             >
               <span>View All 6 NPA Journals in Store</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -169,7 +169,7 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Journal 1: NRJBE */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-primary-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="12"
@@ -186,25 +186,25 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-navy-100 text-navy-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-amber-100/90 text-amber-950 px-1.5 py-0.5 rounded border border-amber-200/80">
                   ISSN: 2349-2015
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Business Economics (NRJBE)
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   Applied Economics, Corporate Finance, Trade Policy &amp; Management.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/current-issue"
-                    className="text-[10px] font-bold text-primary-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Current Issue &rarr;
                   </Link>
                   <Link
                     href="/submit-paper"
-                    className="text-[10px] font-bold text-amber-600 hover:underline ml-auto"
+                    className="text-[10px] font-bold text-amber-700 hover:underline ml-auto"
                   >
                     Submit Paper &rarr;
                   </Link>
@@ -213,7 +213,7 @@ export default async function HomePage() {
             </div>
 
             {/* Journal 2: NRJBFM */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-emerald-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="11"
@@ -229,19 +229,19 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-200/70">
                   ISSN: 2349-6762
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Banking &amp; Finance Management
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   Banking Reforms, Fintech, Financial Markets &amp; Risk Analytics.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/store"
-                    className="text-[10px] font-bold text-emerald-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Subscribe &rarr;
                   </Link>
@@ -249,7 +249,7 @@ export default async function HomePage() {
                     href="https://nrjbfm.in/submit-paper.php"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                    className="text-[10px] font-bold text-stone-600 hover:text-amber-950 hover:underline ml-auto flex items-center gap-0.5"
                   >
                     <span>Gateway</span>
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -259,7 +259,7 @@ export default async function HomePage() {
             </div>
 
             {/* Journal 3: NRJHRM */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-rose-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="10"
@@ -275,19 +275,19 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-rose-100 text-rose-800 px-1.5 py-0.5 rounded border border-rose-200/70">
                   ISSN: 2394-059X
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Human Resource Management
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   HR Analytics, Organizational Behavior, Talent Strategy &amp; Labor Welfare.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/store"
-                    className="text-[10px] font-bold text-rose-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Subscribe &rarr;
                   </Link>
@@ -295,7 +295,7 @@ export default async function HomePage() {
                     href="https://www.nrjhrm.in/submit-paper-online"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                    className="text-[10px] font-bold text-stone-600 hover:text-amber-950 hover:underline ml-auto flex items-center gap-0.5"
                   >
                     <span>Gateway</span>
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -305,7 +305,7 @@ export default async function HomePage() {
             </div>
 
             {/* Journal 4: NRJITIS */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-indigo-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="11"
@@ -321,19 +321,19 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded border border-indigo-200/70">
                   ISSN: 2350-1278
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Info Tech &amp; Info Science
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   Artificial Intelligence, Machine Learning, Cloud Systems &amp; Cybersecurity.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/store"
-                    className="text-[10px] font-bold text-indigo-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Subscribe &rarr;
                   </Link>
@@ -341,7 +341,7 @@ export default async function HomePage() {
                     href="https://nrjitis.in/submit-paper-online"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                    className="text-[10px] font-bold text-stone-600 hover:text-amber-950 hover:underline ml-auto flex items-center gap-0.5"
                   >
                     <span>Gateway</span>
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -351,7 +351,7 @@ export default async function HomePage() {
             </div>
 
             {/* Journal 5: RRBB */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-emerald-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="14"
@@ -367,19 +367,19 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-200/70">
                   ISSN: 2321-8681
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Biotechnology &amp; Biosciences
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   Molecular Biology, Genetics, Bioinformatics &amp; Clinical Sciences.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/store"
-                    className="text-[10px] font-bold text-emerald-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Subscribe &rarr;
                   </Link>
@@ -387,7 +387,7 @@ export default async function HomePage() {
                     href="https://www.biotechjournal.in/submit-paper-online"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                    className="text-[10px] font-bold text-stone-600 hover:text-amber-950 hover:underline ml-auto flex items-center gap-0.5"
                   >
                     <span>Gateway</span>
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -397,7 +397,7 @@ export default async function HomePage() {
             </div>
 
             {/* Journal 6: AJEP */}
-            <div className="bg-slate-50/70 rounded-xl p-4 border border-slate-200 hover:border-amber-300 transition-all flex gap-3.5">
+            <div className="bg-white rounded-xl p-4 border border-amber-200/80 hover:border-amber-400 transition-all flex gap-3.5 shadow-2xs">
               <div className="flex-shrink-0">
                 <MagazineCover
                   volumeNumber="15"
@@ -413,19 +413,19 @@ export default async function HomePage() {
                 />
               </div>
               <div className="space-y-1 flex-1 min-w-0">
-                <span className="font-mono text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded">
+                <span className="font-mono text-[9px] font-bold bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded border border-amber-200/70">
                   ISSN: 2249-040X
                 </span>
-                <h3 className="font-serif font-bold text-navy-900 text-xs leading-snug pt-0.5">
+                <h3 className="font-serif font-bold text-stone-900 text-xs leading-snug pt-0.5">
                   Education &amp; Psychology (AJEP)
                 </h3>
-                <p className="text-[10px] text-slate-500 line-clamp-2">
+                <p className="text-[10px] text-stone-500 line-clamp-2">
                   Higher Education Policy, Pedagogical Innovation &amp; Behavioral Science.
                 </p>
                 <div className="pt-2 flex items-center gap-2">
                   <Link
                     href="/store"
-                    className="text-[10px] font-bold text-amber-700 hover:underline"
+                    className="text-[10px] font-bold text-amber-900 hover:underline"
                   >
                     Subscribe &rarr;
                   </Link>
@@ -433,7 +433,7 @@ export default async function HomePage() {
                     href="https://academejournal.in/submit-paper"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[10px] font-bold text-slate-600 hover:underline ml-auto flex items-center gap-0.5"
+                    className="text-[10px] font-bold text-stone-600 hover:text-amber-950 hover:underline ml-auto flex items-center gap-0.5"
                   >
                     <span>Gateway</span>
                     <ExternalLink className="w-2.5 h-2.5" />
@@ -445,12 +445,11 @@ export default async function HomePage() {
         </section>
 
         {/* 3. E-Commerce Showcase: Physical Print Editions & Subscriptions */}
-        {/* 3. E-Commerce Showcase: Physical Print Editions & Subscriptions */}
-        <section className="bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-stone-200">
+        <section className="bg-[#fffdfa] rounded-xl border border-amber-200/80 p-6 sm:p-8 shadow-xs space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-amber-200/80">
             <div>
               <div className="flex items-center gap-2">
-                <span className="bg-stone-100 text-stone-800 text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded border border-stone-200">
+                <span className="bg-amber-100/90 text-amber-950 text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded border border-amber-300/80 font-medium">
                   Journal Bookstore
                 </span>
                 <span className="text-xs text-stone-500 font-medium">Delivered to your home / library</span>
@@ -462,7 +461,7 @@ export default async function HomePage() {
 
             <Link
               href="/store"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-stone-800 hover:text-stone-950 transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-amber-950 hover:text-amber-800 transition-colors group"
             >
               <span>Explore All Print Editions &amp; Packages</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -475,7 +474,7 @@ export default async function HomePage() {
               return (
                 <div
                   key={iss.id}
-                  className="bg-white rounded-xl p-4 border border-stone-200 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between"
+                  className="bg-white rounded-xl p-4 border border-amber-200/80 shadow-2xs hover:shadow-sm hover:border-amber-400 transition-all flex flex-col justify-between"
                 >
                   <div className="flex gap-4">
                     <div className="flex-shrink-0">
@@ -491,7 +490,7 @@ export default async function HomePage() {
                     </div>
 
                     <div className="space-y-1.5 flex-1 min-w-0">
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-amber-950 bg-amber-100/90 px-2 py-0.5 rounded border border-amber-300/70 font-medium">
                         {iss.isCurrent ? 'Current Issue' : 'Back Issue'}
                       </span>
                       <h3 className="font-serif font-bold text-stone-900 text-xs sm:text-sm line-clamp-2 mt-1">
@@ -501,17 +500,17 @@ export default async function HomePage() {
                       <div className="pt-1">
                         <span className="text-base font-bold text-stone-900">₹{price}</span>
                         <span className="text-[10px] text-stone-500 ml-1">INR</span>
-                        <span className="text-[10px] text-emerald-800 font-medium block flex items-center gap-1 mt-0.5">
-                          <Truck className="w-3 h-3 text-emerald-700" /> Free Speed Post
+                        <span className="text-[10px] text-amber-800 font-medium block flex items-center gap-1 mt-0.5">
+                          <Truck className="w-3 h-3 text-amber-600" /> Free Speed Post
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+                  <div className="mt-4 pt-3 border-t border-amber-200/70 flex items-center justify-between gap-2">
                     <Link
                       href={iss.isCurrent ? '/current-issue' : `/archives#issue-${iss.id}`}
-                      className="text-[11px] font-semibold text-stone-600 hover:text-stone-950"
+                      className="text-[11px] font-semibold text-stone-600 hover:text-amber-950"
                     >
                       View TOC
                     </Link>
@@ -524,7 +523,7 @@ export default async function HomePage() {
                       price={price}
                       badge="Print Copy"
                       label="Buy Print Copy"
-                      className="bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold py-1.5 px-3 rounded-md shadow-2xs transition-all flex items-center gap-1"
+                      className="bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold py-1.5 px-3 rounded-md shadow-2xs transition-all flex items-center gap-1 border border-amber-500/20"
                     />
                   </div>
                 </div>
@@ -532,16 +531,16 @@ export default async function HomePage() {
             })}
           </div>
 
-          <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="bg-gradient-to-r from-amber-50 via-amber-100/50 to-amber-50 p-4 rounded-xl border border-amber-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3 text-center sm:text-left">
-              <div className="w-10 h-10 rounded-lg bg-stone-200/80 text-stone-800 flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 rounded-lg bg-amber-200/80 text-amber-950 flex items-center justify-center flex-shrink-0">
                 <ShoppingBag className="w-5 h-5" />
               </div>
               <div>
                 <h4 className="text-xs sm:text-sm font-bold text-stone-900">
                   Annual Subscription (Print + Digital) Available at ₹3,500/Year
                 </h4>
-                <p className="text-[11px] text-stone-500">
+                <p className="text-[11px] text-stone-600">
                   Get both issues mailed directly to your institution with perpetual archival access.
                 </p>
               </div>
@@ -555,7 +554,7 @@ export default async function HomePage() {
               price={3500}
               badge="Annual Plan"
               label="Subscribe Now (₹3,500)"
-              className="bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold py-2 px-4 rounded-md shadow-2xs transition-all flex-shrink-0"
+              className="bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs font-bold py-2 px-4 rounded-md shadow-2xs transition-all flex-shrink-0 border border-amber-500/30"
             />
           </div>
         </section>
@@ -579,43 +578,43 @@ export default async function HomePage() {
         />
 
         {/* Indexing Partners & Digital Archiving Strip (Benchmark: ScienceDirect) */}
-        <section className="bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-stone-200">
+        <section className="bg-[#fffdfa] rounded-xl border border-amber-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-amber-200/80">
             <div>
-              <span className="text-xs font-mono uppercase tracking-wider text-stone-400">
+              <span className="text-xs font-mono uppercase tracking-wider text-stone-500">
                 Digital Archiving &amp; Abstracting
               </span>
               <h3 className="font-serif font-bold text-stone-900 text-base sm:text-lg mt-0.5">
                 Globally Indexed &amp; Citations Tracked
               </h3>
             </div>
-            <span className="text-xs text-stone-500 font-medium">
-              Permanent DOI Repository: <strong className="font-mono text-stone-800">10.5281/zenodo</strong>
+            <span className="text-xs text-stone-600 font-medium">
+              Permanent DOI Repository: <strong className="font-mono text-amber-950 font-bold">10.5281/zenodo</strong>
             </span>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">Google Scholar</span>
               <span className="text-[10px] text-stone-500">Citation Metrics</span>
             </div>
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">Zenodo (CERN)</span>
               <span className="text-[10px] text-stone-500">Permanent Repository</span>
             </div>
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">CrossRef</span>
               <span className="text-[10px] text-stone-500">Official DOI Registry</span>
             </div>
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">ResearchGate</span>
               <span className="text-[10px] text-stone-500">Academic Network</span>
             </div>
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">DRJI</span>
               <span className="text-[10px] text-stone-500">Journal Indexing</span>
             </div>
-            <div className="p-3.5 rounded-lg bg-stone-50/80 border border-stone-200 hover:bg-white hover:border-stone-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+            <div className="p-3.5 rounded-lg bg-amber-50/40 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
               <span className="font-bold text-xs sm:text-sm text-stone-900">ICI Journals</span>
               <span className="text-[10px] text-stone-500">Master List Evaluation</span>
             </div>
@@ -623,9 +622,9 @@ export default async function HomePage() {
         </section>
 
         {/* 4. Why Publish With Us / Author Advantages Grid */}
-        <section className="mb-12 bg-white rounded-xl border border-stone-200 p-6 sm:p-8 shadow-xs">
+        <section className="mb-12 bg-[#fffdfa] rounded-xl border border-amber-200/80 p-6 sm:p-8 shadow-xs">
           <div className="text-center max-w-2xl mx-auto mb-8">
-            <span className="text-xs font-mono uppercase tracking-wider text-stone-700 bg-stone-100 px-3 py-1 rounded border border-stone-200">
+            <span className="text-xs font-mono uppercase tracking-wider text-amber-950 bg-amber-100/90 px-3 py-1 rounded border border-amber-300/80 font-medium">
               Author Advantages
             </span>
             <h2 className="text-2xl font-serif font-bold text-stone-900 mt-2">
@@ -637,9 +636,9 @@ export default async function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-5 rounded-lg bg-stone-50/80 border border-stone-200 hover:border-stone-400 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-stone-200/80 text-stone-800 flex items-center justify-center mb-3">
-                <Zap className="w-5 h-5" />
+            <div className="p-5 rounded-lg bg-white border border-amber-200/70 hover:border-amber-400 hover:shadow-2xs transition-all">
+              <div className="w-10 h-10 rounded-lg bg-amber-100/90 text-amber-900 flex items-center justify-center mb-3">
+                <Zap className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="font-bold text-stone-900 text-sm mb-1 font-serif">Fast-Track Peer Review</h3>
               <p className="text-xs text-stone-600 leading-relaxed font-sans">
@@ -647,9 +646,9 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="p-5 rounded-lg bg-stone-50/80 border border-stone-200 hover:border-stone-400 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-amber-100/80 text-amber-800 flex items-center justify-center mb-3">
-                <Globe2 className="w-5 h-5" />
+            <div className="p-5 rounded-lg bg-white border border-amber-200/70 hover:border-amber-400 hover:shadow-2xs transition-all">
+              <div className="w-10 h-10 rounded-lg bg-amber-100/90 text-amber-900 flex items-center justify-center mb-3">
+                <Globe2 className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="font-bold text-stone-900 text-sm mb-1 font-serif">Zenodo &amp; CrossRef DOI</h3>
               <p className="text-xs text-stone-600 leading-relaxed font-sans">
@@ -657,9 +656,9 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="p-5 rounded-lg bg-stone-50/80 border border-stone-200 hover:border-stone-400 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-emerald-100/80 text-emerald-800 flex items-center justify-center mb-3">
-                <ShieldCheck className="w-5 h-5" />
+            <div className="p-5 rounded-lg bg-white border border-amber-200/70 hover:border-amber-400 hover:shadow-2xs transition-all">
+              <div className="w-10 h-10 rounded-lg bg-amber-100/90 text-amber-900 flex items-center justify-center mb-3">
+                <ShieldCheck className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="font-bold text-stone-900 text-sm mb-1 font-serif">Open Access (CC BY-NC)</h3>
               <p className="text-xs text-stone-600 leading-relaxed font-sans">
@@ -667,9 +666,9 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="p-5 rounded-lg bg-stone-50/80 border border-stone-200 hover:border-stone-400 transition-colors">
-              <div className="w-10 h-10 rounded-lg bg-stone-200/80 text-stone-800 flex items-center justify-center mb-3">
-                <Award className="w-5 h-5" />
+            <div className="p-5 rounded-lg bg-white border border-amber-200/70 hover:border-amber-400 hover:shadow-2xs transition-all">
+              <div className="w-10 h-10 rounded-lg bg-amber-100/90 text-amber-900 flex items-center justify-center mb-3">
+                <Award className="w-5 h-5 text-amber-700" />
               </div>
               <h3 className="font-bold text-stone-900 text-sm mb-1 font-serif">Official E-Certificate</h3>
               <p className="text-xs text-stone-600 leading-relaxed font-sans">
@@ -682,7 +681,7 @@ export default async function HomePage() {
         {/* Dedicated Institutional & University Library Acquisition Banner */}
         <section className="bg-[#0c1a2c] text-white rounded-xl p-6 sm:p-8 border border-stone-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left max-w-2xl">
-            <span className="bg-amber-400/15 text-amber-300 border border-amber-400/30 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded">
+            <span className="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded">
               University &amp; College Librarians
             </span>
             <h3 className="font-serif font-bold text-xl sm:text-2xl text-stone-100 leading-snug">
@@ -695,7 +694,7 @@ export default async function HomePage() {
 
           <Link
             href="/institutions"
-            className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 font-semibold text-xs sm:text-sm px-6 py-3 rounded-lg shadow-sm transition-all flex-shrink-0"
+            className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm px-6 py-3 rounded-lg shadow-sm transition-all flex-shrink-0 border border-amber-500/20"
           >
             <Building2 className="w-4 h-4 text-stone-900" />
             <span>Open Institutional Portal</span>
@@ -706,7 +705,7 @@ export default async function HomePage() {
         {/* 5. Call for Papers 2026 Submission Banner */}
         <section className="bg-stone-900 text-white rounded-xl p-6 sm:p-10 border border-stone-800 shadow-sm relative overflow-hidden">
           <div className="relative z-10 max-w-3xl">
-            <span className="bg-stone-800 text-stone-200 border border-stone-700 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded">
+            <span className="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded font-semibold">
               Call For Papers 2026
             </span>
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-3 leading-snug">
@@ -719,7 +718,7 @@ export default async function HomePage() {
             <div className="flex flex-wrap items-center gap-4 mt-6">
               <Link
                 href="/submit-paper"
-                className="inline-flex items-center gap-2 bg-white hover:bg-stone-100 text-stone-950 text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-xs"
+                className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-lg transition-colors shadow-xs border border-amber-500/20"
               >
                 <FileUp className="w-4 h-4" />
                 <span>Submit Manuscript Online</span>
@@ -734,7 +733,7 @@ export default async function HomePage() {
               <a
                 href="/templates/Paper-Template.pdf"
                 download
-                className="text-xs text-amber-300 hover:text-amber-200 underline font-medium"
+                className="text-xs text-amber-300 hover:text-amber-200 underline font-semibold"
               >
                 Download Paper Template (PDF)
               </a>

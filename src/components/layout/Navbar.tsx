@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
   };
 
   return (
-    <nav className="bg-white/95 backdrop-blur-md text-stone-800 sticky top-0 z-40 border-b border-stone-200/90 shadow-2xs">
+    <nav className="bg-[#fffdf8]/95 backdrop-blur-md text-stone-800 sticky top-0 z-40 border-b border-amber-200/80 shadow-2xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12 sm:h-14">
           {/* Desktop Navigation Items */}
@@ -68,29 +68,29 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                     <button
                       className={`inline-flex items-center gap-1.5 px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors ${
                         active
-                          ? 'bg-stone-100 text-stone-900 font-semibold'
-                          : 'text-stone-700 hover:bg-stone-50 hover:text-stone-950'
+                          ? 'bg-amber-100/90 text-amber-950 font-semibold border border-amber-300/80'
+                          : 'text-stone-700 hover:bg-amber-50 hover:text-stone-950'
                       }`}
                     >
                       <span>{cleanLabel(item.label)}</span>
-                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-stone-400" strokeWidth={1.5} />
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-amber-700/60" strokeWidth={1.5} />
                     </button>
 
                     {/* Dropdown Menu */}
                     <div className="absolute left-0 top-full pt-1.5 w-64 hidden group-hover:block transition-all z-50 animate-in fade-in-50 duration-150">
-                      <div className="bg-white rounded-xl shadow-lg border border-stone-200 py-1.5 text-stone-800 overflow-hidden ring-1 ring-black/5">
+                      <div className="bg-[#fffdf9] rounded-xl shadow-lg border border-amber-200/90 py-1.5 text-stone-800 overflow-hidden ring-1 ring-black/5">
                         {item.children?.map((child) => (
                           <Link
                             key={child.id}
                             href={child.path}
                             target={child.openInNewTab ? '_blank' : '_self'}
                             rel={child.openInNewTab ? 'noopener noreferrer' : undefined}
-                            className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium hover:bg-stone-50 hover:text-stone-950 transition-colors ${
-                              pathname === child.path ? 'bg-stone-50 text-stone-900 font-semibold' : 'text-stone-600'
+                            className={`flex items-center justify-between px-4 py-2.5 text-xs font-medium hover:bg-amber-50/80 hover:text-stone-950 transition-colors ${
+                              pathname === child.path ? 'bg-amber-50 text-amber-950 font-semibold' : 'text-stone-600'
                             }`}
                           >
                             <span>{cleanLabel(child.label)}</span>
-                            {child.isExternal && <ExternalLink className="w-3 h-3 text-stone-400" strokeWidth={1.5} />}
+                            {child.isExternal && <ExternalLink className="w-3 h-3 text-amber-600/70" strokeWidth={1.5} />}
                           </Link>
                         ))}
                       </div>
@@ -107,12 +107,12 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                   rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
                   className={`inline-flex items-center gap-1 px-3 py-2 text-xs sm:text-sm font-medium rounded-md transition-colors ${
                     active
-                      ? 'bg-stone-100 text-stone-900 font-semibold'
-                      : 'text-stone-700 hover:bg-stone-50 hover:text-stone-950'
+                      ? 'bg-amber-100/90 text-amber-950 font-semibold border border-amber-300/80'
+                      : 'text-stone-700 hover:bg-amber-50 hover:text-stone-950'
                   }`}
                 >
                   <span>{cleanLabel(item.label)}</span>
-                  {item.isExternal && <ExternalLink className="w-3 h-3 text-stone-400" strokeWidth={1.5} />}
+                  {item.isExternal && <ExternalLink className="w-3 h-3 text-amber-600/70" strokeWidth={1.5} />}
                 </Link>
               );
             })}
@@ -124,12 +124,12 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
               href="/institutions"
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
                 pathname === '/institutions'
-                  ? 'bg-stone-900 text-white font-semibold'
-                  : 'text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200'
+                  ? 'bg-amber-400 text-stone-950 font-bold shadow-xs'
+                  : 'text-stone-700 bg-[#fffdf9] hover:bg-amber-50 border border-amber-200/80'
               }`}
               title="Institutional & Library Subscription Orders"
             >
-              <Building2 className="w-3.5 h-3.5 text-stone-500" strokeWidth={1.5} />
+              <Building2 className="w-3.5 h-3.5 text-amber-800" strokeWidth={1.5} />
               <span>Library Acquisition</span>
             </Link>
 
@@ -137,12 +137,12 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
               href="/publish-books"
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
                 pathname === '/publish-books'
-                  ? 'bg-stone-900 text-white font-semibold'
-                  : 'text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200'
+                  ? 'bg-amber-400 text-stone-950 font-bold shadow-xs'
+                  : 'text-stone-700 bg-[#fffdf9] hover:bg-amber-50 border border-amber-200/80'
               }`}
               title="Publish Academic Books, Edited Volumes & Monographs with ISBN"
             >
-              <BookOpen className="w-3.5 h-3.5 text-stone-500" strokeWidth={1.5} />
+              <BookOpen className="w-3.5 h-3.5 text-amber-800" strokeWidth={1.5} />
               <span>Publish Books</span>
             </Link>
 
@@ -150,11 +150,11 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
               href="/store"
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md transition-colors ${
                 pathname === '/store'
-                  ? 'bg-stone-900 text-white font-semibold'
-                  : 'text-stone-700 bg-stone-50 hover:bg-stone-100 border border-stone-200'
+                  ? 'bg-amber-400 text-stone-950 font-bold shadow-xs'
+                  : 'text-stone-700 bg-[#fffdf9] hover:bg-amber-50 border border-amber-200/80'
               }`}
             >
-              <ShoppingBag className="w-3.5 h-3.5 text-stone-500" strokeWidth={1.5} />
+              <ShoppingBag className="w-3.5 h-3.5 text-amber-800" strokeWidth={1.5} />
               <span>Store</span>
             </Link>
           </div>
