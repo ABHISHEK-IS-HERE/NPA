@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React, { useState } from 'react';
 import { X, Copy, Check, Quote } from 'lucide-react';
 import { generateBibtex, generateApaCitation } from '@/lib/utils';

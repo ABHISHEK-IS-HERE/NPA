@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import Link from 'next/link';
 import { Phone, Mail, MessageSquare, Award, ExternalLink, ShieldCheck, Lock } from 'lucide-react';

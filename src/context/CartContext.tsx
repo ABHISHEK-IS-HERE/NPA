@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export type CartItemType = 'print_issue' | 'subscription' | 'apc' | 'certificate';

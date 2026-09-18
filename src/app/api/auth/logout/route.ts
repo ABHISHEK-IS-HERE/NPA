@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import { NextResponse } from 'next/server';
 import { AUTH_COOKIE_CONFIG } from '@/lib/auth';
 

@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import { db } from '@/lib/db';
 import { ArticleCard } from '@/components/articles/ArticleCard';

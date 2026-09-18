@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 

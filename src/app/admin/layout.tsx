@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import { getCurrentAdmin } from '@/lib/auth';
 import { AdminShell } from '@/components/admin/AdminShell';

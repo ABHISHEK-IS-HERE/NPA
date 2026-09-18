@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import Link from 'next/link';
 import { BookOpen, FileUp, Sparkles, ShoppingBag } from 'lucide-react';

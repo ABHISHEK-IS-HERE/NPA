@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 

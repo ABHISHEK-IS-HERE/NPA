@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright © 2026 Abhishek. All rights reserved.
+#
 # scripts/live-demo.sh
 # Starts or reconnects the live public demo tunnel for NRJBE Academic Portal
 

@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright © 2026 Abhishek. All rights reserved.
+#
 # scripts/cloudflared-demo.sh
 # Cloudflare Quick Tunnel alternative
 

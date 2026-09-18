@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import { getGlobalSiteData } from '@/lib/getSiteData';
 import { TopBar } from '@/components/layout/TopBar';

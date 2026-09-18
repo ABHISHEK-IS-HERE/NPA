@@ -1,3 +1,8 @@
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import { db } from '@/lib/db';
 
 export async function getGlobalSiteData() {

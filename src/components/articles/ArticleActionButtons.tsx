@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React, { useState } from 'react';
 import { FileText, Award, Quote, Download } from 'lucide-react';
 import { CitationModal } from './CitationModal';

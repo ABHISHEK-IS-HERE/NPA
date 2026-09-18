@@ -1,5 +1,10 @@
 'use client';
 
+/*
+ * Copyright © 2026 Abhishek
+ * All rights reserved.
+ */
+
 import React from 'react';
 import { ShoppingBag, Check } from 'lucide-react';
 import { useCart, CartItemType } from '@/context/CartContext';
