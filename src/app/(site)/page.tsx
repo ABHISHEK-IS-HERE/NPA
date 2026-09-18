@@ -552,7 +552,7 @@ export default async function HomePage() {
               price={3500}
               badge="Annual Plan"
               label="Subscribe Now (₹3,500)"
-              className="bg-navy-900 hover:bg-navy-950 text-white text-xs font-bold py-2 px-4 rounded-lg shadow-xs transition-all flex-shrink-0"
+              className="bg-primary-700 hover:bg-primary-800 text-white text-xs font-bold py-2 px-4 rounded-lg shadow-2xs transition-all flex-shrink-0"
             />
           </div>
         </section>
@@ -608,9 +608,9 @@ export default async function HomePage() {
           <div className="text-center pt-6">
             <Link
               href="/current-issue"
-              className="inline-flex items-center gap-2 bg-navy-900 hover:bg-navy-950 text-white text-sm font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition-all"
+              className="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white text-sm font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition-all"
             >
-              <BookOpen className="w-4 h-4 text-amber-400" />
+              <BookOpen className="w-4 h-4 text-amber-300" />
               <span>Browse All Articles &amp; Download Certificates &rarr;</span>
             </Link>
           </div>

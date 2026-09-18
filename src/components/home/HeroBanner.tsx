@@ -60,34 +60,34 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
   const price = currentIssue?.printPrice || 450;
 
   return (
-    <div className="relative bg-gradient-to-br from-navy-950 via-primary-950 to-navy-900 text-white py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-navy-800 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-slate-50 via-blue-50/40 to-amber-50/30 text-slate-900 py-10 sm:py-16 px-4 sm:px-6 lg:px-8 border-b border-slate-200 overflow-hidden">
       {/* Subtle Background Pattern */}
-      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+      <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Journal Identity & Search */}
           <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
             {/* Quality Badges */}
-            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-white/10 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/15 text-xs font-semibold text-amber-300">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-white/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-slate-200 text-xs font-semibold text-slate-800 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
               <span>{settings.heroBadge || 'ISSN: 2349-2015 | Impact Factor: 6.74 | Double Blind Peer Review | Open Access'}</span>
             </div>
 
             {/* Hero Title */}
-            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-extrabold tracking-tight text-white leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-serif font-extrabold tracking-tight text-navy-950 leading-tight">
               {settings.heroTitle || 'Advancing Global Research in Business & Economics'}
             </h1>
 
             {/* Hero Subtitle */}
-            <p className="text-xs sm:text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed mx-auto lg:mx-0">
+            <p className="text-xs sm:text-sm sm:text-base text-slate-600 max-w-2xl leading-relaxed mx-auto lg:mx-0">
               {settings.heroSubtitle ||
                 'National Research Journal of Business Economics is an internationally indexed, peer-reviewed, refereed journal providing an intellectual platform for scholars worldwide.'}
             </p>
 
             {/* Search Bar for Articles / DOIs */}
             <form onSubmit={handleSearch} className="max-w-xl mx-auto lg:mx-0 pt-1">
-              <div className="relative flex items-center bg-white rounded-xl shadow-2xl p-1.5 border border-slate-200">
+              <div className="relative flex items-center bg-white rounded-xl shadow-md p-1.5 border border-slate-300 ring-4 ring-primary-50">
                 <Search className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 ml-2.5 sm:ml-3 flex-shrink-0" />
                 <input
                   type="text"
@@ -110,7 +110,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
               <Link
                 href="/submit-paper"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-navy-950 text-xs sm:text-sm font-bold px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg shadow-lg hover:shadow-xl transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 text-xs sm:text-sm font-bold px-5 py-2.5 sm:px-6 sm:py-3 rounded-lg shadow-sm hover:shadow transition-all"
               >
                 <FileUp className="w-4 h-4" />
                 <span>Submit Manuscript Online</span>
@@ -118,17 +118,17 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
 
               <Link
                 href="/store"
-                className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg border border-white/20 transition-colors"
+                className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-800 text-xs sm:text-sm font-semibold px-4 py-2.5 sm:px-5 sm:py-3 rounded-lg border border-slate-300 shadow-2xs transition-colors"
               >
-                <ShoppingBag className="w-4 h-4 text-amber-400" />
+                <ShoppingBag className="w-4 h-4 text-primary-700" />
                 <span>Journal Store &amp; Print Editions</span>
               </Link>
 
               <Link
                 href="/track-status"
-                className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-300 hover:text-white underline decoration-slate-500 py-2"
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-600 hover:text-slate-900 underline decoration-slate-400 py-2"
               >
-                <Clock className="w-3.5 h-3.5 text-emerald-400" />
+                <Clock className="w-3.5 h-3.5 text-emerald-600" />
                 <span>Track Manuscript</span>
               </Link>
             </div>
@@ -136,7 +136,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
 
           {/* Right Column: 3D Magazine Cover Feature Showcase */}
           <div className="lg:col-span-4 flex flex-col items-center justify-center">
-            <div className="bg-white/5 border border-white/10 p-6 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col items-center text-center max-w-xs w-full relative">
+            <div className="bg-white border border-slate-200 p-6 rounded-3xl backdrop-blur-md shadow-xl flex flex-col items-center text-center max-w-xs w-full relative ring-1 ring-slate-900/5">
               <div className="mb-4">
                 <MagazineCover
                   volumeNumber={volumeNum}
@@ -149,22 +149,22 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                 />
               </div>
 
-              <div className="space-y-1 w-full">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
+              <div className="space-y-1.5 w-full">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-50 border border-amber-200 px-2.5 py-0.5 rounded-full inline-block">
                   Current Issue Available
                 </span>
-                <h3 className="font-serif font-bold text-white text-sm">
+                <h3 className="font-serif font-bold text-slate-900 text-sm">
                   {currentIssue?.title || `Volume ${volumeNum}, Issue ${issueNum} (2026)`}
                 </h3>
-                <p className="text-[11px] text-slate-300">
+                <p className="text-[11px] text-slate-500">
                   Printed on 80 GSM Bond • Speed Post Dispatch
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-white/10 w-full space-y-2">
+              <div className="mt-4 pt-3 border-t border-slate-200 w-full space-y-2">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-xs text-slate-300">Print Edition:</span>
-                  <span className="text-base font-extrabold text-amber-400">₹{price} INR</span>
+                  <span className="text-xs text-slate-600 font-medium">Print Edition:</span>
+                  <span className="text-base font-extrabold text-primary-800">₹{price} INR</span>
                 </div>
 
                 <AddToCartButton
@@ -175,12 +175,12 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
                   price={price}
                   badge="Print Copy"
                   label={`Order Print Copy (₹${price})`}
-                  className="w-full bg-amber-500 hover:bg-amber-600 text-navy-950 text-xs font-bold py-2.5 px-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold py-2.5 px-4 rounded-xl shadow-sm transition-all flex items-center justify-center gap-2"
                 />
 
                 <Link
                   href="/current-issue"
-                  className="block text-center text-[11px] text-slate-300 hover:text-white underline"
+                  className="block text-center text-[11px] text-slate-500 hover:text-primary-800 underline"
                 >
                   Read Digital Papers Free (Open Access)
                 </Link>

@@ -43,7 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
   };
 
   return (
-    <nav className="bg-navy-950 text-white sticky top-0 z-40 shadow-md border-b border-navy-800">
+    <nav className="bg-white/95 backdrop-blur-md text-slate-800 sticky top-0 z-40 shadow-xs border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12 sm:h-14">
           {/* Desktop Navigation Items */}
@@ -63,8 +63,8 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                     <button
                       className={`inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                         active
-                          ? 'bg-primary-900 text-white'
-                          : 'text-slate-200 hover:bg-navy-800 hover:text-white'
+                          ? 'bg-primary-50 text-primary-900 font-semibold'
+                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                       }`}
                     >
                       <span>{item.label}</span>
@@ -73,14 +73,14 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
 
                     {/* Dropdown Menu */}
                     <div className="absolute left-0 top-full pt-1.5 w-64 hidden group-hover:block transition-all z-50 animate-in fade-in-50 duration-150">
-                      <div className="bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 text-slate-800 overflow-hidden">
+                      <div className="bg-white rounded-lg shadow-xl border border-slate-200 py-1.5 text-slate-800 overflow-hidden ring-1 ring-black/5">
                         {item.children?.map((child) => (
                           <Link
                             key={child.id}
                             href={child.path}
                             target={child.openInNewTab ? '_blank' : '_self'}
                             rel={child.openInNewTab ? 'noopener noreferrer' : undefined}
-                            className={`flex items-center justify-between px-4 py-2.5 text-xs sm:text-sm font-medium hover:bg-primary-50 hover:text-primary-700 transition-colors ${
+                            className={`flex items-center justify-between px-4 py-2.5 text-xs sm:text-sm font-medium hover:bg-primary-50 hover:text-primary-800 transition-colors ${
                               pathname === child.path ? 'bg-primary-50 text-primary-800 font-semibold' : 'text-slate-700'
                             }`}
                           >
@@ -102,8 +102,8 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                   rel={item.openInNewTab ? 'noopener noreferrer' : undefined}
                   className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                     active
-                      ? 'bg-primary-700 text-white font-semibold'
-                      : 'text-slate-200 hover:bg-navy-800 hover:text-white'
+                      ? 'bg-primary-50 text-primary-900 font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                   }`}
                 >
                   <span>{item.label}</span>
@@ -114,13 +114,13 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
           </div>
 
           {/* Journal Store, Institutional PO & Search shortcuts in navbar */}
-          <div className="hidden lg:flex items-center gap-1.5">
+          <div className="hidden lg:flex items-center gap-2">
             <Link
               href="/institutions"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/institutions'
-                  ? 'bg-amber-500 text-navy-950 font-bold'
-                  : 'text-amber-200 bg-navy-900 hover:bg-navy-800 border border-amber-500/40'
+                  ? 'bg-amber-500 text-slate-950 font-bold'
+                  : 'text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300'
               }`}
               title="Institutional & Library Subscription Orders"
             >
@@ -129,10 +129,10 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
 
             <Link
               href="/publish-books"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/publish-books'
                   ? 'bg-emerald-600 text-white font-bold'
-                  : 'text-emerald-300 bg-navy-900 hover:bg-navy-800 border border-emerald-500/40'
+                  : 'text-emerald-900 bg-emerald-50 hover:bg-emerald-100 border border-emerald-300'
               }`}
               title="Publish Academic Books, Edited Volumes & Monographs with ISBN"
             >
@@ -141,25 +141,25 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
 
             <Link
               href="/store"
-              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/store'
-                  ? 'bg-amber-500 text-navy-950 font-bold'
-                  : 'text-slate-200 bg-navy-900 hover:bg-navy-800 border border-navy-700'
+                  ? 'bg-primary-800 text-white font-bold'
+                  : 'text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-300'
               }`}
             >
-              <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
+              <ShoppingBag className="w-3.5 h-3.5 text-primary-700" />
               <span>Store</span>
             </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex lg:hidden items-center justify-between w-full">
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-300">
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-600">
               Navigation Menu
             </span>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-slate-300 hover:text-white hover:bg-navy-800 focus:outline-none"
+              className="p-2 rounded-md text-slate-700 hover:text-slate-950 hover:bg-slate-100 focus:outline-none"
               aria-label="Toggle Navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -170,7 +170,7 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-navy-900 border-t border-navy-800 px-4 pt-2 pb-6 space-y-1">
+        <div className="lg:hidden bg-white border-t border-slate-200 px-4 pt-2 pb-6 space-y-1 shadow-lg">
           {items.map((item) => {
             const hasChildren = item.children && item.children.length > 0;
             const isOpen = openDropdown === item.id;
@@ -180,22 +180,22 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                 <div key={item.id} className="py-1">
                   <button
                     onClick={() => setOpenDropdown(isOpen ? null : item.id)}
-                    className="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-slate-200 hover:bg-navy-800 rounded-md"
+                    className="flex items-center justify-between w-full px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 rounded-md"
                   >
                     <span>{item.label}</span>
                     <ChevronDown
-                      className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180 text-primary-400' : 'text-slate-400'}`}
+                      className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180 text-primary-600' : 'text-slate-400'}`}
                     />
                   </button>
 
                   {isOpen && (
-                    <div className="pl-4 pr-2 py-1 space-y-1 bg-navy-950/60 rounded-md mt-1">
+                    <div className="pl-4 pr-2 py-1 space-y-1 bg-slate-50 rounded-md mt-1 border-l-2 border-primary-300">
                       {item.children?.map((child) => (
                         <Link
                           key={child.id}
                           href={child.path}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="block px-3 py-2 text-xs font-medium text-slate-300 hover:text-white hover:bg-navy-800 rounded"
+                          className="block px-3 py-2 text-xs font-medium text-slate-600 hover:text-primary-800 hover:bg-slate-100 rounded"
                         >
                           {child.label}
                         </Link>
@@ -213,8 +213,8 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block px-3 py-2 text-sm font-medium rounded-md transition-colors ${
                   isActive(item.path)
-                    ? 'bg-primary-700 text-white font-semibold'
-                    : 'text-slate-200 hover:bg-navy-800 hover:text-white'
+                    ? 'bg-primary-50 text-primary-800 font-semibold'
+                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
                 }`}
               >
                 {item.label}
@@ -222,11 +222,11 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
             );
           })}
 
-          <div className="pt-3 border-t border-navy-800 mt-2 flex flex-col gap-2">
+          <div className="pt-3 border-t border-slate-200 mt-2 flex flex-col gap-2">
             <Link
               href="/store"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-amber-500 text-navy-950 text-xs font-bold rounded-md flex items-center justify-center gap-1.5"
+              className="w-full text-center py-2 px-3 bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold rounded-md flex items-center justify-center gap-1.5 shadow-2xs"
             >
               <ShoppingBag className="w-3.5 h-3.5" />
               <span>Periodical &amp; Issue Store</span>
@@ -234,42 +234,42 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
             <Link
               href="/publish-books"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-emerald-600 text-white text-xs font-semibold rounded-md"
+              className="w-full text-center py-2 px-3 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-md shadow-2xs"
             >
               📚 Publish Academic Books (ISBN)
             </Link>
             <Link
               href="/institutions"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-navy-800 text-amber-300 text-xs font-medium rounded-md border border-amber-500/40"
+              className="w-full text-center py-2 px-3 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-semibold rounded-md border border-amber-300"
             >
               🏛️ Institutional Proforma Invoice Generator
             </Link>
             <Link
               href="/ugc-api-calculator"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-navy-800 text-emerald-400 text-xs font-medium rounded-md border border-emerald-500/40"
+              className="w-full text-center py-2 px-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 text-xs font-semibold rounded-md border border-emerald-300"
             >
               🧮 UGC CAS &amp; API Score Calculator
             </Link>
             <Link
               href="/dispatch-tracking"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-navy-800 text-slate-300 text-xs font-medium rounded-md border border-navy-700"
+              className="w-full text-center py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-md border border-slate-300"
             >
               🚚 Track Speed Post Dispatch
             </Link>
             <Link
               href="/submit-paper"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-primary-700 text-white text-xs font-semibold rounded-md"
+              className="w-full text-center py-2 px-3 bg-primary-700 hover:bg-primary-800 text-white text-xs font-semibold rounded-md shadow-2xs"
             >
               Submit Paper Online
             </Link>
             <Link
               href="/track-status"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full text-center py-2 px-3 bg-navy-800 text-slate-200 text-xs font-medium rounded-md border border-navy-700"
+              className="w-full text-center py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-medium rounded-md border border-slate-300"
             >
               Track Paper Status
             </Link>

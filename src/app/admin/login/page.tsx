@@ -42,7 +42,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-navy-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-slate-950 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 selection:bg-primary-500 selection:text-white">
       <div className="sm:mx-auto sm:w-full sm:max-w-md text-center space-y-3">
         <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primary-700 to-navy-900 border-2 border-amber-500/40 text-amber-400 flex items-center justify-center mx-auto shadow-xl">
           <BookOpen className="w-9 h-9" />

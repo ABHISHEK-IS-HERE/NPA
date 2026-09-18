@@ -28,7 +28,7 @@ export const AdminShell: React.FC<AdminShellProps> = ({ children, adminUser }) =
   }
 
   return (
-    <div className="min-h-screen bg-slate-100 flex">
+    <div className="admin-theme min-h-screen bg-slate-950 text-slate-100 flex selection:bg-primary-500 selection:text-white">
       <AdminSidebar mobileOpen={mobileOpen} onCloseMobile={() => setMobileOpen(false)} />
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         <AdminHeader
@@ -36,7 +36,7 @@ export const AdminShell: React.FC<AdminShellProps> = ({ children, adminUser }) =
           adminName={adminUser?.name || 'Chief Editor'}
           adminEmail={adminUser?.email || 'admin@nrjbe.in'}
         />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto max-w-7xl w-full mx-auto text-slate-100">
           {children}
         </main>
       </div>

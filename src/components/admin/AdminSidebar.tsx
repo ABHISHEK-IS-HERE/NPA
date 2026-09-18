@@ -49,12 +49,12 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ mobileOpen, onCloseM
   ];
 
   const content = (
-    <div className="h-full flex flex-col justify-between bg-navy-950 text-slate-300 border-r border-navy-900 w-64 select-none">
+    <div className="h-full flex flex-col justify-between bg-slate-950 text-slate-300 border-r border-slate-800 w-64 select-none">
       <div>
         {/* Branding header */}
-        <div className="p-4 border-b border-navy-900 flex items-center justify-between">
+        <div className="p-4 border-b border-slate-800 flex items-center justify-between">
           <Link href="/admin" className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-primary-800 text-amber-400 flex items-center justify-center font-bold shadow">
+            <div className="w-9 h-9 rounded-lg bg-primary-900 text-amber-400 flex items-center justify-center font-bold shadow border border-primary-700/50">
               <BookOpen className="w-5 h-5" />
             </div>
             <div>
@@ -78,8 +78,8 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ mobileOpen, onCloseM
                 onClick={onCloseMobile}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors font-medium ${
                   isActive
-                    ? 'bg-primary-700 text-white font-semibold shadow-sm'
-                    : 'text-slate-400 hover:text-white hover:bg-navy-900'
+                    ? 'bg-primary-700 text-white font-semibold shadow-md shadow-primary-950/60'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-amber-300' : 'text-slate-400'}`} />
@@ -91,11 +91,11 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({ mobileOpen, onCloseM
       </div>
 
       {/* Footer link to public site */}
-      <div className="p-4 border-t border-navy-900">
+      <div className="p-4 border-t border-slate-800">
         <Link
           href="/"
           target="_blank"
-          className="flex items-center justify-between p-2.5 rounded-lg bg-navy-900/80 hover:bg-navy-900 text-slate-300 hover:text-white text-xs transition-colors border border-navy-800"
+          className="flex items-center justify-between p-2.5 rounded-lg bg-slate-900 hover:bg-slate-850 text-slate-300 hover:text-white text-xs transition-colors border border-slate-800"
         >
           <span className="font-semibold">View Live Website</span>
           <ExternalLink className="w-3.5 h-3.5 text-amber-400" />

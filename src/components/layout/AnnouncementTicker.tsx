@@ -39,11 +39,11 @@ export const AnnouncementTicker: React.FC<AnnouncementTickerProps> = ({
   ];
 
   return (
-    <div className="bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 text-navy-950 text-xs font-semibold py-2 px-4 shadow-inner overflow-hidden border-b border-amber-400">
+    <div className="bg-amber-50/95 text-amber-950 text-xs font-semibold py-2 px-4 shadow-2xs overflow-hidden border-b border-amber-200/80">
       <div className="max-w-7xl mx-auto flex items-center gap-3">
         {/* Fixed Announcement Badge */}
-        <div className="flex items-center gap-1.5 bg-navy-950 text-amber-400 px-2.5 py-1 rounded shadow-sm text-xs font-bold uppercase tracking-wider flex-shrink-0">
-          <Bell className="w-3.5 h-3.5 animate-bounce text-amber-400" />
+        <div className="flex items-center gap-1.5 bg-amber-500 text-slate-950 px-2.5 py-1 rounded shadow-2xs text-xs font-bold uppercase tracking-wider flex-shrink-0">
+          <Bell className="w-3.5 h-3.5 animate-bounce text-slate-950" />
           <span>Announcements</span>
         </div>
 
@@ -53,22 +53,22 @@ export const AnnouncementTicker: React.FC<AnnouncementTickerProps> = ({
             {items.concat(items).map((item, idx) => (
               <div key={`${item.id}-${idx}`} className="inline-flex items-center gap-2">
                 {item.badgeText && (
-                  <span className="bg-navy-900/90 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">
+                  <span className="bg-amber-200/90 text-amber-950 text-[10px] px-2 py-0.5 rounded font-bold uppercase border border-amber-300">
                     {item.badgeText}
                   </span>
                 )}
                 {item.linkUrl ? (
                   <Link
                     href={item.linkUrl}
-                    className="hover:underline flex items-center gap-1 text-navy-950 hover:text-black transition-colors"
+                    className="hover:underline flex items-center gap-1 text-amber-950 hover:text-primary-800 transition-colors"
                   >
                     <span>{item.title}</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 text-amber-600" />
                   </Link>
                 ) : (
                   <span>{item.title}</span>
                 )}
-                <span className="text-navy-950/40 font-bold mx-2">•</span>
+                <span className="text-amber-400 font-bold mx-2">•</span>
               </div>
             ))}
           </div>
