@@ -246,63 +246,63 @@ export default function InstitutionsPage() {
   };
 
   return (
-    <div className="space-y-12 pb-20 bg-slate-50 min-h-screen">
+    <div className="space-y-12 pb-20 bg-[#fdfbf2] min-h-screen">
       {/* Hero Banner */}
-      <section className="bg-gradient-to-r from-navy-950 via-primary-950 to-navy-900 text-white py-14 px-4 sm:px-6 lg:px-8 border-b border-navy-800">
+      <section className="bg-gradient-to-b from-[#fefce8] via-[#fefbf0] to-[#fffdf5] text-stone-900 py-14 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="space-y-4 max-w-3xl text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-amber-400/30">
-              <Building2 className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-950 text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-amber-300">
+              <Building2 className="w-4 h-4 text-amber-700" />
               <span>Institutional &amp; University Library Subscriptions Desk</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 tracking-tight leading-tight">
               Institutional Subscriptions, Proforma Invoicing &amp; Library PO
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-stone-600 leading-relaxed max-w-2xl">
               Equip your university, college, or research institute with peer-reviewed research journals published by <strong>National Press Associates</strong>. Free Speed Post delivery across India, guaranteed replacement copies, and instant official Proforma Invoices for your acquisition committee.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-300">
-              <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-stone-600">
+              <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1.5 rounded-lg border border-amber-200">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>UGC-CARE &amp; API Score Compliant</span>
               </span>
-              <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-                <Truck className="w-4 h-4 text-amber-400" />
+              <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1.5 rounded-lg border border-amber-200">
+                <Truck className="w-4 h-4 text-amber-700" />
                 <span>Free Doorstep India Post Speed Post</span>
               </span>
-              <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
-                <FileText className="w-4 h-4 text-blue-400" />
+              <span className="flex items-center gap-1.5 bg-white/60 px-3 py-1.5 rounded-lg border border-amber-200">
+                <FileText className="w-4 h-4 text-amber-800" />
                 <span>GST Compliant Tax Invoice &amp; 30-Day Price Lock</span>
               </span>
             </div>
           </div>
 
           {/* Contact Card */}
-          <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/15 text-white max-w-sm w-full space-y-4 shadow-xl">
-            <h3 className="font-serif font-bold text-base text-amber-300 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
+          <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-amber-300 text-stone-900 max-w-sm w-full space-y-4 shadow-2xs">
+            <h3 className="font-serif font-bold text-base text-amber-950 flex items-center gap-2">
+              <Sparkles className="w-4 h-4 text-amber-600" />
               <span>Library Subscription Desk</span>
             </h3>
-            <p className="text-xs text-slate-200">
+            <p className="text-xs text-stone-600">
               Have a custom acquisition requirement, multi-campus license, or need vendor registration forms?
             </p>
-            <div className="space-y-2 text-xs border-t border-white/10 pt-3">
+            <div className="space-y-2 pt-2 border-t border-amber-100 text-xs">
               <a
-                href="tel:+919888934889"
-                className="flex items-center gap-2 hover:text-amber-300 transition-colors"
+                href="mailto:contact@npajournals.org"
+                className="flex items-center gap-2 text-stone-800 hover:text-amber-800 font-medium transition-colors"
               >
-                <Phone className="w-3.5 h-3.5 text-amber-400" />
-                <span>+91-9888934889 / 7986925354</span>
+                <Mail className="w-4 h-4 text-amber-600" />
+                <span>contact@npajournals.org</span>
               </a>
               <a
-                href="mailto:info@npajournals.org"
-                className="flex items-center gap-2 hover:text-amber-300 transition-colors"
+                href="tel:+919888934889"
+                className="flex items-center gap-2 text-stone-800 hover:text-amber-800 font-medium transition-colors"
               >
-                <Mail className="w-3.5 h-3.5 text-amber-400" />
-                <span>info@npajournals.org / editornrjbe@gmail.com</span>
+                <Phone className="w-4 h-4 text-amber-600" />
+                <span>+91-9888934889 / +91-7986925354</span>
               </a>
             </div>
             <a

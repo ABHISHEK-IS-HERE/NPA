@@ -130,59 +130,59 @@ export const StoreCatalog: React.FC<StoreCatalogProps> = ({ issues, plans, setti
   return (
     <div className="space-y-12 pb-16">
       {/* Store Hero Banner */}
-      <section className="bg-gradient-to-r from-navy-950 via-primary-950 to-navy-900 text-white py-12 px-4 sm:px-6 lg:px-8 border-b border-navy-800">
+      <section className="bg-gradient-to-b from-[#fefce8] via-[#fefbf0] to-[#fffdf5] text-stone-900 py-12 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="space-y-3 max-w-2xl text-center md:text-left">
             <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
-              <span className="bg-amber-500 text-navy-950 text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">
+              <span className="bg-amber-400 text-stone-950 text-xs font-extrabold uppercase tracking-wider px-3 py-1 rounded-full border border-amber-500/40">
                 NPA Official Publishing &amp; Subscription Store
               </span>
-              <span className="text-xs text-slate-300 font-mono">
+              <span className="text-xs text-stone-500 font-mono">
                 ISSN Registered • Refereed Editions
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-white tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">
               Order Physical Journal Copies &amp; Subscription Packages
             </h1>
 
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-stone-600 leading-relaxed">
               Purchase physical bound periodical volumes, register institutional library subscriptions with multi-year savings, or order author APC and certificate bundles. Fast dispatch via India Post Speed Post across India and airmail internationally.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-slate-300">
+            <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-stone-600">
               <span className="flex items-center gap-1.5">
-                <Truck className="w-4 h-4 text-emerald-400" />
+                <Truck className="w-4 h-4 text-emerald-600" />
                 <span>Speed Post Across India (Free)</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-amber-400" />
+                <ShieldCheck className="w-4 h-4 text-amber-700" />
                 <span>UGC-CARE Compliant API Score</span>
               </span>
               <span className="flex items-center gap-1.5">
-                <Award className="w-4 h-4 text-primary-400" />
+                <Award className="w-4 h-4 text-amber-800" />
                 <span>Zenodo &amp; CrossRef DOI Indexed</span>
               </span>
             </div>
           </div>
 
           {/* Quick Institutional Callout Card */}
-          <div className="bg-white/5 border border-amber-500/30 p-5 rounded-2xl backdrop-blur-xs flex flex-col gap-3 max-w-sm flex-shrink-0 text-left">
+          <div className="bg-white/90 border border-amber-300 p-5 rounded-2xl shadow-2xs flex flex-col gap-3 max-w-sm flex-shrink-0 text-left">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold uppercase tracking-wider bg-amber-500 text-navy-950 px-2 py-0.5 rounded">
+              <span className="text-[10px] font-extrabold uppercase tracking-wider bg-amber-200 text-amber-950 px-2 py-0.5 rounded border border-amber-300">
                 For University Libraries
               </span>
-              <CurrencySwitcher variant="dark" />
+              <CurrencySwitcher variant="compact" />
             </div>
-            <h4 className="text-sm font-serif font-bold text-white leading-snug">
+            <h4 className="text-sm font-serif font-bold text-stone-900 leading-snug">
               Need an Official Proforma Invoice for College PO?
             </h4>
-            <p className="text-xs text-slate-300">
+            <p className="text-xs text-stone-600">
               Generate an immediate quotation with 30-day price lock, GSTIN, and bank mandate for your acquisition committee.
             </p>
             <Link
               href="/institutions"
-              className="inline-flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-navy-950 font-bold text-xs py-2 px-3 rounded-lg shadow transition-all"
+              className="inline-flex items-center justify-center gap-1.5 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold text-xs py-2 px-3 rounded-lg shadow-2xs transition-all"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Generate Proforma Invoice</span>
@@ -193,9 +193,9 @@ export const StoreCatalog: React.FC<StoreCatalogProps> = ({ issues, plans, setti
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-14">
         {/* DISCIPLINE FILTER BAR (Benchmarked against mysubs.in categories) */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-3 sm:p-4 rounded-xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2 text-xs font-bold text-navy-900">
-            <Filter className="w-4 h-4 text-primary-700" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-3 sm:p-4 rounded-xl border border-amber-200/80 shadow-2xs">
+          <div className="flex items-center gap-2 text-xs font-bold text-stone-900">
+            <Filter className="w-4 h-4 text-amber-700" />
             <span>Filter by Academic Discipline:</span>
           </div>
 
@@ -207,8 +207,8 @@ export const StoreCatalog: React.FC<StoreCatalogProps> = ({ issues, plans, setti
                 onClick={() => setSelectedDiscipline(d.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   selectedDiscipline === d.id
-                    ? 'bg-primary-800 text-white shadow-xs'
-                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                    ? 'bg-amber-400 text-stone-950 shadow-2xs font-bold'
+                    : 'bg-stone-100 text-stone-700 hover:bg-amber-100'
                 }`}
               >
                 {d.label}

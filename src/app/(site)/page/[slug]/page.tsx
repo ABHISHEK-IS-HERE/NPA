@@ -99,26 +99,26 @@ export default async function DynamicCMSPage({ params }: DynamicPageProps) {
             </div>
 
             {/* Quick Downloads Box */}
-            <div className="bg-slate-900 text-white rounded-xl p-5 shadow-sm space-y-3 text-xs">
-              <div className="flex items-center gap-2 text-amber-400 font-bold">
-                <Download className="w-4 h-4" />
+            <div className="bg-amber-50/70 text-stone-900 rounded-xl p-5 border border-amber-200/80 shadow-2xs space-y-3 text-xs">
+              <div className="flex items-center gap-2 text-amber-800 font-bold">
+                <Download className="w-4 h-4 text-amber-700" />
                 <span>Author Resources</span>
               </div>
-              <p className="text-slate-300 text-[11px]">
+              <p className="text-stone-600 text-[11px]">
                 Download standardized formatting files for preparation:
               </p>
               <div className="space-y-2 pt-1">
                 <a
                   href="/templates/Copyright-Form.pdf"
                   download
-                  className="block p-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors border border-slate-700 text-[11px]"
+                  className="block p-2 rounded bg-white hover:bg-amber-100 text-stone-800 transition-colors border border-amber-200 text-[11px] font-medium"
                 >
                   &darr; Copyright Form (PDF)
                 </a>
                 <a
                   href="/templates/Paper-Template.pdf"
                   download
-                  className="block p-2 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 transition-colors border border-slate-700 text-[11px]"
+                  className="block p-2 rounded bg-white hover:bg-amber-100 text-stone-800 transition-colors border border-amber-200 text-[11px] font-medium"
                 >
                   &darr; Manuscript Template (PDF)
                 </a>
@@ -126,16 +126,16 @@ export default async function DynamicCMSPage({ params }: DynamicPageProps) {
             </div>
 
             {/* Quick Submit CTA */}
-            <div className="bg-gradient-to-br from-primary-800 to-navy-900 text-white rounded-xl p-5 text-xs text-center space-y-3">
-              <h4 className="font-serif font-bold text-sm">Ready to Publish?</h4>
-              <p className="text-slate-300 text-[11px]">
-                Submit your paper online for fast-track double blind review.
+            <div className="bg-gradient-to-b from-[#fefce8] to-[#fffdf5] border border-amber-300 text-stone-900 rounded-xl p-5 text-xs text-center space-y-3 shadow-2xs">
+              <h4 className="font-serif font-bold text-sm text-stone-900">Ready to Publish?</h4>
+              <p className="text-stone-600 text-[11px] leading-relaxed">
+                Submit your manuscript to NRJBE for rigorous double-blind peer review.
               </p>
               <Link
                 href="/submit-paper"
-                className="inline-block bg-amber-500 hover:bg-amber-600 text-navy-950 font-bold px-4 py-2 rounded-lg text-xs transition-colors w-full"
+                className="inline-block w-full py-2 bg-amber-500 hover:bg-amber-600 text-stone-950 font-bold rounded-lg shadow-2xs transition-all"
               >
-                Submit Paper Online
+                Submit Manuscript &rarr;
               </Link>
             </div>
           </div>

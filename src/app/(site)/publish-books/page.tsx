@@ -22,6 +22,8 @@ import {
   Building,
   ArrowRight,
   Send,
+  BookMarked,
+  GraduationCap,
 } from 'lucide-react';
 import { useCurrency } from '@/context/CurrencyContext';
 
@@ -54,25 +56,25 @@ export default function PublishBooksPage() {
   };
 
   return (
-    <div className="space-y-12 pb-20 bg-slate-50 min-h-screen">
+    <div className="space-y-12 pb-20 bg-[#fdfbf2] min-h-screen">
       {/* Hero Banner */}
-      <section className="bg-gradient-to-r from-navy-950 via-primary-950 to-navy-900 text-white py-14 px-4 sm:px-6 lg:px-8 border-b border-navy-800">
+      <section className="bg-gradient-to-b from-[#fefce8] via-[#fefbf0] to-[#fffdf5] text-stone-900 py-14 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="space-y-4 max-w-3xl text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-amber-400/30">
-              <BookOpen className="w-4 h-4 text-amber-400" />
+            <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-950 text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full border border-amber-300">
+              <BookOpen className="w-4 h-4 text-amber-700" />
               <span>National Press Associates &bull; Book Publishing Wing</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-stone-900 tracking-tight leading-tight">
               Publish Your Academic Book with National &amp; International ISBN
             </h1>
 
-            <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-stone-600 leading-relaxed max-w-2xl">
               Enhance your academic portfolio, secure crucial <strong>UGC / API promotion score points</strong>, and establish your scholarly legacy. We publish authored textbooks, edited volumes with peer-reviewed chapters, Ph.D. theses monographs, and conference proceedings.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-slate-300">
+            <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs text-stone-600">
               <span className="flex items-center gap-1.5 bg-white/5 px-3 py-1.5 rounded-lg border border-white/10">
                 <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>Govt. Registered ISBN (Ministry of Education)</span>
@@ -133,28 +135,28 @@ export default function PublishBooksPage() {
             <span className="text-xs font-bold uppercase tracking-wider text-primary-700 bg-primary-50 px-3 py-1 rounded-full border border-primary-100">
               Publishing Formats
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-navy-900 mt-2">
+            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900 mt-2">
               Select Your Academic Publication Category
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm text-stone-500 mt-1">
               All books are published under National Press Associates with official 13-digit ISBN and barcode.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Format 1 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-amber-200/80 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-navy-100 text-navy-800 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
                   <BookOpen className="w-5 h-5" />
                 </div>
-                <h3 className="font-serif font-bold text-base text-navy-900">
+                <h3 className="font-serif font-bold text-base text-stone-900">
                   Edited Volumes with ISBN
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-stone-600 leading-relaxed">
                   Serve as Chief Editor and invite research chapters from scholars. Each chapter receives individual page numbers and certificates.
                 </p>
-                <ul className="space-y-1.5 text-[11px] text-slate-600 pt-2 border-t border-slate-100">
+                <ul className="space-y-1.5 text-[11px] text-stone-600 pt-2 border-t border-amber-100">
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>UGC API Points: 10 per chapter</span>
@@ -170,10 +172,10 @@ export default function PublishBooksPage() {
                 </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100">
+              <div className="pt-4 mt-4 border-t border-amber-100">
                 <a
                   href="#inquiry-form"
-                  className="block text-center w-full py-2 bg-slate-900 hover:bg-slate-950 text-white text-xs font-bold rounded-lg transition-colors"
+                  className="block text-center w-full py-2 bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold rounded-lg transition-colors shadow-2xs"
                 >
                   Submit Proposal
                 </a>
@@ -181,18 +183,18 @@ export default function PublishBooksPage() {
             </div>
 
             {/* Format 2 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-amber-200/80 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
               <div className="space-y-3">
                 <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
                   <Award className="w-5 h-5" />
                 </div>
-                <h3 className="font-serif font-bold text-base text-navy-900">
+                <h3 className="font-serif font-bold text-base text-stone-900">
                   Authored Textbooks &amp; Reference
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
+                <p className="text-xs text-stone-600 leading-relaxed">
                   Single or co-authored academic textbooks for undergraduate and postgraduate university curricula.
                 </p>
-                <ul className="space-y-1.5 text-[11px] text-slate-600 pt-2 border-t border-slate-100">
+                <ul className="space-y-1.5 text-[11px] text-stone-600 pt-2 border-t border-amber-100">
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                     <span>National or International ISBN</span>
@@ -208,10 +210,10 @@ export default function PublishBooksPage() {
                 </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100">
+              <div className="pt-4 mt-4 border-t border-amber-100">
                 <a
                   href="#inquiry-form"
-                  className="block text-center w-full py-2 bg-slate-900 hover:bg-slate-950 text-white text-xs font-bold rounded-lg transition-colors"
+                  className="block text-center w-full py-2 bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold rounded-lg transition-colors shadow-2xs"
                 >
                   Submit Proposal
                 </a>
@@ -219,37 +221,37 @@ export default function PublishBooksPage() {
             </div>
 
             {/* Format 3 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-amber-200/80 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center">
-                  <ShieldCheck className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                  <BookMarked className="w-5 h-5" />
                 </div>
-                <h3 className="font-serif font-bold text-base text-navy-900">
-                  Thesis / Monograph Conversion
+                <h3 className="font-serif font-bold text-base text-stone-900">
+                  Ph.D. Thesis Monograph
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  Convert your accepted Ph.D. dissertation or research monograph into a formal academic book with ISBN.
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Transform your awarded doctoral dissertation into a recognized reference book with official ISBN and library indexing.
                 </p>
-                <ul className="space-y-1.5 text-[11px] text-slate-600 pt-2 border-t border-slate-100">
+                <ul className="space-y-1.5 text-[11px] text-stone-600 pt-2 border-t border-amber-100">
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Protect your original research</span>
+                    <span>Official ISBN Registration</span>
                   </li>
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Permanent catalog record</span>
+                    <span>University Library Distribution</span>
                   </li>
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Speed Post dispatch of book copies</span>
+                    <span>Global DOI Assignment</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100">
+              <div className="pt-4 mt-4 border-t border-amber-100">
                 <a
                   href="#inquiry-form"
-                  className="block text-center w-full py-2 bg-slate-900 hover:bg-slate-950 text-white text-xs font-bold rounded-lg transition-colors"
+                  className="block text-center w-full py-2 bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold rounded-lg transition-colors shadow-2xs"
                 >
                   Submit Proposal
                 </a>
@@ -257,39 +259,39 @@ export default function PublishBooksPage() {
             </div>
 
             {/* Format 4 */}
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="bg-white rounded-2xl p-6 border border-amber-200/80 shadow-2xs hover:shadow-md transition-all flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="w-10 h-10 rounded-xl bg-purple-100 text-purple-800 flex items-center justify-center">
-                  <Building className="w-5 h-5" />
+                <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center">
+                  <GraduationCap className="w-5 h-5" />
                 </div>
-                <h3 className="font-serif font-bold text-base text-navy-900">
-                  Conference Proceedings with ISBN
+                <h3 className="font-serif font-bold text-base text-stone-900">
+                  Conference Proceedings
                 </h3>
-                <p className="text-xs text-slate-600 leading-relaxed">
-                  For colleges, universities, and seminar committees organizing national and international conferences.
+                <p className="text-xs text-stone-600 leading-relaxed">
+                  Publish proceedings for national and international seminars, symposiums, and university conferences with ISBN and DOI.
                 </p>
-                <ul className="space-y-1.5 text-[11px] text-slate-600 pt-2 border-t border-slate-100">
+                <ul className="space-y-1.5 text-[11px] text-stone-600 pt-2 border-t border-amber-100">
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Bulk printed proceedings copies</span>
+                    <span>Fast Turnaround for Conferences</span>
                   </li>
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>College logo &amp; organizers featured</span>
+                    <span>Printed Copies for Delegates</span>
                   </li>
                   <li className="flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Fast turnaround for conference date</span>
+                    <span>E-Proceedings &amp; Certificates</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="pt-4 mt-4 border-t border-slate-100">
+              <div className="pt-4 mt-4 border-t border-amber-100">
                 <a
                   href="#inquiry-form"
-                  className="block text-center w-full py-2 bg-slate-900 hover:bg-slate-950 text-white text-xs font-bold rounded-lg transition-colors"
+                  className="block text-center w-full py-2 bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold rounded-lg transition-colors shadow-2xs"
                 >
-                  Request Quotation
+                  Submit Proposal
                 </a>
               </div>
             </div>
@@ -480,7 +482,7 @@ export default function PublishBooksPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="w-full bg-gradient-to-r from-primary-700 to-navy-900 hover:from-primary-800 hover:to-navy-950 text-white font-bold text-sm py-3 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-stone-950 font-bold text-sm py-3 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   <Send className="w-4 h-4" />
                   <span>{submitting ? 'Submitting Proposal...' : 'Submit Book Publishing Proposal'}</span>

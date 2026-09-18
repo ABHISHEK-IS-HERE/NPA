@@ -342,20 +342,20 @@ export const ScholarReaderView: React.FC<ScholarReaderViewProps> = ({
             </div>
 
             {/* 2. Institutional Library Portal Link */}
-            <div className="bg-gradient-to-br from-navy-950 to-primary-950 text-white rounded-2xl p-5 shadow-xs space-y-3">
-              <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-4 h-4" />
+            <div className="bg-amber-50/80 border border-amber-300 text-stone-900 rounded-2xl p-5 shadow-2xs space-y-3">
+              <div className="flex items-center gap-2 text-amber-800 text-xs font-bold uppercase tracking-wider">
+                <Sparkles className="w-4 h-4 text-amber-600" />
                 <span>For University Libraries</span>
               </div>
-              <h4 className="font-serif font-bold text-white text-sm leading-snug">
+              <h4 className="font-serif font-bold text-stone-900 text-sm leading-snug">
                 Subscribing for a College or Institution?
               </h4>
-              <p className="text-xs text-slate-300">
+              <p className="text-xs text-stone-600">
                 Generate an immediate Proforma Invoice on NPA letterhead with GSTIN and locked-in multi-year rates.
               </p>
               <Link
                 href="/institutions"
-                className="inline-flex items-center justify-center gap-1.5 w-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold py-2 px-3 rounded-lg border border-white/20 transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 w-full bg-amber-500 hover:bg-amber-600 text-stone-950 text-xs font-bold py-2 px-3 rounded-lg shadow-2xs transition-colors"
               >
                 <span>Generate Proforma Invoice</span>
                 <ExternalLink className="w-3 h-3" />

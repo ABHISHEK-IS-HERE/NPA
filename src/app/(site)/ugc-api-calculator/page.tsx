@@ -231,38 +231,38 @@ export default function UgcApiCalculatorPage() {
         </div>
 
         {/* Live Score Counter Ribbon */}
-        <div className="bg-navy-950 text-white rounded-xl p-5 sm:p-6 shadow-md border border-navy-800 sticky top-16 z-30">
+        <div className="bg-[#fffdf5] text-stone-900 rounded-xl p-5 sm:p-6 shadow-md border-2 border-amber-300 sticky top-16 z-30 backdrop-blur-md">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
+              <span className="text-xs text-stone-500 font-semibold uppercase tracking-wider">
                 Total Verified Research Score
               </span>
               <div className="flex items-baseline gap-2 mt-0.5">
-                <span className="text-3xl sm:text-4xl font-mono font-bold text-amber-400">
+                <span className="text-3xl sm:text-4xl font-mono font-bold text-amber-600">
                   {grandTotalScore}
                 </span>
-                <span className="text-xs text-slate-300 font-medium">UGC API Points</span>
+                <span className="text-xs text-stone-600 font-medium">UGC API Points</span>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-4 text-xs">
-              <div className="bg-navy-900 px-3 py-1.5 rounded border border-navy-800">
-                <span className="text-slate-400 block text-[10px]">Journals Score:</span>
-                <span className="font-mono font-bold text-white text-sm">{totalPaperScore} pts</span>
+              <div className="bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200/80">
+                <span className="text-stone-500 block text-[10px]">Journals Score:</span>
+                <span className="font-mono font-bold text-stone-900 text-sm">{totalPaperScore} pts</span>
               </div>
-              <div className="bg-navy-900 px-3 py-1.5 rounded border border-navy-800">
-                <span className="text-slate-400 block text-[10px]">Books/Chapters:</span>
-                <span className="font-mono font-bold text-white text-sm">{totalBookScore} pts</span>
+              <div className="bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200/80">
+                <span className="text-stone-500 block text-[10px]">Books/Chapters:</span>
+                <span className="font-mono font-bold text-stone-900 text-sm">{totalBookScore} pts</span>
               </div>
-              <div className="bg-navy-900 px-3 py-1.5 rounded border border-navy-800">
-                <span className="text-slate-400 block text-[10px]">Proceedings:</span>
-                <span className="font-mono font-bold text-white text-sm">{totalConfScore} pts</span>
+              <div className="bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200/80">
+                <span className="text-stone-500 block text-[10px]">Proceedings:</span>
+                <span className="font-mono font-bold text-stone-900 text-sm">{totalConfScore} pts</span>
               </div>
 
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold px-4 py-2 rounded-lg text-xs transition-colors shadow-sm"
+                className="inline-flex items-center gap-1.5 bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold px-4 py-2 rounded-lg text-xs transition-colors shadow-2xs"
               >
                 <Printer className="w-4 h-4" />
                 <span>Print Appraisal Sheet</span>
