@@ -5,10 +5,11 @@
  * All rights reserved.
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { BookOpen, FileUp, Sparkles, ShoppingBag } from 'lucide-react';
+import { BookOpen, FileUp, Sparkles, ShoppingBag, Search } from 'lucide-react';
 import { CartButton } from '@/components/cart/CartButton';
+import { GlobalSearchModal } from '@/components/search/GlobalSearchModal';
 
 interface HeaderProps {
   settings: {
@@ -20,6 +21,19 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ settings }) => {
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // Global keyboard shortcut: Ctrl+K or Cmd+K
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
   return (
     <header className="bg-white border-b border-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
@@ -45,8 +59,21 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
             </div>
           </Link>
 
-          {/* Quick Action CTAs & Cart */}
+          {/* Quick Action CTAs, Search & Cart */}
           <div className="flex flex-wrap items-center justify-center gap-2.5">
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="inline-flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs sm:text-sm font-semibold px-3 py-2.5 rounded-lg border border-slate-300 transition-colors group"
+              title="Search Articles, DOIs, Authors (Ctrl+K)"
+            >
+              <Search className="w-4 h-4 text-slate-500 group-hover:text-primary-700 transition-colors" />
+              <span className="hidden sm:inline">Search</span>
+              <kbd className="hidden md:inline-block px-1.5 py-0.2 text-[10px] font-mono font-semibold text-slate-500 bg-white rounded border border-slate-300">
+                ⌘K
+              </kbd>
+            </button>
+
             <Link
               href="/institutions"
               className="inline-flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs sm:text-sm font-semibold px-3 py-2.5 rounded-lg border border-amber-300 transition-colors"
@@ -77,6 +104,9 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
           </div>
         </div>
       </div>
+
+      {/* Global Search Modal */}
+      <GlobalSearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 };

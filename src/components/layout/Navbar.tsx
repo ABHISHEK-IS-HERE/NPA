@@ -114,21 +114,34 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
           </div>
 
           {/* Journal Store, Institutional PO & Search shortcuts in navbar */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden lg:flex items-center gap-1.5">
             <Link
               href="/institutions"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/institutions'
                   ? 'bg-amber-500 text-navy-950 font-bold'
                   : 'text-amber-200 bg-navy-900 hover:bg-navy-800 border border-amber-500/40'
               }`}
+              title="Institutional & Library Subscription Orders"
             >
-              <span>🏛️ For Libraries &amp; PO</span>
+              <span>🏛️ Libraries &amp; PO</span>
+            </Link>
+
+            <Link
+              href="/publish-books"
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                pathname === '/publish-books'
+                  ? 'bg-emerald-600 text-white font-bold'
+                  : 'text-emerald-300 bg-navy-900 hover:bg-navy-800 border border-emerald-500/40'
+              }`}
+              title="Publish Academic Books, Edited Volumes & Monographs with ISBN"
+            >
+              <span>📚 Publish Books</span>
             </Link>
 
             <Link
               href="/store"
-              className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+              className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-md transition-colors ${
                 pathname === '/store'
                   ? 'bg-amber-500 text-navy-950 font-bold'
                   : 'text-slate-200 bg-navy-900 hover:bg-navy-800 border border-navy-700'
@@ -136,14 +149,6 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
             >
               <ShoppingBag className="w-3.5 h-3.5 text-amber-400" />
               <span>Store</span>
-            </Link>
-
-            <Link
-              href="/current-issue#search-articles"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-slate-300 bg-navy-900 hover:bg-navy-800 rounded-md border border-navy-700 transition-colors"
-            >
-              <Search className="w-3.5 h-3.5 text-slate-400" />
-              <span>Search DOIs</span>
             </Link>
           </div>
 
@@ -218,6 +223,28 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
           })}
 
           <div className="pt-3 border-t border-navy-800 mt-2 flex flex-col gap-2">
+            <Link
+              href="/store"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2 px-3 bg-amber-500 text-navy-950 text-xs font-bold rounded-md flex items-center justify-center gap-1.5"
+            >
+              <ShoppingBag className="w-3.5 h-3.5" />
+              <span>Periodical &amp; Issue Store</span>
+            </Link>
+            <Link
+              href="/publish-books"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2 px-3 bg-emerald-600 text-white text-xs font-semibold rounded-md"
+            >
+              📚 Publish Academic Books (ISBN)
+            </Link>
+            <Link
+              href="/institutions"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2 px-3 bg-navy-800 text-amber-300 text-xs font-medium rounded-md border border-amber-500/40"
+            >
+              🏛️ Institutional Proforma Invoice Generator
+            </Link>
             <Link
               href="/submit-paper"
               onClick={() => setMobileMenuOpen(false)}

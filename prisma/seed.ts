@@ -96,6 +96,7 @@ async function main() {
       { label: 'Copyright Agreement Form', path: '/page/copyright-form', parentId: navAuthors.id, order: 4 },
       { label: 'View Paper Template', path: '/page/paper-template', parentId: navAuthors.id, order: 5 },
       { label: 'Publication Charges (APC)', path: '/page/publication-charges', parentId: navAuthors.id, order: 6 },
+      { label: 'Publish Book / Monograph (ISBN)', path: '/publish-books', parentId: navAuthors.id, order: 7 },
     ],
   });
 
