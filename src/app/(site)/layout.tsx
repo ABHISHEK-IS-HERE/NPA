@@ -14,6 +14,7 @@ import { Footer } from '@/components/layout/Footer';
 import { CartProvider } from '@/context/CartContext';
 import { CurrencyProvider } from '@/context/CurrencyContext';
 import { CartDrawer } from '@/components/cart/CartDrawer';
+import { QuickAccessDock } from '@/components/common/QuickAccessDock';
 
 export const revalidate = 0; // Fresh site settings & navigation on every load
 
@@ -39,8 +40,10 @@ export default async function SiteLayout({
           <main className="flex-1">{children}</main>
           <Footer settings={settings} sisterJournals={sisterJournals} />
           <CartDrawer />
+          <QuickAccessDock />
         </div>
       </CartProvider>
     </CurrencyProvider>
   );
 }
+

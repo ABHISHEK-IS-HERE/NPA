@@ -9,6 +9,7 @@ import { db } from '@/lib/db';
 import { HeroBanner } from '@/components/home/HeroBanner';
 import { JournalProfileCard } from '@/components/home/JournalProfileCard';
 import { ArticleCard } from '@/components/articles/ArticleCard';
+import { ResearchDiscoverySection } from '@/components/home/ResearchDiscoverySection';
 import { MagazineCover } from '@/components/covers/MagazineCover';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
 import {
@@ -41,7 +42,7 @@ export default async function HomePage() {
         articles: {
           where: { status: 'Published' },
           orderBy: { id: 'asc' },
-          take: 6, // Show top 6 papers on homepage
+          take: 24, // Show up to 24 papers for rich tabbed streams & taxonomy filtering
         },
       },
     }),
@@ -557,62 +558,65 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* 3. Current Issue Research Articles Section */}
-        <section className="mb-12" id="current-issue-section">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-3 border-b border-slate-200">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="bg-primary-100 text-primary-800 text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded">
-                  Latest Research
-                </span>
-                <span className="text-xs text-slate-500 font-medium">Open Access Articles</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-serif font-bold text-navy-900 mt-1">
-                {currentIssue?.title || 'Volume 12, Issue 1 (January - June 2026)'}
-              </h2>
-            </div>
+        {/* 3. Dynamic Research Discovery: Tabbed Streams & Subject Taxonomy */}
+        <ResearchDiscoverySection
+          currentIssueTitle={currentIssue?.title || 'Volume 12, Issue 1 (January - June 2026)'}
+          articles={
+            currentIssue?.articles
+              ? currentIssue.articles.map((article) => ({
+                  ...article,
+                  issue: {
+                    id: currentIssue.id,
+                    title: currentIssue.title,
+                    issueNumber: currentIssue.issueNumber,
+                    volume: currentIssue.volume,
+                  },
+                }))
+              : []
+          }
+        />
 
-            <Link
-              href="/current-issue"
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-primary-700 hover:text-primary-900 transition-colors group"
-            >
-              <span>View All Papers in Current Issue</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+        {/* Indexing Partners & Digital Archiving Strip (Benchmark: ScienceDirect) */}
+        <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-2xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                Digital Archiving &amp; Abstracting
+              </span>
+              <h3 className="font-serif font-bold text-navy-950 text-base sm:text-lg mt-0.5">
+                Globally Indexed &amp; Citations Tracked
+              </h3>
+            </div>
+            <span className="text-xs text-slate-500 font-medium">
+              Permanent DOI Repository: <strong className="font-mono text-primary-900">10.5281/zenodo</strong>
+            </span>
           </div>
 
-          {currentIssue?.articles && currentIssue.articles.length > 0 ? (
-            <div className="space-y-4">
-              {currentIssue.articles.map((article) => (
-                <ArticleCard
-                  key={article.id}
-                  article={{
-                    ...article,
-                    issue: {
-                      id: currentIssue.id,
-                      title: currentIssue.title,
-                      issueNumber: currentIssue.issueNumber,
-                      volume: currentIssue.volume,
-                    },
-                  }}
-                />
-              ))}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-1">
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">Google Scholar</span>
+              <span className="text-[10px] text-slate-500">Citation Metrics</span>
             </div>
-          ) : (
-            <div className="p-8 text-center bg-white rounded-xl border border-slate-200 text-slate-500">
-              No published papers found in this issue yet.
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">Zenodo (CERN)</span>
+              <span className="text-[10px] text-slate-500">Permanent Repository</span>
             </div>
-          )}
-
-          {/* View Complete Issue CTA */}
-          <div className="text-center pt-6">
-            <Link
-              href="/current-issue"
-              className="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white text-sm font-semibold px-6 py-3 rounded-lg shadow-sm hover:shadow transition-all"
-            >
-              <BookOpen className="w-4 h-4 text-amber-300" />
-              <span>Browse All Articles &amp; Download Certificates &rarr;</span>
-            </Link>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">CrossRef</span>
+              <span className="text-[10px] text-slate-500">Official DOI Registry</span>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">ResearchGate</span>
+              <span className="text-[10px] text-slate-500">Academic Network</span>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">DRJI</span>
+              <span className="text-[10px] text-slate-500">Journal Indexing</span>
+            </div>
+            <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 hover:bg-white hover:border-primary-300 hover:shadow-2xs transition-all flex flex-col items-center text-center space-y-1">
+              <span className="font-bold text-xs sm:text-sm text-navy-900">ICI Journals</span>
+              <span className="text-[10px] text-slate-500">Master List Evaluation</span>
+            </div>
           </div>
         </section>
 

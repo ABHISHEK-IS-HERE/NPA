@@ -17,12 +17,14 @@ export const revalidate = 0;
 interface CurrentIssuePageProps {
   searchParams: {
     q?: string;
+    field?: string;
     issueId?: string;
   };
 }
 
 export default async function CurrentIssuePage({ searchParams }: CurrentIssuePageProps) {
   const query = searchParams.q?.trim();
+  const field = searchParams.field?.trim();
   const selectedIssueId = searchParams.issueId ? Number(searchParams.issueId) : undefined;
 
   // Find active or selected issue
@@ -52,13 +54,24 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
   }
 
   if (query) {
-    whereClause.OR = [
-      { title: { contains: query } },
-      { authors: { contains: query } },
-      { abstract: { contains: query } },
-      { keywords: { contains: query } },
-      { paperId: { contains: query } },
-    ];
+    if (field === 'title') {
+      whereClause.title = { contains: query };
+    } else if (field === 'author') {
+      whereClause.authors = { contains: query };
+    } else if (field === 'keywords') {
+      whereClause.keywords = { contains: query };
+    } else if (field === 'doi') {
+      whereClause.doi = { contains: query };
+    } else {
+      whereClause.OR = [
+        { title: { contains: query } },
+        { authors: { contains: query } },
+        { abstract: { contains: query } },
+        { keywords: { contains: query } },
+        { paperId: { contains: query } },
+        { doi: { contains: query } },
+      ];
+    }
   }
 
   const articles = await db.article.findMany({
@@ -153,6 +166,7 @@ export default async function CurrentIssuePage({ searchParams }: CurrentIssuePag
             {/* Search Filter Form */}
             <form action="/current-issue" method="GET" className="w-full md:w-auto flex-1 max-w-lg">
               {issue && <input type="hidden" name="issueId" value={issue.id} />}
+              {field && <input type="hidden" name="field" value={field} />}
               <div className="relative flex items-center">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 pointer-events-none" />
                 <input

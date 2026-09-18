@@ -94,15 +94,15 @@ export const JournalProfileCard: React.FC<JournalProfileCardProps> = ({ settings
   ];
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
-      <div className="bg-gradient-to-r from-primary-900 to-navy-900 text-white px-6 py-4 flex items-center justify-between">
+    <div className="bg-white rounded-2xl shadow-xs border border-slate-200 overflow-hidden mb-8">
+      <div className="bg-gradient-to-r from-slate-100 via-blue-50/60 to-amber-50/40 text-slate-900 px-6 py-4 flex items-center justify-between border-b border-slate-200">
         <div className="flex items-center gap-2.5">
-          <BookOpen className="w-5 h-5 text-amber-400" />
-          <h2 className="font-serif font-bold text-base sm:text-lg">
+          <BookOpen className="w-5 h-5 text-primary-800" />
+          <h2 className="font-serif font-bold text-base sm:text-lg text-navy-950">
             Journal Identification &amp; Key Parameters
           </h2>
         </div>
-        <span className="text-xs bg-amber-500/20 text-amber-300 font-semibold px-2.5 py-1 rounded border border-amber-400/30">
+        <span className="text-xs bg-amber-100 text-amber-900 font-bold px-3 py-1 rounded-full border border-amber-300 shadow-2xs">
           Refereed &amp; Indexed
         </span>
       </div>
