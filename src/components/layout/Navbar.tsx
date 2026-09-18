@@ -246,6 +246,20 @@ export const Navbar: React.FC<NavbarProps> = ({ items }) => {
               🏛️ Institutional Proforma Invoice Generator
             </Link>
             <Link
+              href="/ugc-api-calculator"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2 px-3 bg-navy-800 text-emerald-400 text-xs font-medium rounded-md border border-emerald-500/40"
+            >
+              🧮 UGC CAS &amp; API Score Calculator
+            </Link>
+            <Link
+              href="/dispatch-tracking"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full text-center py-2 px-3 bg-navy-800 text-slate-300 text-xs font-medium rounded-md border border-navy-700"
+            >
+              🚚 Track Speed Post Dispatch
+            </Link>
+            <Link
               href="/submit-paper"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full text-center py-2 px-3 bg-primary-700 text-white text-xs font-semibold rounded-md"

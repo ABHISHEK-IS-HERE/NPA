@@ -88,13 +88,42 @@ export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
+    const query = url.searchParams.get('query')?.trim();
 
     if (id) {
+      const cleanId = id.replace(/[^0-9]/g, '');
       const order = await db.subscriptionOrder.findUnique({
-        where: { id: Number(id) },
+        where: { id: Number(cleanId) },
       });
       if (!order) {
         return NextResponse.json({ error: 'Order not found' }, { status: 404 });
+      }
+      return NextResponse.json({ order });
+    }
+
+    if (query) {
+      const cleanId = query.replace(/[^0-9]/g, '');
+      let order = null;
+      if (cleanId) {
+        order = await db.subscriptionOrder.findUnique({
+          where: { id: Number(cleanId) },
+        });
+      }
+
+      if (!order) {
+        order = await db.subscriptionOrder.findFirst({
+          where: {
+            OR: [
+              { phone: { contains: query } },
+              { email: { contains: query } },
+              { trackingNumber: { contains: query } },
+            ],
+          },
+        });
+      }
+
+      if (!order) {
+        return NextResponse.json({ error: 'No subscription order found matching this reference.' }, { status: 404 });
       }
       return NextResponse.json({ order });
     }

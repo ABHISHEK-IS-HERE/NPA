@@ -91,22 +91,49 @@ export const Footer: React.FC<FooterProps> = ({ settings, sisterJournals }) => {
                 <Link href="/editorial-board" className="hover:text-amber-400 transition-colors">Editorial & Advisory Board</Link>
               </li>
               <li>
-                <Link href="/submit-paper" className="hover:text-amber-400 transition-colors font-medium text-amber-300">Submit Paper Online</Link>
+                <Link href="/submit-paper" className="hover:text-amber-400 transition-colors font-semibold text-amber-300">Submit Paper Online</Link>
               </li>
               <li>
                 <Link href="/track-status" className="hover:text-amber-400 transition-colors">Track Manuscript Status</Link>
               </li>
               <li>
-                <Link href="/subscribe" className="hover:text-amber-400 transition-colors">Journal Subscription</Link>
+                <Link href="/ugc-api-calculator" className="hover:text-amber-400 transition-colors font-medium text-emerald-400">
+                  🧮 UGC CAS &amp; API Score Calculator
+                </Link>
+              </li>
+              <li>
+                <Link href="/institutions" className="hover:text-amber-400 transition-colors">
+                  🏛️ Library Proforma Invoice Generator
+                </Link>
+              </li>
+              <li>
+                <Link href="/naac-compliance" className="hover:text-amber-400 transition-colors">
+                  📜 NAAC &amp; NIRF Library Compliance Kit
+                </Link>
+              </li>
+              <li>
+                <Link href="/catalog" className="hover:text-amber-400 transition-colors">
+                  📑 Annual Subscription Rate Catalog
+                </Link>
+              </li>
+              <li>
+                <Link href="/dispatch-tracking" className="hover:text-amber-400 transition-colors">
+                  🚚 Speed Post Dispatch &amp; Transit Tracker
+                </Link>
+              </li>
+              <li>
+                <Link href="/publish-books" className="hover:text-amber-400 transition-colors">
+                  📚 Publish Books / Monographs (ISBN)
+                </Link>
+              </li>
+              <li>
+                <Link href="/store" className="hover:text-amber-400 transition-colors">Journal Issue &amp; Print Store</Link>
               </li>
               <li>
                 <Link href="/page/peer-review-process" className="hover:text-amber-400 transition-colors">Peer Review Mechanism</Link>
               </li>
               <li>
                 <Link href="/page/publication-ethics" className="hover:text-amber-400 transition-colors">Publication Ethics (COPE)</Link>
-              </li>
-              <li>
-                <Link href="/page/plagiarism-policy" className="hover:text-amber-400 transition-colors">Plagiarism Policy</Link>
               </li>
             </ul>
           </div>

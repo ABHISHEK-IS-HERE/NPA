@@ -97,6 +97,7 @@ async function main() {
       { label: 'View Paper Template', path: '/page/paper-template', parentId: navAuthors.id, order: 5 },
       { label: 'Publication Charges (APC)', path: '/page/publication-charges', parentId: navAuthors.id, order: 6 },
       { label: 'Publish Book / Monograph (ISBN)', path: '/publish-books', parentId: navAuthors.id, order: 7 },
+      { label: '🧮 UGC CAS & API Score Calculator', path: '/ugc-api-calculator', parentId: navAuthors.id, order: 8 },
     ],
   });
 
@@ -117,9 +118,21 @@ async function main() {
     ],
   });
 
+  // Dropdown: Subscriptions & Libraries
   const navSubscribe = await prisma.navItem.create({
-    data: { label: 'Subscribe Journal', path: '/subscribe', order: 9 },
+    data: { label: 'Subscriptions & Libraries', path: '#', order: 9 },
   });
+  await prisma.navItem.createMany({
+    data: [
+      { label: 'Subscription Rates & Plans', path: '/subscribe', parentId: navSubscribe.id, order: 1 },
+      { label: '🏛️ For Libraries & Proforma Invoice', path: '/institutions', parentId: navSubscribe.id, order: 2 },
+      { label: '📜 NAAC & NIRF Compliance Kit', path: '/naac-compliance', parentId: navSubscribe.id, order: 3 },
+      { label: '📑 Annual Catalog & Rate List', path: '/catalog', parentId: navSubscribe.id, order: 4 },
+      { label: '🚚 Speed Post Dispatch Tracker', path: '/dispatch-tracking', parentId: navSubscribe.id, order: 5 },
+      { label: '🛒 Periodical & Issue Store', path: '/store', parentId: navSubscribe.id, order: 6 },
+    ],
+  });
+
   const navContact = await prisma.navItem.create({
     data: { label: 'Contact Us', path: '/contact', order: 10 },
   });
