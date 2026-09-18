@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   Inbox,
@@ -15,6 +16,7 @@ import {
   Send,
   Sparkles,
   BookOpen,
+  Award,
 } from 'lucide-react';
 
 export default function AdminSubmissionsPage() {
@@ -212,6 +214,17 @@ export default function AdminSubmissionsPage() {
                       <Download className="w-3.5 h-3.5 text-primary-700" />
                       <span>Download Manuscript</span>
                     </a>
+
+                    <Link
+                      href={`/admin/certificate/submission/${sub.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs font-semibold rounded-md border border-amber-300 transition-colors"
+                      title="Generate Acceptance Letter or Certificate"
+                    >
+                      <Award className="w-3.5 h-3.5 text-amber-700" />
+                      <span>Letter / Cert</span>
+                    </Link>
 
                     <button
                       onClick={() => handleOpenReview(sub)}

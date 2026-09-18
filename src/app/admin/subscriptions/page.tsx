@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import {
   CreditCard,
   CheckCircle2,
@@ -18,6 +19,7 @@ import {
   MessageCircle,
   Save,
   ShoppingBag,
+  Printer,
 } from 'lucide-react';
 
 export default function AdminSubscriptionsPage() {
@@ -301,6 +303,18 @@ export default function AdminSubscriptionsPage() {
                           <option value="Dispatched">Dispatched (Mailed)</option>
                           <option value="Delivered">Delivered</option>
                         </select>
+
+                        {/* Official Tax Invoice */}
+                        <Link
+                          href={`/order/NRJBE-ORD-${ord.id.toString().padStart(4, '0')}/invoice`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 text-slate-700 hover:bg-slate-100 rounded border border-slate-200 flex items-center gap-1 text-xs font-semibold"
+                          title="View and Print Official Tax Invoice"
+                        >
+                          <Printer className="w-3.5 h-3.5 text-primary-700" />
+                          <span className="hidden sm:inline">Invoice</span>
+                        </Link>
 
                         {/* WhatsApp Customer Action */}
                         <a

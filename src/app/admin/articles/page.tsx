@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import {
   FileText,
@@ -357,6 +358,16 @@ export default function AdminArticlesPage() {
 
                     <td className="p-3.5 align-top text-right whitespace-nowrap">
                       <div className="inline-flex items-center gap-1">
+                        <Link
+                          href={`/admin/certificate/article/${art.id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-1.5 text-amber-700 hover:bg-amber-50 rounded flex items-center gap-1 text-xs font-semibold"
+                          title="Generate & Print Official Author Certificate"
+                        >
+                          <Award className="w-4 h-4 text-amber-600" />
+                          <span className="hidden xl:inline text-[11px]">Cert</span>
+                        </Link>
                         <button
                           onClick={() => handleOpenEdit(art)}
                           className="p-1.5 text-slate-600 hover:bg-slate-100 rounded"

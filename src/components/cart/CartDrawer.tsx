@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import {
   X,
   ShoppingBag,
@@ -507,13 +508,15 @@ export const CartDrawer: React.FC = () => {
                     <ExternalLink className="w-3.5 h-3.5" />
                   </a>
 
-                  <button
-                    onClick={() => window.print()}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold py-2 px-4 rounded-lg border border-slate-200 transition-colors"
+                  <Link
+                    href={`/order/${confirmedOrder.orderNumber}/invoice`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold py-2.5 px-4 rounded-lg border border-slate-300 shadow-xs transition-colors"
                   >
-                    <Printer className="w-3.5 h-3.5" />
-                    <span>Print Receipt / Tax Invoice</span>
-                  </button>
+                    <Printer className="w-3.5 h-3.5 text-primary-700" />
+                    <span>View & Print Official Tax Invoice</span>
+                  </Link>
                 </div>
               </div>
             )}
