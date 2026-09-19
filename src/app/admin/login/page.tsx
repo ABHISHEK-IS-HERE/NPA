@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4" autoComplete="off">
             <div>
               <label className="block text-xs font-semibold text-slate-300 mb-1">
                 Admin Email Address
@@ -74,10 +74,11 @@ export default function AdminLoginPage() {
                 <input
                   type="email"
                   required
+                  autoComplete="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-950/80 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  placeholder="admin@nrjbe.in"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-950/80 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-slate-600"
+                  placeholder="name@organization.com"
                 />
               </div>
             </div>
@@ -91,10 +92,11 @@ export default function AdminLoginPage() {
                 <input
                   type="password"
                   required
+                  autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-950/80 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
-                  placeholder="••••••••"
+                  className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-slate-950/80 border border-slate-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary-500 placeholder:text-slate-600"
+                  placeholder="Enter your password"
                 />
               </div>
             </div>
