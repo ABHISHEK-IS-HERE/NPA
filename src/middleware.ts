@@ -12,6 +12,9 @@ const TOKEN_COOKIE_NAME = 'npa_admin_token';
 function getJwtSecret(): Uint8Array {
   const secret = process.env.JWT_SECRET;
   if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET environment variable is not set in production.');
+    }
     return new TextEncoder().encode('npa-journal-portal-dev-secret-key-change-in-prod');
   }
   return new TextEncoder().encode(secret);
@@ -65,6 +68,10 @@ export async function middleware(request: NextRequest) {
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  response.headers.set(
+    'Content-Security-Policy',
+    "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https: blob:; connect-src 'self' https://*.supabase.co https://*.supabase.in https://api.resend.com; frame-ancestors 'none';"
+  );
 
   return response;
 }

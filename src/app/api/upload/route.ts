@@ -29,8 +29,68 @@ const ALLOWED_MIME_TYPES = new Set([
   'image/webp',
 ]);
 
+const uploadRateLimits = new Map<string, { count: number; resetTime: number }>();
+
+function isUploadRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = uploadRateLimits.get(ip);
+  if (!record || now > record.resetTime) {
+    uploadRateLimits.set(ip, { count: 1, resetTime: now + 60 * 60 * 1000 });
+    return false;
+  }
+  record.count++;
+  return record.count > 15; // Max 15 uploads per hour
+}
+
+function isValidFileSignature(buffer: Buffer, ext: string): boolean {
+  if (buffer.length < 4) return false;
+
+  // PDF: %PDF- (0x25, 0x50, 0x44, 0x46)
+  if (ext === '.pdf') {
+    return buffer[0] === 0x25 && buffer[1] === 0x50 && buffer[2] === 0x44 && buffer[3] === 0x46;
+  }
+
+  // PNG: 89 50 4E 47
+  if (ext === '.png') {
+    return buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47;
+  }
+
+  // JPEG: FF D8 FF
+  if (ext === '.jpg' || ext === '.jpeg') {
+    return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
+  }
+
+  // DOCX: PK\x03\x04 (ZIP format)
+  if (ext === '.docx') {
+    return buffer[0] === 0x50 && buffer[1] === 0x4b && buffer[2] === 0x03 && buffer[3] === 0x04;
+  }
+
+  // DOC: D0 CF 11 E0 (CFBF format)
+  if (ext === '.doc') {
+    return buffer[0] === 0xd0 && buffer[1] === 0xcf && buffer[2] === 0x11 && buffer[3] === 0xe0;
+  }
+
+  // WEBP: RIFF....WEBP
+  if (ext === '.webp') {
+    return (
+      buffer[0] === 0x52 &&
+      buffer[1] === 0x49 &&
+      buffer[2] === 0x46 &&
+      buffer[3] === 0x46 &&
+      buffer.length >= 12 &&
+      buffer[8] === 0x57 &&
+      buffer[9] === 0x45 &&
+      buffer[10] === 0x42 &&
+      buffer[11] === 0x50
+    );
+  }
+
+  return false;
+}
+
 export async function POST(request: Request) {
   try {
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown-ip';
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const type = (formData.get('type') as string) || 'general';
@@ -67,6 +127,25 @@ export async function POST(request: Request) {
       );
     }
 
+    // Manuscripts can only be PDF or DOC/DOCX
+    if (type === 'manuscripts') {
+      const allowedManuscriptExts = new Set(['.pdf', '.doc', '.docx']);
+      if (!allowedManuscriptExts.has(originalExt)) {
+        return NextResponse.json(
+          { error: 'Manuscripts must be submitted in PDF or Microsoft Word (.doc, .docx) format.' },
+          { status: 400 }
+        );
+      }
+
+      // Rate limit manuscript uploads per IP
+      if (isUploadRateLimited(clientIp)) {
+        return NextResponse.json(
+          { error: 'Upload rate limit exceeded. Please wait before submitting additional files.' },
+          { status: 429 }
+        );
+      }
+    }
+
     // 3. Authorization check
     if (type !== 'manuscripts') {
       const admin = await getCurrentAdmin();
@@ -80,6 +159,14 @@ export async function POST(request: Request) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+
+    // 4. Magic-byte file signature validation to prevent disguised payloads
+    if (!isValidFileSignature(buffer, originalExt)) {
+      return NextResponse.json(
+        { error: `File content does not match the declared extension (${originalExt}). Upload rejected.` },
+        { status: 400 }
+      );
+    }
 
     const uploadResult = await uploadAsset(buffer, file.name, targetFolder, file.type);
     if (!uploadResult.success) {

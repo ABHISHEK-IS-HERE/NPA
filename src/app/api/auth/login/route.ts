@@ -9,26 +9,46 @@ import bcrypt from 'bcryptjs';
 import { signAdminToken, AUTH_COOKIE_CONFIG } from '@/lib/auth';
 import { isValidEmail } from '@/lib/validators';
 
-// In-memory rate limiter for login attempts (IP / email based)
-const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
+// In-memory rate limiter for login attempts (IP and email based)
+interface RateLimitRecord {
+  count: number;
+  lockedUntil: number;
+  firstAttempt: number;
+}
+
+const loginAttempts = new Map<string, RateLimitRecord>();
 
 function isRateLimited(key: string): boolean {
   const now = Date.now();
   const record = loginAttempts.get(key);
   if (!record) return false;
-  if (now < record.lockedUntil) return true;
-  if (now - record.lockedUntil > 15 * 60 * 1000) {
-    loginAttempts.delete(key);
+
+  // Currently locked
+  if (record.lockedUntil > 0 && now < record.lockedUntil) {
+    return true;
   }
+
+  // Lock has expired, reset
+  if (record.lockedUntil > 0 && now >= record.lockedUntil) {
+    loginAttempts.delete(key);
+    return false;
+  }
+
+  // Window expired (15 minutes from first attempt without lockout)
+  if (now - record.firstAttempt > 15 * 60 * 1000) {
+    loginAttempts.delete(key);
+    return false;
+  }
+
   return false;
 }
 
 function recordFailedAttempt(key: string) {
   const now = Date.now();
-  const record = loginAttempts.get(key) || { count: 0, lockedUntil: 0 };
+  const record = loginAttempts.get(key) || { count: 0, lockedUntil: 0, firstAttempt: now };
   record.count++;
   if (record.count >= 5) {
-    record.lockedUntil = now + 15 * 60 * 1000; // 15-minute lock
+    record.lockedUntil = now + 15 * 60 * 1000; // 15-minute lockout
   }
   loginAttempts.set(key, record);
 }
@@ -50,7 +70,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Invalid email address format.' }, { status: 400 });
     }
 
-    if (isRateLimited(cleanEmail)) {
+    const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown-ip';
+    const rateLimitKey = `${clientIp}:${cleanEmail}`;
+
+    if (isRateLimited(rateLimitKey)) {
       return NextResponse.json(
         { error: 'Too many failed login attempts. Please try again after 15 minutes.' },
         { status: 429 }

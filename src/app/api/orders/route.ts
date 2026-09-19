@@ -8,6 +8,7 @@ import { db } from '@/lib/db';
 import { getCurrentAdmin } from '@/lib/auth';
 import { validateOrderInput } from '@/lib/validators';
 import { sendOrderConfirmation } from '@/lib/email';
+import { getOrderAccessToken, verifyOrderAccessToken } from '@/lib/orderAuth';
 
 export const revalidate = 0;
 
@@ -37,13 +38,55 @@ export async function POST(req: NextRequest) {
       items,
     } = validation.data;
 
+    // 1. Fetch live pricing from database to prevent client-side price tampering
+    const [dbPlans, dbIssues, dbSettings] = await Promise.all([
+      db.subscriptionPlan.findMany(),
+      db.issue.findMany({ select: { id: true, printPrice: true, title: true } }),
+      db.siteSetting.findFirst({ where: { id: 1 } }),
+    ]);
+
+    const planMap = new Map(dbPlans.map((p) => [String(p.id), p.priceInr]));
+    const issueMap = new Map(dbIssues.map((i) => [String(i.id), i.printPrice || 450]));
+
+    const apcOnlinePrice = parseInt(dbSettings?.apcOnline?.replace(/[^0-9]/g, '') || '1800', 10);
+    const apcPrintPrice = parseInt(dbSettings?.apcPrint?.replace(/[^0-9]/g, '') || '2300', 10);
+
+    // Verify each item price against verified catalog
+    const verifiedItems = items.map((item) => {
+      let verifiedPrice = item.price;
+      const idStr = String(item.id);
+
+      if (planMap.has(idStr)) {
+        verifiedPrice = planMap.get(idStr)!;
+      } else if (issueMap.has(idStr) || issueMap.has(idStr.replace(/^issue-/, ''))) {
+        const cleanIssueId = idStr.replace(/^issue-/, '');
+        verifiedPrice = issueMap.get(cleanIssueId) || 450;
+      } else if (item.title.toLowerCase().includes('online publication apc') || item.title.toLowerCase().includes('apc online')) {
+        verifiedPrice = apcOnlinePrice;
+      } else if (item.title.toLowerCase().includes('print copy apc') || item.title.toLowerCase().includes('apc print')) {
+        verifiedPrice = apcPrintPrice;
+      } else {
+        const matchedPlan = dbPlans.find(
+          (p) => p.title.toLowerCase().trim() === item.title.toLowerCase().trim()
+        );
+        if (matchedPlan) {
+          verifiedPrice = matchedPlan.priceInr;
+        }
+      }
+
+      return {
+        ...item,
+        price: verifiedPrice,
+      };
+    });
+
     // Summary of purchased items
-    const summaryTitle = items
+    const summaryTitle = verifiedItems
       .map((item) => `${item.title} (x${item.quantity})`)
       .join(', ');
 
     // Calculate verified total amount server-side
-    const totalAmount = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
+    const totalAmount = verifiedItems.reduce((sum, it) => sum + it.price * it.quantity, 0);
 
     const order = await db.subscriptionOrder.create({
       data: {
@@ -59,12 +102,13 @@ export async function POST(req: NextRequest) {
         amount: totalAmount,
         paymentMode,
         status: 'Pending',
-        itemsJson: JSON.stringify(items),
+        itemsJson: JSON.stringify(verifiedItems),
         notes,
       },
     });
 
     const orderNumber = `NRJBE-ORD-${order.id.toString().padStart(4, '0')}`;
+    const accessToken = getOrderAccessToken(order.id, order.email);
 
     // Dispatch order confirmation email asynchronously
     sendOrderConfirmation(
@@ -72,13 +116,15 @@ export async function POST(req: NextRequest) {
       order.subscriberName,
       orderNumber,
       order.amount,
-      order.planTitle
+      order.planTitle,
+      accessToken
     ).catch((err) => console.error('Error sending order confirmation email:', err));
 
     return NextResponse.json({
       success: true,
       orderId: order.id,
       orderNumber,
+      accessToken,
       order,
     });
   } catch (error: any) {
@@ -95,6 +141,9 @@ export async function GET(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
     const query = url.searchParams.get('query')?.trim();
+    const token = url.searchParams.get('token');
+    const verifyEmail = url.searchParams.get('email')?.toLowerCase().trim();
+    const verifyPhone = url.searchParams.get('phone')?.trim();
 
     const admin = await getCurrentAdmin();
 
@@ -118,7 +167,21 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ order });
       }
 
-      // If public request, mask sensitive PII
+      // Public verification: require valid token OR matching email OR matching phone
+      const isTokenValid = verifyOrderAccessToken(order.id, order.email, token);
+      const isEmailValid = Boolean(verifyEmail && order.email.toLowerCase() === verifyEmail);
+      const cleanOrderPhone = order.phone.replace(/[^0-9]/g, '');
+      const cleanInputPhone = verifyPhone ? verifyPhone.replace(/[^0-9]/g, '') : '';
+      const isPhoneValid = Boolean(cleanInputPhone.length >= 8 && cleanOrderPhone.endsWith(cleanInputPhone.slice(-8)));
+
+      if (!isTokenValid && !isEmailValid && !isPhoneValid) {
+        return NextResponse.json(
+          { error: 'Unauthorized: Security token or matching email/phone verification required.' },
+          { status: 401 }
+        );
+      }
+
+      // Return masked PII for verified public request
       return NextResponse.json({
         order: {
           id: order.id,
@@ -139,10 +202,18 @@ export async function GET(req: NextRequest) {
 
     // 2. Query lookup (e.g. from dispatch tracking)
     if (query) {
+      // Prevent single/double digit integer brute-force enumeration
+      if (/^\d{1,4}$/.test(query) && !admin) {
+        return NextResponse.json(
+          { error: 'Specific tracking consignment number or complete phone/email required.' },
+          { status: 400 }
+        );
+      }
+
       const cleanId = query.replace(/[^0-9]/g, '');
       let order = null;
 
-      if (cleanId) {
+      if (cleanId && admin) {
         order = await db.subscriptionOrder.findUnique({
           where: { id: Number(cleanId) },
         });

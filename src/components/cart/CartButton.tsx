@@ -8,9 +8,11 @@
 import React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
+import { useCurrency } from '@/context/CurrencyContext';
 
 export const CartButton: React.FC = () => {
   const { totalItems, subtotal, openCart } = useCart();
+  const { formatPrice } = useCurrency();
 
   return (
     <button
@@ -30,7 +32,7 @@ export const CartButton: React.FC = () => {
       <div className="flex items-center gap-1.5">
         <span className="hidden sm:inline text-slate-700 font-medium">Bag</span>
         {totalItems > 0 ? (
-          <span className="font-bold text-primary-800">₹{subtotal.toLocaleString('en-IN')}</span>
+          <span className="font-bold text-primary-800">{formatPrice(subtotal)}</span>
         ) : (
           <span className="hidden sm:inline text-slate-500 text-xs font-normal">(0)</span>
         )}

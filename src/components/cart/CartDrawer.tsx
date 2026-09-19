@@ -133,16 +133,36 @@ export const CartDrawer: React.FC = () => {
     }
   };
 
+  // Listen for Escape key to close cart
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        closeCart();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [closeCart]);
+
   const handleCloseAndReset = () => {
     closeCart();
-    setTimeout(() => {
-      setStep('cart');
-      setConfirmedOrder(null);
-    }, 300);
+    // Only reset step back to cart if the order was already confirmed
+    // Preserves entered address and state if user accidentally clicked outside during checkout
+    if (step === 'confirmation') {
+      setTimeout(() => {
+        setStep('cart');
+        setConfirmedOrder(null);
+      }, 300);
+    }
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
+    <div
+      className="fixed inset-0 z-50 overflow-hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="cart-drawer-title"
+    >
       {/* Dark backdrop overlay */}
       <div
         className="fixed inset-0 bg-navy-950/70 backdrop-blur-xs transition-opacity"
@@ -164,7 +184,7 @@ export const CartDrawer: React.FC = () => {
                 </button>
               )}
               <ShoppingBag className="w-5 h-5 text-primary-700" />
-              <h3 className="font-serif font-bold text-navy-900 text-base">
+              <h3 id="cart-drawer-title" className="font-serif font-bold text-navy-900 text-base">
                 {step === 'cart' && `Shopping Bag (${totalItems})`}
                 {step === 'checkout' && 'Checkout & Dispatch Info'}
                 {step === 'confirmation' && 'Order Confirmed'}

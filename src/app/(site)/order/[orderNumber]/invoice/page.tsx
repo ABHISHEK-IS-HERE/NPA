@@ -7,11 +7,15 @@ import React from 'react';
 import { db } from '@/lib/db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Printer, ArrowLeft, CheckCircle2, Truck, ShieldCheck, Mail, Phone, ExternalLink } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Truck, ShieldCheck, Mail, Phone, ExternalLink, Lock } from 'lucide-react';
 import type { Metadata } from 'next';
+import { getCurrentAdmin } from '@/lib/auth';
+import { verifyOrderAccessToken } from '@/lib/orderAuth';
+import { PrintInvoiceButton } from '@/components/common/PrintInvoiceButton';
 
 interface InvoicePageProps {
   params: { orderNumber: string };
+  searchParams?: { token?: string; verify?: string };
 }
 
 export async function generateMetadata({ params }: InvoicePageProps): Promise<Metadata> {
@@ -21,7 +25,7 @@ export async function generateMetadata({ params }: InvoicePageProps): Promise<Me
   };
 }
 
-export default async function OrderInvoicePage({ params }: InvoicePageProps) {
+export default async function OrderInvoicePage({ params, searchParams }: InvoicePageProps) {
   const rawId = params.orderNumber.replace(/^NRJBE-ORD-0*/i, '');
   const orderId = parseInt(rawId, 10);
 
@@ -29,13 +33,14 @@ export default async function OrderInvoicePage({ params }: InvoicePageProps) {
     notFound();
   }
 
-  const [order, settings] = await Promise.all([
+  const [order, settings, admin] = await Promise.all([
     db.subscriptionOrder.findUnique({
       where: { id: orderId },
     }),
     db.siteSetting.findFirst({
       where: { id: 1 },
     }),
+    getCurrentAdmin(),
   ]);
 
   if (!order) {
@@ -43,6 +48,83 @@ export default async function OrderInvoicePage({ params }: InvoicePageProps) {
   }
 
   const formattedOrderNumber = `NRJBE-ORD-${order.id.toString().padStart(4, '0')}`;
+
+  // Check authorization: admin, cryptographic token, or verification input
+  const isTokenValid = verifyOrderAccessToken(order.id, order.email, searchParams?.token);
+  const verifyInput = searchParams?.verify?.toLowerCase().trim();
+  const isEmailMatch = Boolean(verifyInput && order.email.toLowerCase() === verifyInput);
+  const cleanOrderPhone = order.phone.replace(/[^0-9]/g, '');
+  const cleanVerifyPhone = verifyInput ? verifyInput.replace(/[^0-9]/g, '') : '';
+  const isPhoneMatch = Boolean(cleanVerifyPhone.length >= 8 && cleanOrderPhone.endsWith(cleanVerifyPhone.slice(-8)));
+  const isAuthorized = Boolean(admin || isTokenValid || isEmailMatch || isPhoneMatch);
+
+  // If not authorized, display verification gate to prevent IDOR scraping
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-lg border border-slate-200 p-8 text-center space-y-6">
+          <div className="w-14 h-14 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center mx-auto">
+            <Lock className="w-7 h-7" />
+          </div>
+
+          <div className="space-y-2">
+            <span className="text-[11px] font-extrabold uppercase tracking-wider text-primary-700 bg-primary-50 px-2.5 py-1 rounded border border-primary-200">
+              Security Verification
+            </span>
+            <h1 className="text-xl font-serif font-bold text-slate-900">
+              Invoice Access Verification
+            </h1>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              To protect subscriber privacy, please enter your registered <strong>Email Address</strong> or <strong>Mobile Number</strong> to view Invoice <code className="font-bold text-primary-800">{formattedOrderNumber}</code>.
+            </p>
+          </div>
+
+          {verifyInput && (
+            <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-xs text-rose-700 font-medium">
+              The provided details did not match this order. Please check and try again.
+            </div>
+          )}
+
+          <form method="GET" className="space-y-4 text-left">
+            <div>
+              <label htmlFor="verify" className="block text-xs font-semibold text-slate-700 mb-1">
+                Registered Email or Phone Number:
+              </label>
+              <input
+                id="verify"
+                name="verify"
+                type="text"
+                required
+                placeholder="e.g. author@univ.edu or 9888934889"
+                defaultValue={verifyInput || ''}
+                className="w-full text-xs px-3.5 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-600 focus:outline-none"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full py-2.5 bg-primary-800 hover:bg-primary-900 text-white font-bold text-xs rounded-lg transition-colors shadow-sm"
+            >
+              Verify &amp; View Invoice
+            </button>
+          </form>
+
+          <div className="pt-4 border-t border-slate-200 text-xs text-slate-500 space-y-2">
+            <p>
+              Alternatively, use the direct secure link sent to your email address during order placement.
+            </p>
+            <Link
+              href="/store"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 hover:underline"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Journal Store</span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   let parsedItems: Array<{
     id: string;
@@ -107,14 +189,7 @@ export default async function OrderInvoicePage({ params }: InvoicePageProps) {
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
 
-          {/* Client-side print button using inline JS onClick */}
-          <button
-            id="print-btn"
-            className="inline-flex items-center gap-2 text-xs font-bold text-white bg-primary-800 hover:bg-primary-900 px-4 py-2 rounded-lg shadow-sm transition-colors cursor-pointer"
-          >
-            <Printer className="w-4 h-4" />
-            <span>Print Invoice / Save as PDF</span>
-          </button>
+          <PrintInvoiceButton />
         </div>
       </div>
 
@@ -321,17 +396,6 @@ export default async function OrderInvoicePage({ params }: InvoicePageProps) {
           <p>National Press Associates • https://npajournals.org • editornrjbe@gmail.com</p>
         </div>
       </div>
-
-      {/* Script to trigger print on click */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            document.getElementById('print-btn')?.addEventListener('click', function() {
-              window.print();
-            });
-          `,
-        }}
-      />
     </div>
   );
 }

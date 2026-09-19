@@ -46,13 +46,52 @@ export default function PublishBooksPage() {
     notes: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMsg, setErrorMsg] = useState('');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    setErrorMsg('');
+
+    try {
+      const proposalSubject = `[Book Publishing Proposal] ${formData.bookTitle || 'New Manuscript Proposal'}`;
+      const proposalMessage = [
+        `Book Title: ${formData.bookTitle}`,
+        `Author / Editor: ${formData.authorName}`,
+        `Designation: ${formData.designation}`,
+        `Institution: ${formData.institution}`,
+        `Discipline / Subject: ${formData.discipline}`,
+        `Book Category: ${formData.bookType}`,
+        `Manuscript Status: ${formData.manuscriptStatus}`,
+        `Estimated Page Count: ${formData.estimatedPages}`,
+        formData.notes ? `Author Notes: ${formData.notes}` : '',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.authorName,
+          email: formData.email,
+          phone: formData.phone,
+          subject: proposalSubject,
+          message: proposalMessage,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'Failed to submit proposal. Please try again.');
+      }
+
       setSubmitted(true);
-    }, 600);
+    } catch (err: any) {
+      setErrorMsg(err.message || 'An error occurred while submitting. Please contact us directly.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -477,6 +516,12 @@ export default function PublishBooksPage() {
                   />
                 </div>
               </div>
+
+              {errorMsg && (
+                <div className="p-3 bg-rose-50 border border-rose-200 rounded-lg text-rose-700 text-xs font-medium">
+                  {errorMsg}
+                </div>
+              )}
 
               <div className="pt-3">
                 <button

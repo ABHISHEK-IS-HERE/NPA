@@ -216,7 +216,7 @@ export const ScholarReaderView: React.FC<ScholarReaderViewProps> = ({
               </button>
 
               <Link
-                href={`/admin/certificate/article/${article.id}`}
+                href={`/certificate/${article.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 bg-amber-50 hover:bg-amber-100 text-amber-900 text-xs sm:text-sm font-semibold px-3.5 py-2.5 rounded-lg border border-amber-300 transition-colors"

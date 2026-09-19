@@ -9,22 +9,35 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
+  if (process.env.NODE_ENV === 'production' && !process.env.ALLOW_PRODUCTION_SEED) {
+    console.warn('⚠️ Seeding aborted: production environment detected. Set ALLOW_PRODUCTION_SEED=true to override.');
+    return;
+  }
+
   console.log('Seeding database with authentic NRJBE journal data...');
 
   // 1. Admin User
+  const defaultPassword = process.env.SEED_ADMIN_PASSWORD || 'admin123';
   const salt = await bcrypt.genSalt(10);
-  const passwordHash = await bcrypt.hash('admin123', salt);
+  const passwordHash = await bcrypt.hash(defaultPassword, salt);
 
-  await prisma.adminUser.upsert({
+  const existingAdmin = await prisma.adminUser.findUnique({
     where: { email: 'admin@nrjbe.in' },
-    update: { passwordHash },
-    create: {
-      email: 'admin@nrjbe.in',
-      name: 'Editor-in-Chief / Chief Administrator',
-      passwordHash,
-      role: 'superadmin',
-    },
   });
+
+  if (!existingAdmin) {
+    await prisma.adminUser.create({
+      data: {
+        email: 'admin@nrjbe.in',
+        name: 'Editor-in-Chief / Chief Administrator',
+        passwordHash,
+        role: 'superadmin',
+      },
+    });
+    console.log('Initial admin user created (admin@nrjbe.in).');
+  } else {
+    console.log('Admin user already exists. Preserving existing password hash.');
+  }
 
   // 2. Site Setting
   await prisma.siteSetting.upsert({

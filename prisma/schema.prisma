@@ -62,6 +62,8 @@ model NavItem {
   isActive      Boolean   @default(true)
   parent        NavItem?  @relation("NavHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
   children      NavItem[] @relation("NavHierarchy")
+
+  @@index([parentId])
 }
 
 model Volume {
@@ -73,6 +75,9 @@ model Volume {
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   issues       Issue[]
+
+  @@unique([volumeNumber, year])
+  @@index([year])
 }
 
 model Issue {
@@ -87,8 +92,12 @@ model Issue {
   printPrice  Int       @default(450)
   status      String    @default("Published")
   createdAt   DateTime  @default(now())
-  volume      Volume    @relation(fields: [volumeId], references: [id], onDelete: Cascade)
+  volume      Volume    @relation(fields: [volumeId], references: [id], onDelete: Restrict)
   articles    Article[]
+
+  @@unique([volumeId, issueNumber])
+  @@index([volumeId])
+  @@index([isCurrent])
 }
 
 model Article {
@@ -108,7 +117,10 @@ model Article {
   downloads      Int      @default(0)
   publishedAt    DateTime @default(now())
   status         String   @default("Published")
-  issue          Issue    @relation(fields: [issueId], references: [id], onDelete: Cascade)
+  issue          Issue    @relation(fields: [issueId], references: [id], onDelete: Restrict)
+
+  @@index([issueId])
+  @@index([publishedAt(sort: Desc)])
 }
 
 model Submission {
@@ -190,6 +202,11 @@ model SubscriptionOrder {
   trackingNumber String?
   notes          String?
   createdAt      DateTime @default(now())
+
+  @@index([email])
+  @@index([phone])
+  @@index([trackingNumber])
+  @@index([createdAt(sort: Desc)])
 }
 
 model Announcement {
