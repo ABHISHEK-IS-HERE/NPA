@@ -5,7 +5,10 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
-    serverComponentsExternalPackages: ['bcryptjs'],
+    serverComponentsExternalPackages: ['bcryptjs', '@prisma/client'],
+    outputFileTracingIncludes: {
+      '/**': ['./prisma/dev.db'],
+    },
   },
 };
 
