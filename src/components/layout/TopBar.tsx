@@ -28,23 +28,23 @@ export const TopBar: React.FC<TopBarProps> = ({ settings, sisterJournals = [] })
   const whatsappUrl = `https://wa.me/${settings.whatsappNumber || '919888934889'}?text=Hello%20NRJBE%20Editorial%20Office,%20I%20have%20an%20inquiry%20regarding%20manuscript%20submission`;
 
   return (
-    <div className="bg-[#fffdf5] text-stone-700 text-xs py-1.5 border-b border-amber-200/70 relative z-50">
+    <div className="bg-[#18191d] text-stone-300 text-xs py-2 border-b border-stone-800 relative z-50 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-2">
         {/* Left: Contact Info, WhatsApp & Indian Trust Marker */}
         <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-5">
           <a
             href={`tel:${settings.contactPhone || '+919888934889'}`}
-            className="flex items-center gap-1.5 hover:text-stone-900 transition-colors text-stone-600 font-medium tracking-tight"
+            className="flex items-center gap-1.5 hover:text-amber-300 transition-colors text-stone-300 font-medium tracking-tight"
           >
-            <Phone className="w-3 h-3 text-amber-600" strokeWidth={1.5} />
+            <Phone className="w-3 h-3 text-amber-400" strokeWidth={1.5} />
             <span>Tel: {settings.contactPhone || '+91-9888934889'}</span>
           </a>
 
           <a
             href={`mailto:${settings.contactEmail || 'editornrjbe@gmail.com'}`}
-            className="hidden sm:flex items-center gap-1.5 hover:text-stone-900 transition-colors text-stone-600 tracking-tight"
+            className="hidden sm:flex items-center gap-1.5 hover:text-amber-300 transition-colors text-stone-300 tracking-tight"
           >
-            <Mail className="w-3 h-3 text-amber-600" strokeWidth={1.5} />
+            <Mail className="w-3 h-3 text-amber-400" strokeWidth={1.5} />
             <span>{settings.contactEmail || 'editornrjbe@gmail.com'}</span>
           </a>
 
@@ -52,14 +52,14 @@ export const TopBar: React.FC<TopBarProps> = ({ settings, sisterJournals = [] })
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-700 hover:bg-emerald-800 text-white font-medium text-[11px] transition-colors"
+            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-[11px] transition-colors shadow-2xs"
           >
             <MessageSquare className="w-3 h-3" strokeWidth={1.5} />
             <span>Editorial Helpline</span>
           </a>
 
-          <span className="hidden xl:inline-flex items-center gap-1 text-[11px] text-stone-500 font-medium">
-            <Truck className="w-3 h-3 text-amber-600/70" strokeWidth={1.5} />
+          <span className="hidden xl:inline-flex items-center gap-1 text-[11px] text-stone-400 font-medium">
+            <Truck className="w-3 h-3 text-amber-400/80" strokeWidth={1.5} />
             <span>Speed Post Dispatch (India) &bull; Registered Airmail</span>
           </span>
         </div>
@@ -67,26 +67,26 @@ export const TopBar: React.FC<TopBarProps> = ({ settings, sisterJournals = [] })
         {/* Right: Currency Toggle, ISSN, Impact Factor & NPA Network Ecosystem */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3">
           {/* Dual Currency Switcher (INR / USD) */}
-          <CurrencySwitcher variant="compact" />
+          <CurrencySwitcher variant="dark" />
 
-          <span className="inline-flex items-center gap-1 bg-[#fffdf9] px-2 py-0.5 rounded border border-amber-200/80 text-stone-700 text-[11px] font-medium">
-            <ShieldCheck className="w-3 h-3 text-stone-500" strokeWidth={1.5} />
-            <span>ISSN: <strong className="text-stone-900 font-mono">{settings.issn || '2349-2015'}</strong></span>
+          <span className="inline-flex items-center gap-1 bg-stone-900/90 px-2.5 py-0.5 rounded border border-stone-700/80 text-stone-300 text-[11px] font-medium">
+            <ShieldCheck className="w-3 h-3 text-stone-400" strokeWidth={1.5} />
+            <span>ISSN: <strong className="text-white font-mono">{settings.issn || '2349-2015'}</strong></span>
           </span>
 
-          <span className="inline-flex items-center gap-1 bg-amber-100/90 text-amber-950 px-2.5 py-0.5 rounded border border-amber-300 text-[11px] font-medium">
-            <Award className="w-3 h-3 text-amber-700" strokeWidth={1.5} />
-            <span>Impact Factor: <strong className="text-amber-950 font-bold">{settings.impactFactor || '6.74'}</strong></span>
+          <span className="inline-flex items-center gap-1 bg-amber-500/20 text-amber-300 px-2.5 py-0.5 rounded border border-amber-500/40 text-[11px] font-medium">
+            <Award className="w-3 h-3 text-amber-400" strokeWidth={1.5} />
+            <span>Impact Factor: <strong className="text-amber-200 font-bold">{settings.impactFactor || '6.74'}</strong></span>
           </span>
 
           {/* Interactive NPA Network Hub Dropdown */}
           <div className="relative group">
             <button
               type="button"
-              className="hover:text-stone-900 flex items-center gap-1 transition-colors text-stone-700 text-[11px] font-medium bg-[#fffdf9] px-2 py-0.5 rounded border border-amber-200/80 shadow-2xs group-hover:border-amber-400"
+              className="hover:text-white flex items-center gap-1 transition-colors text-stone-300 text-[11px] font-medium bg-stone-900/90 px-2.5 py-0.5 rounded border border-stone-700/80 shadow-2xs group-hover:border-amber-400/60"
               title="National Press Associates 10-Journal Network"
             >
-              <Globe className="w-3 h-3 text-amber-600" strokeWidth={1.5} />
+              <Globe className="w-3 h-3 text-amber-400" strokeWidth={1.5} />
               <span>NPA Press Network (10 Journals)</span>
               <ChevronDown className="w-3 h-3 text-stone-400 group-hover:rotate-180 transition-transform" strokeWidth={1.5} />
             </button>

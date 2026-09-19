@@ -79,9 +79,13 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
   ];
 
   return (
-    <div className="relative bg-gradient-to-b from-[#fefce8] via-[#fefbf0] to-[#fffdf5] text-stone-900 pt-6 pb-12 sm:pt-8 sm:pb-16 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80 overflow-hidden">
+    <div className="relative bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-100/70 via-[#fdfbf2] to-[#faf6ed] text-stone-900 pt-8 pb-14 sm:pt-10 sm:pb-20 px-4 sm:px-6 lg:px-8 border-b border-amber-200/80 overflow-hidden">
+      {/* Ambient Warm Golden Glow Orbs */}
+      <div className="absolute -top-24 right-1/4 w-96 h-96 bg-amber-400/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -left-20 w-80 h-80 bg-amber-300/10 rounded-full blur-3xl pointer-events-none" />
+
       {/* Subtle Archival Editorial Watermark / Rules */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#1c1917_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+      <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#92400e_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto space-y-6">
         {/* Top Journal Vitals Strip (Benchmark: Nature & Oxford Academic) */}
@@ -106,7 +110,7 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
               <Clock className="w-3.5 h-3.5 text-emerald-700" />
               7–14 Days Review Decision
             </span>
-            <span className="hidden xl:inline text-amber-200">•</span>
+            <span className="hidden xl:inline-flex items-center gap-1 text-amber-200">•</span>
             <span className="hidden xl:inline-flex items-center gap-1 text-stone-600 font-medium">
               Open Access CC BY-NC 4.0
             </span>
@@ -127,14 +131,14 @@ export const HeroBanner: React.FC<HeroBannerProps> = ({ settings, currentIssue }
           {/* Left Column: Journal Identity, Multi-Field Search, Action Matrix */}
           <div className="lg:col-span-8 space-y-6 text-center lg:text-left">
             {/* Accreditation Line */}
-            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-amber-50/90 px-3 py-1 rounded-md border border-amber-200/80 text-xs font-mono uppercase tracking-wider text-amber-950 font-medium">
+            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2 bg-amber-100/90 text-amber-950 px-3.5 py-1 rounded-full border border-amber-300/80 text-xs font-mono uppercase tracking-wider font-semibold shadow-2xs">
               <Award className="w-3.5 h-3.5 text-amber-700" />
               <span>{settings.heroBadge || 'UGC Regulations 2018 CAS & NAAC Criterion 4.2 Compliant'}</span>
             </div>
 
             {/* Hero Title */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[3.25rem] font-serif font-bold tracking-tight text-stone-900 leading-[1.12]">
-              {settings.heroTitle || 'Advancing Global Research in Business & Economics'}
+            <h1 className="text-3xl sm:text-4xl lg:text-[3.35rem] font-serif font-bold tracking-tight text-stone-900 leading-[1.12]">
+              Advancing <span className="italic font-normal text-amber-800">Global Research</span> in Business &amp; Economics
             </h1>
 
             {/* Hero Subtitle */}

@@ -118,41 +118,53 @@ export default async function HomePage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* National & International Trust & Compliance Standards Bar */}
-        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <Landmark className="w-5 h-5 text-amber-700" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">UGC-CARE Compliant</span>
-            <span className="text-[10px] text-stone-500">API Score for CAS &amp; NAAC</span>
+        <section className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <Landmark className="w-5 h-5 text-amber-800" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">UGC-CARE Compliant</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">API Score for CAS &amp; NAAC</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <Truck className="w-5 h-5 text-amber-600" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">India Speed Post</span>
-            <span className="text-[10px] text-stone-500">Free Doorstep Dispatch</span>
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <Truck className="w-5 h-5 text-amber-700" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">India Speed Post</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">Free Doorstep Dispatch</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <ShieldCheck className="w-5 h-5 text-amber-800" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">Double-Blind Refereed</span>
-            <span className="text-[10px] text-stone-500">7-14 Days Peer Review</span>
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <ShieldCheck className="w-5 h-5 text-amber-800" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">Double-Blind Refereed</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">7-14 Days Peer Review</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <Globe2 className="w-5 h-5 text-amber-700" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">Zenodo &amp; CrossRef</span>
-            <span className="text-[10px] text-stone-500">Permanent DOI Minting</span>
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <Globe2 className="w-5 h-5 text-amber-700" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">Zenodo &amp; CrossRef</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">Permanent DOI Minting</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <Award className="w-5 h-5 text-amber-600" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">Impact Factor 6.74</span>
-            <span className="text-[10px] text-stone-500">Google Scholar &amp; ICI Indexed</span>
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <Award className="w-5 h-5 text-amber-700" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">Impact Factor 6.74</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">Google Scholar &amp; ICI</span>
           </div>
 
-          <div className="bg-white p-3.5 rounded-lg border border-amber-200/80 shadow-2xs hover:border-amber-400/80 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center space-y-1.5">
-            <Building2 className="w-5 h-5 text-amber-800" />
-            <span className="text-[11px] font-semibold text-stone-900 leading-tight">Institutional Invoicing</span>
-            <span className="text-[10px] text-stone-500">30-Day Proforma Lock</span>
+          <div className="group bg-gradient-to-b from-white via-[#fffdfa] to-amber-50/40 p-4 rounded-xl border border-amber-200/90 shadow-2xs hover:border-amber-400 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col items-center text-center">
+            <div className="w-10 h-10 rounded-full bg-amber-100/70 border border-amber-300/60 flex items-center justify-center mb-2 shadow-2xs group-hover:scale-110 group-hover:bg-amber-100 transition-all">
+              <Building2 className="w-5 h-5 text-amber-800" />
+            </div>
+            <span className="text-xs font-bold text-stone-900 leading-tight">Institutional Invoicing</span>
+            <span className="text-[10px] text-stone-500 mt-0.5 font-medium">30-Day Proforma Lock</span>
           </div>
         </section>
 
@@ -695,49 +707,57 @@ export default async function HomePage() {
         </section>
 
         {/* Dedicated Institutional & University Library Acquisition Banner */}
-        <section className="bg-[#0c1a2c] text-white rounded-xl p-6 sm:p-8 border border-stone-800 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center md:text-left max-w-2xl">
-            <span className="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded">
+        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#0c1829] via-[#12233c] to-[#0c1829] text-white p-7 sm:p-10 border border-amber-500/40 shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-amber-400/5 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 space-y-2 text-center md:text-left max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-400/20 to-amber-500/10 text-amber-300 border border-amber-400/50 text-[11px] font-mono font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-2xs">
+              <Building2 className="w-3.5 h-3.5 text-amber-400" />
               University &amp; College Librarians
             </span>
-            <h3 className="font-serif font-bold text-xl sm:text-2xl text-stone-100 leading-snug">
+            <h3 className="font-serif font-bold text-xl sm:text-2xl lg:text-3xl text-stone-100 leading-snug">
               Equipping Your Library? Generate an Official Proforma Invoice in 30 Seconds
             </h3>
-            <p className="text-xs sm:text-sm text-stone-300 font-sans">
+            <p className="text-xs sm:text-sm text-stone-300 font-sans leading-relaxed">
               Select multiple NPA journals, choose 1 to 3-year subscription terms with locked-in institutional rates, and download an official stamp-ready Proforma Invoice for your acquisition committee.
             </p>
           </div>
 
           <Link
             href="/institutions"
-            className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 font-bold text-xs sm:text-sm px-6 py-3 rounded-lg shadow-sm transition-all flex-shrink-0 border border-amber-500/20"
+            className="relative z-10 inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-stone-950 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-lg shadow-lg hover:shadow-amber-500/20 transition-all flex-shrink-0 border border-amber-300/80 group"
           >
-            <Building2 className="w-4 h-4 text-stone-900" />
+            <Building2 className="w-4 h-4 text-stone-950" />
             <span>Open Institutional Portal</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </section>
 
         {/* 5. Call for Papers 2026 Submission Banner */}
-        <section className="bg-stone-900 text-white rounded-xl p-6 sm:p-10 border border-stone-800 shadow-sm relative overflow-hidden">
+        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#18181b] via-[#242220] to-[#18181b] text-white p-7 sm:p-10 border border-amber-500/30 shadow-xl">
+          <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+
           <div className="relative z-10 max-w-3xl">
-            <span className="bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded font-semibold">
+            <span className="inline-flex items-center gap-1.5 bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-mono uppercase tracking-wider px-3 py-1 rounded-full font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               Call For Papers 2026
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif font-bold text-white mt-3 leading-snug">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-bold text-white mt-3 leading-snug">
               Submit Your Research Paper for Upcoming Issues
             </h2>
-            <p className="text-stone-300 text-xs sm:text-sm mt-2 leading-relaxed font-sans">
+            <p className="text-stone-300 text-xs sm:text-sm mt-2.5 leading-relaxed font-sans max-w-2xl">
               We invite researchers, academicians, and industry practitioners to submit original research manuscripts, empirical studies, and review articles in Business Management, Economics, Commerce, and Allied Disciplines.
             </p>
 
-            <div className="flex flex-wrap items-center gap-4 mt-6">
+            <div className="flex flex-wrap items-center gap-4 mt-7">
               <Link
                 href="/submit-paper"
-                className="inline-flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs sm:text-sm font-bold px-5 py-2.5 rounded-lg transition-colors shadow-xs border border-amber-500/20"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:from-amber-300 hover:to-amber-200 text-stone-950 text-xs sm:text-sm font-bold px-6 py-3 rounded-lg transition-all shadow-md border border-amber-300/80 group"
               >
-                <FileUp className="w-4 h-4" />
+                <FileUp className="w-4 h-4 text-stone-950" />
                 <span>Submit Manuscript Online</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </Link>
               <Link
                 href="/page/manuscript-guidelines"

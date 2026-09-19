@@ -41,15 +41,15 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-5 lg:gap-8 text-center lg:text-left">
           {/* Logo & Journal Title (Bespoke Academic Masthead) */}
           <Link href="/" className="group flex items-center gap-4 transition-all">
-            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-amber-400 flex items-center justify-center text-stone-950 shadow-xs group-hover:scale-[1.02] transition-transform flex-shrink-0 border border-amber-500/40">
-              <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-stone-950" strokeWidth={1.75} />
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-amber-600 via-amber-700 to-amber-900 flex items-center justify-center text-amber-100 shadow-md ring-2 ring-amber-400/40 group-hover:scale-[1.03] transition-all flex-shrink-0 border border-amber-500/50">
+              <BookOpen className="w-7 h-7 sm:w-8 sm:h-8 text-amber-100" strokeWidth={1.75} />
             </div>
             <div>
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <span className="text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded bg-amber-100 text-amber-950 border border-amber-300 font-mono">
+                <span className="text-[10px] uppercase font-bold tracking-widest px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-950 border border-amber-300 font-mono shadow-2xs">
                   {settings.shortName || 'NRJBE'}
                 </span>
-                <span className="text-xs text-stone-500 font-medium">International Refereed Journal</span>
+                <span className="text-xs text-stone-500 font-medium">International Refereed Academic Journal</span>
               </div>
               <h1 className="text-xl sm:text-2xl lg:text-3xl font-serif font-bold text-stone-900 tracking-tight leading-snug mt-1 group-hover:text-amber-800 transition-colors">
                 {settings.journalName || 'National Research Journal of Business Economics'}
@@ -65,7 +65,7 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
             <button
               type="button"
               onClick={() => setSearchOpen(true)}
-              className="inline-flex items-center gap-2 bg-[#fffdf9] hover:bg-amber-50 text-stone-700 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors group"
+              className="inline-flex items-center gap-2 bg-[#fffdf9] hover:bg-amber-50 text-stone-700 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors group shadow-2xs"
               title="Search Articles, DOIs, Authors (Ctrl+K)"
             >
               <Search className="w-3.5 h-3.5 text-stone-500 group-hover:text-amber-700 transition-colors" strokeWidth={1.5} />
@@ -77,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
 
             <Link
               href="/institutions"
-              className="inline-flex items-center gap-1.5 bg-amber-50/80 hover:bg-amber-100 text-amber-950 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors"
+              className="inline-flex items-center gap-1.5 bg-amber-50/80 hover:bg-amber-100 text-amber-950 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors shadow-2xs"
               title="For University & College Libraries"
             >
               <Building2 className="w-3.5 h-3.5 text-amber-800" strokeWidth={1.5} />
@@ -86,7 +86,7 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
 
             <Link
               href="/store"
-              className="inline-flex items-center gap-1.5 bg-[#fffdf9] hover:bg-amber-50 text-stone-800 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors"
+              className="inline-flex items-center gap-1.5 bg-[#fffdf9] hover:bg-amber-50 text-stone-800 text-xs sm:text-sm font-medium px-3.5 py-2 rounded-lg border border-amber-200/80 transition-colors shadow-2xs"
             >
               <ShoppingBag className="w-3.5 h-3.5 text-amber-800" strokeWidth={1.5} />
               <span>Print Editions</span>
@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderProps> = ({ settings }) => {
 
             <Link
               href="/submit-paper"
-              className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-stone-950 text-xs sm:text-sm font-bold px-4 py-2 rounded-lg shadow-xs hover:shadow transition-all tracking-tight"
+              className="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-stone-950 text-xs sm:text-sm font-bold px-4 py-2 rounded-lg shadow-xs hover:shadow-md transition-all tracking-tight"
             >
               <FileUp className="w-3.5 h-3.5 text-stone-950" strokeWidth={2} />
               <span>Submit Manuscript</span>

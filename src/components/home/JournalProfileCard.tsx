@@ -94,13 +94,18 @@ export const JournalProfileCard: React.FC<JournalProfileCardProps> = ({ settings
   ];
 
   return (
-    <div className="bg-[#fffdfa] rounded-2xl shadow-xs border border-amber-200/80 overflow-hidden mb-8">
-      <div className="bg-gradient-to-r from-amber-100/70 via-amber-50 to-[#fffdf5] text-stone-900 px-6 py-4 flex items-center justify-between border-b border-amber-200/80">
+    <div className="bg-gradient-to-b from-white via-[#fffdfa] to-[#fbf8f0] rounded-2xl shadow-xs border border-amber-200/90 overflow-hidden mb-8">
+      <div className="bg-gradient-to-r from-amber-100/80 via-amber-50 to-[#fffdf5] text-stone-900 px-6 py-4 flex items-center justify-between border-b border-amber-200/80">
         <div className="flex items-center gap-2.5">
-          <BookOpen className="w-5 h-5 text-amber-700" />
-          <h2 className="font-serif font-bold text-base sm:text-lg text-stone-900">
-            Journal Identification &amp; Key Parameters
-          </h2>
+          <div className="w-8 h-8 rounded-lg bg-amber-200/80 border border-amber-300/80 flex items-center justify-center shadow-2xs">
+            <BookOpen className="w-4 h-4 text-amber-900" />
+          </div>
+          <div>
+            <h2 className="font-serif font-bold text-base sm:text-lg text-stone-900 leading-tight">
+              Journal Identification &amp; Key Parameters
+            </h2>
+            <p className="text-[11px] text-stone-500 font-sans">Official metadata and academic indexing credentials</p>
+          </div>
         </div>
         <span className="text-xs bg-amber-200/90 text-amber-950 font-bold px-3 py-1 rounded-full border border-amber-300 shadow-2xs">
           Refereed &amp; Indexed
@@ -112,10 +117,12 @@ export const JournalProfileCard: React.FC<JournalProfileCardProps> = ({ settings
           {profileItems.map((item, idx) => (
             <div
               key={idx}
-              className="p-3.5 rounded-lg bg-amber-50/30 border border-amber-200/70 hover:bg-white hover:border-amber-400 hover:shadow-2xs transition-all"
+              className="p-3.5 rounded-xl bg-white border border-amber-200/80 hover:border-amber-400 hover:shadow-xs hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-2 text-xs font-semibold text-stone-600 mb-1">
-                {item.icon}
+              <div className="flex items-center gap-2 text-xs font-semibold text-stone-600 mb-1.5">
+                <div className="w-6 h-6 rounded-md bg-amber-50 border border-amber-200/70 flex items-center justify-center flex-shrink-0">
+                  {item.icon}
+                </div>
                 <span>{item.label}</span>
               </div>
               <div className="flex items-center justify-between gap-2">
@@ -139,7 +146,7 @@ export const JournalProfileCard: React.FC<JournalProfileCardProps> = ({ settings
                   </span>
                 )}
                 {item.badge && (
-                  <span className="text-[10px] uppercase font-extrabold bg-amber-100 text-amber-950 px-1.5 py-0.5 rounded border border-amber-200">
+                  <span className="text-[10px] uppercase font-extrabold bg-amber-100 text-amber-950 px-1.5 py-0.5 rounded border border-amber-200 shadow-2xs">
                     {item.badge}
                   </span>
                 )}
