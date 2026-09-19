@@ -6,11 +6,13 @@
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { getCurrentAdmin } from '@/lib/auth';
+import { validateContactInput } from '@/lib/validators';
+import { sendContactAutoReply } from '@/lib/email';
 
 export async function GET() {
   try {
     const admin = await getCurrentAdmin();
-    if (!admin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!admin) return NextResponse.json({ error: 'Unauthorized: Admin authentication required.' }, { status: 401 });
 
     const messages = await db.contactMessage.findMany({
       orderBy: { createdAt: 'desc' },
@@ -18,37 +20,44 @@ export async function GET() {
 
     return NextResponse.json({ messages });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, phone, subject, message } = body;
+    const validation = validateContactInput(body);
 
-    if (!name || !email || !subject || !message) {
+    if (!validation.success || !validation.data) {
       return NextResponse.json(
-        { error: 'Name, email, subject, and message are required' },
+        { error: validation.error || 'Invalid inquiry data.', errors: validation.errors },
         { status: 400 }
       );
     }
 
-    const newMessage = await db.contactMessage.create({
+    const { name, email, phone, subject, message } = validation.data;
+
+    await db.contactMessage.create({
       data: {
-        name: name.trim(),
-        email: email.trim().toLowerCase(),
-        phone: phone?.trim() || null,
-        subject: subject.trim(),
-        message: message.trim(),
+        name,
+        email,
+        phone,
+        subject,
+        message,
       },
     });
+
+    // Dispatch auto-reply email asynchronously
+    sendContactAutoReply(email, name, subject).catch((err) =>
+      console.error('Error sending contact auto-reply email:', err)
+    );
 
     return NextResponse.json({
       success: true,
       message: 'Your inquiry has been sent to the Editorial Office. We will get back to you shortly.',
     });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }

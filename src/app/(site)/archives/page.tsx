@@ -4,11 +4,17 @@
  */
 
 import React from 'react';
+import type { Metadata } from 'next';
 import { db } from '@/lib/db';
 import Link from 'next/link';
 import { Archive, BookOpen, Calendar, ChevronRight, FileText, ShoppingBag, Truck } from 'lucide-react';
 import { MagazineCover } from '@/components/covers/MagazineCover';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
+
+export const metadata: Metadata = {
+  title: 'Journal Archives',
+  description: 'Access the complete volume and issue archives of the National Research Journal of Business Economics.',
+};
 
 export const revalidate = 0;
 

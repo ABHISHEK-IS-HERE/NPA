@@ -4,9 +4,15 @@
  */
 
 import React from 'react';
+import type { Metadata } from 'next';
 import { db } from '@/lib/db';
 import Link from 'next/link';
 import { Users, Mail, Globe, Award, Building, UserCheck } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'Editorial Board',
+  description: 'Distinguished academic editors, advisory board members, and peer reviewers of NRJBE.',
+};
 
 export const revalidate = 0;
 

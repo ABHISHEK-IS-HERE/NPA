@@ -55,10 +55,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="py-10 bg-slate-50 min-h-[70vh]">
+    <div className="py-10 bg-[#fdfbf2] min-h-[70vh]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 max-w-3xl mx-auto text-center">
+        <div className="bg-white rounded-xl shadow-sm border border-amber-200/80 p-6 sm:p-8 max-w-3xl mx-auto text-center">
           <span className="text-xs font-bold uppercase tracking-wider text-primary-700 bg-primary-50 px-2.5 py-0.5 rounded border border-primary-200">
             Editorial Communications
           </span>

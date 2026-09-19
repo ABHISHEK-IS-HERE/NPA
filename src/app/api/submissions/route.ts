@@ -5,10 +5,28 @@
 
 import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { validateSubmissionInput } from '@/lib/validators';
+import { sendSubmissionConfirmation } from '@/lib/email';
+
+function generateTrackingId(): string {
+  const year = new Date().getFullYear();
+  // Generate 6 uppercase alphanumeric characters
+  const rand = Math.random().toString(36).substring(2, 8).toUpperCase();
+  return `NRJBE-${year}-${rand}`;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+    const validation = validateSubmissionInput(body);
+
+    if (!validation.success || !validation.data) {
+      return NextResponse.json(
+        { error: validation.error || 'Invalid manuscript submission data.', errors: validation.errors },
+        { status: 400 }
+      );
+    }
+
     const {
       paperTitle,
       authorName,
@@ -20,35 +38,51 @@ export async function POST(request: Request) {
       keywords,
       researchArea,
       manuscriptFileUrl,
-    } = body;
+    } = validation.data;
 
-    if (!paperTitle || !authorName || !authorEmail || !abstract || !manuscriptFileUrl) {
-      return NextResponse.json(
-        { error: 'Paper title, author name, author email, abstract, and manuscript file are required' },
-        { status: 400 }
-      );
+    // Retry loop for unique tracking ID
+    let submission = null;
+    let attempts = 0;
+    while (!submission && attempts < 5) {
+      attempts++;
+      const trackingId = generateTrackingId();
+      try {
+        submission = await db.submission.create({
+          data: {
+            trackingId,
+            paperTitle,
+            authorName,
+            authorEmail,
+            authorPhone,
+            affiliation,
+            coAuthors,
+            abstract,
+            keywords,
+            researchArea,
+            manuscriptFileUrl,
+            status: 'Submitted',
+          },
+        });
+      } catch (err: any) {
+        if (err.code === 'P2002' && attempts < 5) {
+          // Unique constraint collision, retry
+          continue;
+        }
+        throw err;
+      }
     }
 
-    // Generate random 4-digit unique tracking code
-    const randomCode = Math.floor(1000 + Math.random() * 9000);
-    const trackingId = `NRJBE-${new Date().getFullYear()}-${randomCode}`;
+    if (!submission) {
+      throw new Error('Failed to generate a unique tracking identifier. Please try again.');
+    }
 
-    const submission = await db.submission.create({
-      data: {
-        trackingId,
-        paperTitle: paperTitle.trim(),
-        authorName: authorName.trim(),
-        authorEmail: authorEmail.trim().toLowerCase(),
-        authorPhone: authorPhone?.trim() || null,
-        affiliation: affiliation?.trim() || null,
-        coAuthors: coAuthors?.trim() || null,
-        abstract: abstract.trim(),
-        keywords: keywords?.trim() || null,
-        researchArea: researchArea?.trim() || 'General Business Economics',
-        manuscriptFileUrl,
-        status: 'Submitted',
-      },
-    });
+    // Dispatch confirmation email asynchronously (does not block response)
+    sendSubmissionConfirmation(
+      submission.authorEmail,
+      submission.authorName,
+      submission.trackingId,
+      submission.paperTitle
+    ).catch((err) => console.error('Error sending submission confirmation email:', err));
 
     return NextResponse.json({
       success: true,
@@ -57,6 +91,6 @@ export async function POST(request: Request) {
     });
   } catch (error: any) {
     console.error('Submission error:', error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }

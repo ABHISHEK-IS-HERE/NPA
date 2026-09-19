@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import type { Metadata } from 'next';
 import { db } from '@/lib/db';
 import { ArticleCard } from '@/components/articles/ArticleCard';
 import { BookOpen, Search, Filter, Calendar, FileText, ShieldCheck, Award, Truck } from 'lucide-react';
@@ -11,6 +12,11 @@ import Link from 'next/link';
 import { IssueSwitcher } from '@/components/articles/IssueSwitcher';
 import { MagazineCover } from '@/components/covers/MagazineCover';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
+
+export const metadata: Metadata = {
+  title: 'Current Issue',
+  description: 'Explore the latest peer-reviewed research papers published in the current volume and issue of NRJBE.',
+};
 
 export const revalidate = 0;
 

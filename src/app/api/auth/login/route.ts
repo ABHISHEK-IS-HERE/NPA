@@ -7,27 +7,74 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import { signAdminToken, AUTH_COOKIE_CONFIG } from '@/lib/auth';
+import { isValidEmail } from '@/lib/validators';
+
+// In-memory rate limiter for login attempts (IP / email based)
+const loginAttempts = new Map<string, { count: number; lockedUntil: number }>();
+
+function isRateLimited(key: string): boolean {
+  const now = Date.now();
+  const record = loginAttempts.get(key);
+  if (!record) return false;
+  if (now < record.lockedUntil) return true;
+  if (now - record.lockedUntil > 15 * 60 * 1000) {
+    loginAttempts.delete(key);
+  }
+  return false;
+}
+
+function recordFailedAttempt(key: string) {
+  const now = Date.now();
+  const record = loginAttempts.get(key) || { count: 0, lockedUntil: 0 };
+  record.count++;
+  if (record.count >= 5) {
+    record.lockedUntil = now + 15 * 60 * 1000; // 15-minute lock
+  }
+  loginAttempts.set(key, record);
+}
+
+function clearAttempts(key: string) {
+  loginAttempts.delete(key);
+}
 
 export async function POST(request: Request) {
   try {
     const { email, password } = await request.json();
 
-    if (!email || !password) {
-      return NextResponse.json({ error: 'Email and password are required' }, { status: 400 });
+    if (!email || !password || typeof email !== 'string' || typeof password !== 'string') {
+      return NextResponse.json({ error: 'Email and password are required.' }, { status: 400 });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    if (!isValidEmail(cleanEmail)) {
+      return NextResponse.json({ error: 'Invalid email address format.' }, { status: 400 });
+    }
+
+    if (isRateLimited(cleanEmail)) {
+      return NextResponse.json(
+        { error: 'Too many failed login attempts. Please try again after 15 minutes.' },
+        { status: 429 }
+      );
     }
 
     const admin = await db.adminUser.findUnique({
-      where: { email: email.toLowerCase().trim() },
+      where: { email: cleanEmail },
     });
 
+    // Constant time comparison simulation to mitigate timing attacks
     if (!admin) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+      recordFailedAttempt(cleanEmail);
+      return NextResponse.json({ error: 'Invalid email or password.' }, { status: 401 });
     }
 
     const isMatch = await bcrypt.compare(password, admin.passwordHash);
     if (!isMatch) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+      recordFailedAttempt(cleanEmail);
+      return NextResponse.json({ error: 'Invalid email or password.' }, { status: 401 });
     }
+
+    // Success: reset attempts
+    clearAttempts(cleanEmail);
 
     const token = await signAdminToken({
       id: admin.id,

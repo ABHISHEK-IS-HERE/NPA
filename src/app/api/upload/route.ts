@@ -5,25 +5,73 @@
 
 import { NextResponse } from 'next/server';
 import { getCurrentAdmin } from '@/lib/auth';
-import { writeFile, mkdir } from 'fs/promises';
+import { uploadAsset } from '@/lib/storage';
 import path from 'path';
+
+const MAX_FILE_SIZE = 25 * 1024 * 1024; // 25 MB
+
+const ALLOWED_EXTENSIONS = new Set([
+  '.pdf',
+  '.doc',
+  '.docx',
+  '.jpg',
+  '.jpeg',
+  '.png',
+  '.webp',
+]);
+
+const ALLOWED_MIME_TYPES = new Set([
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+]);
 
 export async function POST(request: Request) {
   try {
-    // For manuscript submissions, allow public upload if type === 'manuscripts'
-    // Otherwise require admin authentication for site assets, papers, etc.
     const formData = await request.formData();
     const file = formData.get('file') as File | null;
     const type = (formData.get('type') as string) || 'general';
 
     if (!file) {
-      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
+      return NextResponse.json({ error: 'No file provided for upload.' }, { status: 400 });
     }
 
+    // 1. File size verification
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { error: 'File exceeds the maximum allowable limit of 25MB.' },
+        { status: 400 }
+      );
+    }
+
+    if (file.size === 0) {
+      return NextResponse.json({ error: 'Uploaded file cannot be empty.' }, { status: 400 });
+    }
+
+    // 2. Extension and MIME type verification
+    const originalExt = path.extname(file.name).toLowerCase();
+    if (!ALLOWED_EXTENSIONS.has(originalExt)) {
+      return NextResponse.json(
+        { error: `Unsupported file type (${originalExt}). Allowed: PDF, DOC, DOCX, JPG, PNG, WEBP.` },
+        { status: 400 }
+      );
+    }
+
+    if (file.type && !ALLOWED_MIME_TYPES.has(file.type)) {
+      return NextResponse.json(
+        { error: `Invalid MIME type (${file.type}). Allowed: PDF, Word documents, and images.` },
+        { status: 400 }
+      );
+    }
+
+    // 3. Authorization check
     if (type !== 'manuscripts') {
       const admin = await getCurrentAdmin();
       if (!admin) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        return NextResponse.json({ error: 'Unauthorized: Admin privileges required.' }, { status: 401 });
       }
     }
 
@@ -33,21 +81,15 @@ export async function POST(request: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Sanitize filename and prepend unique timestamp
-    const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    const uniqueName = `${Date.now()}_${originalName}`;
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', targetFolder);
-
-    await mkdir(uploadDir, { recursive: true });
-    const filePath = path.join(uploadDir, uniqueName);
-    await writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/${targetFolder}/${uniqueName}`;
+    const uploadResult = await uploadAsset(buffer, file.name, targetFolder, file.type);
+    if (!uploadResult.success) {
+      return NextResponse.json({ error: uploadResult.error || 'Upload failed.' }, { status: 500 });
+    }
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      filename: uniqueName,
+      url: uploadResult.url,
+      filename: uploadResult.filename,
       originalName: file.name,
       size: file.size,
     });

@@ -6,9 +6,16 @@
 import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-const JWT_SECRET = new TextEncoder().encode(
-  process.env.JWT_SECRET || 'npa-journal-portal-secret-super-secure-key-2026'
-);
+function getJwtSecret(): Uint8Array {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('FATAL: JWT_SECRET environment variable is not set in production.');
+    }
+    return new TextEncoder().encode('npa-journal-portal-dev-secret-key-change-in-prod');
+  }
+  return new TextEncoder().encode(secret);
+}
 
 const TOKEN_COOKIE_NAME = 'npa_admin_token';
 
@@ -24,12 +31,12 @@ export async function signAdminToken(payload: AdminPayload): Promise<string> {
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')
-    .sign(JWT_SECRET);
+    .sign(getJwtSecret());
 }
 
 export async function verifyAdminToken(token: string): Promise<AdminPayload | null> {
   try {
-    const { payload } = await jwtVerify(token, JWT_SECRET);
+    const { payload } = await jwtVerify(token, getJwtSecret());
     return payload as unknown as AdminPayload;
   } catch {
     return null;

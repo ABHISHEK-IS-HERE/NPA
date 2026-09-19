@@ -5,12 +5,24 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
+import { getCurrentAdmin } from '@/lib/auth';
+import { validateOrderInput } from '@/lib/validators';
+import { sendOrderConfirmation } from '@/lib/email';
 
 export const revalidate = 0;
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
+    const rawBody = await req.json();
+    const validation = validateOrderInput(rawBody);
+
+    if (!validation.success || !validation.data) {
+      return NextResponse.json(
+        { error: validation.error || 'Invalid order data.', errors: validation.errors },
+        { status: 400 }
+      );
+    }
+
     const {
       subscriberName,
       organization,
@@ -20,54 +32,48 @@ export async function POST(req: NextRequest) {
       city,
       state,
       pincode,
-      paymentMode = 'UPI / Net Banking',
+      paymentMode,
       notes,
-      items = [],
-      amount,
-    } = body;
+      items,
+    } = validation.data;
 
-    if (!subscriberName || !email || !phone || !address) {
-      return NextResponse.json(
-        { error: 'Name, email, phone, and delivery address are required.' },
-        { status: 400 }
-      );
-    }
-
-    if (!items || items.length === 0) {
-      return NextResponse.json(
-        { error: 'Your shopping cart is empty.' },
-        { status: 400 }
-      );
-    }
-
-    // Build planTitle summary
+    // Summary of purchased items
     const summaryTitle = items
-      .map((item: any) => `${item.title} (x${item.quantity})`)
+      .map((item) => `${item.title} (x${item.quantity})`)
       .join(', ');
 
-    // Calculate or verify total amount
-    const totalAmount = amount || items.reduce((sum: number, it: any) => sum + it.price * it.quantity, 0);
+    // Calculate verified total amount server-side
+    const totalAmount = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
 
     const order = await db.subscriptionOrder.create({
       data: {
         subscriberName,
-        organization: organization || null,
+        organization,
         email,
         phone,
         address,
-        city: city || null,
-        state: state || null,
-        pincode: pincode || null,
+        city,
+        state,
+        pincode,
         planTitle: summaryTitle.substring(0, 190),
         amount: totalAmount,
         paymentMode,
         status: 'Pending',
         itemsJson: JSON.stringify(items),
-        notes: notes || null,
+        notes,
       },
     });
 
     const orderNumber = `NRJBE-ORD-${order.id.toString().padStart(4, '0')}`;
+
+    // Dispatch order confirmation email asynchronously
+    sendOrderConfirmation(
+      order.email,
+      order.subscriberName,
+      orderNumber,
+      order.amount,
+      order.planTitle
+    ).catch((err) => console.error('Error sending order confirmation email:', err));
 
     return NextResponse.json({
       success: true,
@@ -90,20 +96,52 @@ export async function GET(req: NextRequest) {
     const id = url.searchParams.get('id');
     const query = url.searchParams.get('query')?.trim();
 
+    const admin = await getCurrentAdmin();
+
+    // 1. Fetching single order by ID
     if (id) {
       const cleanId = id.replace(/[^0-9]/g, '');
+      if (!cleanId) {
+        return NextResponse.json({ error: 'Invalid order identifier.' }, { status: 400 });
+      }
+
       const order = await db.subscriptionOrder.findUnique({
         where: { id: Number(cleanId) },
       });
+
       if (!order) {
         return NextResponse.json({ error: 'Order not found' }, { status: 404 });
       }
-      return NextResponse.json({ order });
+
+      // If user is admin, return full order details
+      if (admin) {
+        return NextResponse.json({ order });
+      }
+
+      // If public request, mask sensitive PII
+      return NextResponse.json({
+        order: {
+          id: order.id,
+          orderNumber: `NRJBE-ORD-${order.id.toString().padStart(4, '0')}`,
+          status: order.status,
+          planTitle: order.planTitle,
+          amount: order.amount,
+          trackingNumber: order.trackingNumber,
+          createdAt: order.createdAt,
+          itemsJson: order.itemsJson,
+          city: order.city,
+          state: order.state,
+          email: order.email.replace(/(.{2})(.*)(?=@)/, '$1***'),
+          phone: order.phone.replace(/(\d{2})\d+(\d{2})/, '$1******$2'),
+        },
+      });
     }
 
+    // 2. Query lookup (e.g. from dispatch tracking)
     if (query) {
       const cleanId = query.replace(/[^0-9]/g, '');
       let order = null;
+
       if (cleanId) {
         order = await db.subscriptionOrder.findUnique({
           where: { id: Number(cleanId) },
@@ -114,9 +152,9 @@ export async function GET(req: NextRequest) {
         order = await db.subscriptionOrder.findFirst({
           where: {
             OR: [
-              { phone: { contains: query } },
-              { email: { contains: query } },
-              { trackingNumber: { contains: query } },
+              { trackingNumber: { equals: query } },
+              { phone: { equals: query } },
+              { email: { equals: query.toLowerCase() } },
             ],
           },
         });
@@ -125,15 +163,41 @@ export async function GET(req: NextRequest) {
       if (!order) {
         return NextResponse.json({ error: 'No subscription order found matching this reference.' }, { status: 404 });
       }
-      return NextResponse.json({ order });
+
+      if (admin) {
+        return NextResponse.json({ order });
+      }
+
+      return NextResponse.json({
+        order: {
+          id: order.id,
+          orderNumber: `NRJBE-ORD-${order.id.toString().padStart(4, '0')}`,
+          status: order.status,
+          planTitle: order.planTitle,
+          amount: order.amount,
+          trackingNumber: order.trackingNumber,
+          createdAt: order.createdAt,
+          itemsJson: order.itemsJson,
+          city: order.city,
+          state: order.state,
+          email: order.email.replace(/(.{2})(.*)(?=@)/, '$1***'),
+          phone: order.phone.replace(/(\d{2})\d+(\d{2})/, '$1******$2'),
+        },
+      });
+    }
+
+    // 3. Querying list of orders: strictly require Admin authentication
+    if (!admin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin authentication required to view order listings.' }, { status: 401 });
     }
 
     const orders = await db.subscriptionOrder.findMany({
       orderBy: { createdAt: 'desc' },
-      take: 50,
+      take: 100,
     });
+
     return NextResponse.json({ orders });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message || 'Internal server error' }, { status: 500 });
   }
 }

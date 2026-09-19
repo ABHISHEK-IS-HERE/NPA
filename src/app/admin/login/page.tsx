@@ -12,8 +12,8 @@ import { BookOpen, Lock, Mail, AlertCircle, ArrowRight, ShieldCheck } from 'luci
 
 export default function AdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('admin@nrjbe.in');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -97,14 +97,6 @@ export default function AdminLoginPage() {
                   placeholder="••••••••"
                 />
               </div>
-            </div>
-
-            <div className="p-3 bg-slate-950/50 rounded-lg border border-slate-800 text-[11px] text-slate-400">
-              <p>
-                <strong>Pre-seeded Credentials:</strong>
-              </p>
-              <p>Email: <code className="text-amber-400">admin@nrjbe.in</code></p>
-              <p>Password: <code className="text-amber-400">admin123</code></p>
             </div>
 
             <button

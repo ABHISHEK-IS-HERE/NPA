@@ -12,6 +12,7 @@ import { ArticleCard } from '@/components/articles/ArticleCard';
 import { ResearchDiscoverySection } from '@/components/home/ResearchDiscoverySection';
 import { MagazineCover } from '@/components/covers/MagazineCover';
 import { AddToCartButton } from '@/components/cart/AddToCartButton';
+import { OrganizationJsonLd, JournalJsonLd } from '@/components/common/JsonLd';
 import {
   BookOpen,
   ArrowRight,
@@ -78,10 +79,25 @@ export default async function HomePage() {
     apcPrint: '2300 INR',
     publisherName: 'National Press Associates',
     publisherUrl: 'https://npajournals.org',
+    contactEmail: 'editornrjbe@gmail.com',
+    contactPhone: '+91-9888934889',
   };
 
   return (
     <div className="space-y-8 pb-16">
+      <OrganizationJsonLd
+        name={settings?.publisherName || defaultSettings.publisherName}
+        url="https://npa-puce.vercel.app"
+        email={settings?.contactEmail || defaultSettings.contactEmail}
+        phone={settings?.contactPhone || defaultSettings.contactPhone}
+      />
+      <JournalJsonLd
+        name={settings?.journalName || defaultSettings.journalName}
+        issn={settings?.issn || defaultSettings.issn}
+        url="https://npa-puce.vercel.app"
+        publisherName={settings?.publisherName || defaultSettings.publisherName}
+        description={settings?.tagline || defaultSettings.tagline}
+      />
       {/* 1. Hero Section with 3D Magazine Cover & Live Search */}
       <HeroBanner
         settings={defaultSettings}
