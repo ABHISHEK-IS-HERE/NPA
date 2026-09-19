@@ -6,13 +6,14 @@
  */
 
 import React, { useState } from 'react';
-import { X, Copy, Check, Quote } from 'lucide-react';
+import { X, Copy, Check, Quote, Download } from 'lucide-react';
 import { generateBibtex, generateApaCitation } from '@/lib/utils';
 
 interface CitationModalProps {
   isOpen: boolean;
   onClose: () => void;
   article: {
+    id?: number;
     title: string;
     authors: string;
     doi?: string | null;
@@ -131,8 +132,31 @@ export const CitationModal: React.FC<CitationModalProps> = ({ isOpen, onClose, a
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between px-6 py-4 bg-slate-50 border-t border-slate-100">
-          <span className="text-xs text-slate-400">Zenodo & CrossRef Indexed Citation</span>
+        <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-4 bg-slate-50 border-t border-slate-100">
+          <div className="flex items-center gap-2">
+            {article.id && (
+              <>
+                <a
+                  href={`/api/articles/${article.id}/cite?format=bibtex`}
+                  download
+                  className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors shadow-2xs"
+                  title="Download BibTeX (.bib) for LaTeX"
+                >
+                  <Download className="w-3.5 h-3.5 text-slate-500" />
+                  <span>BibTeX (.bib)</span>
+                </a>
+                <a
+                  href={`/api/articles/${article.id}/cite?format=ris`}
+                  download
+                  className="inline-flex items-center gap-1.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 text-xs font-semibold px-3 py-1.5 rounded-lg transition-colors shadow-2xs"
+                  title="Download RIS (.ris) for Zotero, Mendeley, EndNote"
+                >
+                  <Download className="w-3.5 h-3.5 text-slate-500" />
+                  <span>RIS (.ris)</span>
+                </a>
+              </>
+            )}
+          </div>
           <button
             onClick={handleCopy}
             className="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors shadow-sm"

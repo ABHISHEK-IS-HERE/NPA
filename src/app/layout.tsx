@@ -60,6 +60,12 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || 'https://npa-puce.vercel.app',
+    types: {
+      'application/rss+xml': `${process.env.NEXT_PUBLIC_SITE_URL || 'https://npa-puce.vercel.app'}/feed.xml`,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -69,6 +75,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="National Research Journal of Business Economics (NRJBE) RSS Feed"
+          href="/feed.xml"
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-[#fdfbf2] text-stone-900 antialiased selection:bg-amber-200 selection:text-stone-900">
         {children}
       </body>

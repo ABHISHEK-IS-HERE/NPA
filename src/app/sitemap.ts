@@ -5,6 +5,7 @@
 
 import { MetadataRoute } from 'next';
 import { db } from '@/lib/db';
+import { RESEARCH_TOPICS } from '@/lib/topics';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://npa-puce.vercel.app';
@@ -25,13 +26,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/naac-compliance',
     '/catalog',
     '/dispatch-tracking',
+    '/ethics',
+    '/author-guidelines',
+    '/open-access',
+    '/review-process',
+    '/plagiarism-policy',
   ];
 
   const staticEntries: MetadataRoute.Sitemap = staticPaths.map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
     changeFrequency: path === '' ? 'daily' : 'weekly',
-    priority: path === '' ? 1.0 : 0.8,
+    priority: path === '' ? 1.0 : path.startsWith('/ethics') || path.startsWith('/author') ? 0.85 : 0.8,
+  }));
+
+  const topicEntries: MetadataRoute.Sitemap = RESEARCH_TOPICS.map((topic) => ({
+    url: `${baseUrl}/topics/${topic.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85,
   }));
 
   try {
@@ -60,9 +73,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-    return [...staticEntries, ...articleEntries, ...pageEntries];
+    return [...staticEntries, ...topicEntries, ...articleEntries, ...pageEntries];
   } catch (e) {
     console.error('Error generating dynamic sitemap entries:', e);
-    return staticEntries;
+    return [...staticEntries, ...topicEntries];
   }
 }
