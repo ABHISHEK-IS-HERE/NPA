@@ -21,6 +21,15 @@ export async function GET(request: Request) {
     const submissions = await db.submission.findMany({
       where,
       orderBy: { submittedAt: 'desc' },
+      include: {
+        reviews: {
+          include: {
+            reviewer: {
+              select: { id: true, name: true, email: true, institution: true, expertiseAreas: true },
+            },
+          },
+        },
+      },
     });
 
     return NextResponse.json({ submissions });

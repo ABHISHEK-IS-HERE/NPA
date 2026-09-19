@@ -196,3 +196,157 @@ export async function sendOrderConfirmation(
 
   return sendEmail({ to: customerEmail, subject, html });
 }
+
+/**
+ * 4. Peer Reviewer Invitation Email (Double-Blind Protocol)
+ */
+export async function sendReviewerInvitation(
+  reviewerEmail: string,
+  reviewerName: string,
+  paperTitle: string,
+  abstract: string,
+  accessToken: string,
+  deadlineDays: number = 14
+) {
+  const safeName = escapeHtml(reviewerName);
+  const safeTitle = escapeHtml(paperTitle);
+  const safeAbstract = escapeHtml(abstract.slice(0, 600));
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://npa-puce.vercel.app';
+  const reviewUrl = `${siteUrl}/reviewer/evaluate/${encodeURIComponent(accessToken)}`;
+
+  const deadlineDate = new Date();
+  deadlineDate.setDate(deadlineDate.getDate() + deadlineDays);
+  const deadlineStr = deadlineDate.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  const subject = `[NRJBE] Invitation to Review Manuscript: "${safeTitle.slice(0, 50)}..."`;
+  const html = `
+    <div style="font-family: Georgia, serif; max-width: 650px; margin: 0 auto; color: #1c1917; line-height: 1.6; padding: 24px; border: 1px solid #fde68a; border-radius: 12px; background-color: #fdfbf2;">
+      <div style="text-align: center; border-bottom: 2px solid #b45309; padding-bottom: 16px; margin-bottom: 20px;">
+        <h2 style="color: #78350f; margin: 0; font-size: 20px;">National Research Journal of Business Economics</h2>
+        <p style="font-size: 12px; color: #78716c; margin: 4px 0 0 0;">Double-Blind Peer Review Editorial Office | ISSN: 2349-2015</p>
+      </div>
+
+      <p>Dear <strong>${safeName}</strong>,</p>
+
+      <p>In recognition of your academic expertise in this field, the Editorial Board of the <em>National Research Journal of Business Economics (NRJBE)</em> cordially invites you to review the following manuscript:</p>
+
+      <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 18px; margin: 20px 0;">
+        <p style="margin: 0 0 8px 0; font-size: 15px; font-weight: bold; color: #0c0a09;">${safeTitle}</p>
+        <p style="margin: 0 0 12px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #b45309; font-weight: bold;">Abstract Preview</p>
+        <p style="margin: 0; font-size: 13px; color: #44403c; line-height: 1.6;">${safeAbstract}${abstract.length > 600 ? '...' : ''}</p>
+      </div>
+
+      <div style="background-color: #fef3c7; border: 1px solid #fde68a; border-radius: 6px; padding: 12px; margin: 16px 0; font-size: 12px; color: #92400e;">
+        <strong>Double-Blind Protocol:</strong> Author identities and affiliations are masked to ensure impartiality. Please maintain confidentiality regarding all manuscript contents.
+      </div>
+
+      <p style="font-size: 13px;"><strong>Requested Review Deadline:</strong> ${deadlineStr} (${deadlineDays} days)</p>
+
+      <div style="text-align: center; margin: 28px 0;">
+        <a href="${reviewUrl}" style="background-color: #1c1917; color: #fdfbf2; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: bold; font-size: 13px; display: inline-block; letter-spacing: 0.05em;">
+          Access Blinded Review Portal &amp; Manuscript
+        </a>
+      </div>
+
+      <p style="font-size: 12px; color: #78716c;">If you are unable to review this manuscript at this time, please inform us promptly by replying to this email so we may reassign it.</p>
+
+      <div style="border-top: 1px solid #e7e5e4; padding-top: 16px; margin-top: 24px; font-size: 11px; color: #78716c;">
+        <p style="margin: 0;">Editorial Office: National Research Journal of Business Economics</p>
+        <p style="margin: 2px 0;">Published by: National Press Associates | Helpline: +91-9888934889</p>
+      </div>
+    </div>
+  `;
+
+  return sendEmail({ to: reviewerEmail, subject, html });
+}
+
+/**
+ * 5. Editorial Decision Letter Email to Author
+ */
+export async function sendEditorialDecisionLetter(
+  authorEmail: string,
+  authorName: string,
+  trackingId: string,
+  paperTitle: string,
+  decision: 'Accept' | 'Minor Revision' | 'Major Revision' | 'Reject',
+  editorRemarks: string,
+  anonymizedComments: string[] = []
+) {
+  const safeName = escapeHtml(authorName);
+  const safeTitle = escapeHtml(paperTitle);
+  const safeTrackingId = escapeHtml(trackingId);
+  const safeRemarks = escapeHtml(editorRemarks);
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://npa-puce.vercel.app';
+  const trackingUrl = `${siteUrl}/track-status?trackingId=${encodeURIComponent(trackingId)}`;
+
+  const decisionBadgeConfig = {
+    Accept: { color: '#065f46', bg: '#d1fae5', border: '#a7f3d0', label: 'ACCEPTED FOR PUBLICATION' },
+    'Minor Revision': { color: '#92400e', bg: '#fef3c7', border: '#fde68a', label: 'REVISIONS REQUIRED (MINOR)' },
+    'Major Revision': { color: '#9a3412', bg: '#ffedd5', border: '#fed7aa', label: 'REVISIONS REQUIRED (MAJOR)' },
+    Reject: { color: '#991b1b', bg: '#fee2e2', border: '#fecaca', label: 'MANUSCRIPT DECLINED' },
+  }[decision] || { color: '#1c1917', bg: '#f5f5f4', border: '#e7e5e4', label: decision.toUpperCase() };
+
+  const reviewerFeedbackHtml =
+    anonymizedComments.length > 0
+      ? `
+        <div style="margin: 24px 0;">
+          <h4 style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: #44403c; margin-bottom: 12px; border-bottom: 1px solid #e7e5e4; padding-bottom: 6px;">Peer Reviewer Evaluation Reports</h4>
+          ${anonymizedComments
+            .map(
+              (c, idx) => `
+            <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 6px; padding: 14px; margin-bottom: 12px; font-size: 13px; color: #292524;">
+              <strong style="color: #78350f;">Reviewer ${idx + 1} Comments:</strong>
+              <p style="margin: 8px 0 0 0; white-space: pre-wrap; line-height: 1.5;">${escapeHtml(c)}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `
+      : '';
+
+  const subject = `[NRJBE] Editorial Decision on Manuscript ${trackingId} — ${decisionBadgeConfig.label}`;
+  const html = `
+    <div style="font-family: Georgia, serif; max-width: 650px; margin: 0 auto; color: #1c1917; line-height: 1.6; padding: 24px; border: 1px solid #fde68a; border-radius: 12px; background-color: #fdfbf2;">
+      <div style="text-align: center; border-bottom: 2px solid #b45309; padding-bottom: 16px; margin-bottom: 20px;">
+        <h2 style="color: #78350f; margin: 0; font-size: 20px;">National Research Journal of Business Economics</h2>
+        <p style="font-size: 12px; color: #78716c; margin: 4px 0 0 0;">ISSN: 2349-2015 | Double-Blind Peer Reviewed Journal</p>
+      </div>
+
+      <p>Dear <strong>${safeName}</strong>,</p>
+
+      <p>The peer review and editorial evaluation of your research manuscript has concluded:</p>
+
+      <div style="background-color: #ffffff; border: 1px solid #e7e5e4; border-radius: 8px; padding: 16px; margin: 20px 0;">
+        <p style="margin: 0 0 6px 0; font-size: 14px;"><strong>Manuscript:</strong> ${safeTitle}</p>
+        <p style="margin: 0 0 10px 0; font-size: 13px; color: #78716c;"><strong>Tracking Reference:</strong> ${safeTrackingId}</p>
+        <div style="display: inline-block; background-color: ${decisionBadgeConfig.bg}; color: ${decisionBadgeConfig.color}; border: 1px solid ${decisionBadgeConfig.border}; padding: 6px 14px; border-radius: 4px; font-weight: bold; font-size: 12px; letter-spacing: 0.05em;">
+          ${decisionBadgeConfig.label}
+        </div>
+      </div>
+
+      <div style="background-color: #ffffff; border-left: 4px solid #b45309; padding: 14px 18px; margin: 20px 0; font-size: 13px;">
+        <strong>Editor's Remarks &amp; Recommendations:</strong>
+        <p style="margin: 8px 0 0 0; white-space: pre-wrap; color: #44403c;">${safeRemarks}</p>
+      </div>
+
+      ${reviewerFeedbackHtml}
+
+      <p style="font-size: 13px;">
+        You can check the live status of your manuscript anytime at the <a href="${trackingUrl}" style="color: #b45309; font-weight: bold;">Online Author Tracking Desk</a>.
+      </p>
+
+      <div style="border-top: 1px solid #e7e5e4; padding-top: 16px; margin-top: 24px; font-size: 11px; color: #78716c;">
+        <p style="margin: 0;">Editorial Board: National Research Journal of Business Economics</p>
+        <p style="margin: 2px 0;">National Press Associates | Email: editornrjbe@gmail.com</p>
+      </div>
+    </div>
+  `;
+
+  return sendEmail({ to: authorEmail, subject, html });
+}
+

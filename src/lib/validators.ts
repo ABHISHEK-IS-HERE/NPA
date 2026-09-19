@@ -22,6 +22,11 @@ export function isValidPhone(phone: string): boolean {
   return digits.length >= 7 && digits.length <= 15;
 }
 
+export function sanitizeInput(str: string): string {
+  if (!str || typeof str !== 'string') return '';
+  return str.trim();
+}
+
 export interface ContactInput {
   name: string;
   email: string;
